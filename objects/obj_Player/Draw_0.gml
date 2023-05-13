@@ -46,7 +46,8 @@ draw_set_alpha(1);
 }
 #endregion
 
-
+if instance_exists(Obj_item){
 var text_x = x;
 var text_y = y - 20;
-draw_text(text_x, text_y, state);
+draw_text(text_x, text_y, Obj_item.inventario_cheio);
+}

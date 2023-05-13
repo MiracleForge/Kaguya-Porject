@@ -219,11 +219,9 @@ var str_stamina = string(obj_Player.estamina);
 var str_max_stamina = string(obj_Player.max_stamina);
 var texto = str_stamina + " / " + str_max_stamina;
 
-
 draw_set_font(Font1);
 draw_set_halign(fa_center);
 draw_text_colour_outline(x - 30, y + 515, texto, 2, c_black, 23, 50, 100);
-
 draw_text_colour_outline(x - 30, y + 670, "Damage: " + string(obj_Player.damage), 2, c_black, 23, 50, 100);
 
 #region //character animation
@@ -297,11 +295,10 @@ else {
 	
 	#endregion
 	
-draw_get_font();
+
 
 	}
 
- 
 
 
 

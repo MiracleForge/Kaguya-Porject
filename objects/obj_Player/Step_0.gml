@@ -26,17 +26,33 @@ if arma >= armas.altura {
 #endregion
 
 
+
 #region   // pick up item - inventory
 if instance_exists(Obj_item) and Obj_inventario.inventory == false {
     var _inst = instance_nearest(x, y, Obj_item);
+    var _grid = Obj_inventario.grid_itens;
+    var _empty_slots = 0;
 
-    if distance_to_point(_inst.x, _inst.y) <= 20 {
-        if keyboard_check_pressed(ord("F")) {
+    // percorre o grid e conta os slots vazios
+    for (var i = 0; i < ds_grid_height(_grid); i++) {
+        if (_grid[# Infos.item, i] == -1) {
+            _empty_slots++;
+        }
+    }
+
+    if distance_to_point(_inst.x, _inst.y) <= 20 and  (_empty_slots > 0) {
+        if keyboard_check_pressed(ord("F"))  {
             ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index, _inst.obj_name, _inst.info_desc);
             instance_destroy(_inst);
         }
     }
+    else if (_empty_slots == 0) {
+        // exibe uma mensagem de erro informando que o inventário está cheio
+        Obj_item.inventario_cheio = true;
+    }
 }
+
+
 #endregion
 
 
