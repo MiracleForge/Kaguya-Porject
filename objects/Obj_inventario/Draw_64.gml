@@ -38,28 +38,29 @@ if inventory == true {
 	
 	
 	if point_in_rectangle(_mx, _my, _slotsx, _slotsy, _slotsx + size_slots, _slotsy + size_slots) {
-    draw_sprite_ext(spr_inventario_seletor, 0, _slotsx, _slotsy, global.escala, global.escala, 0, c_white, 1); // desenho do retangulo do mouse
-
+    
+	draw_sprite_ext(spr_inventario_seletor, 0, _slotsx, _slotsy, global.escala, global.escala, 0, c_white, 1); // desenho do retangulo do mouse
 
 
 #region   //discription
     // desenhar a sprite do item na aba de descrição
-    if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
+       if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
 		
-	
-        Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c_white, 1);
+	    var c = c_white;	
+	    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
 
-draw_set_font(Font1);
-draw_set_halign(fa_middle);
-draw_text(1080,150, grid_itens[# Infos.name, i]);
-draw_text(1100, 210, grid_itens[# Infos.discription, i]);
-draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c_white, 1);
+		draw_set_font(Font1);
+		draw_set_halign(fa_middle);
+		draw_text(1080,150, grid_itens[# Infos.name, i]);
+		draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 *global.escala, c, c, c, c, 1);
+		draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
 
 
-	   draw_rectangle_color(1190, 115, 1210, 135, c_green, c_green, c_green, c_green, false)
+		draw_rectangle_color(1190, 115, 1210, 135, c_green, c_green, c_green, c_green, false)
 
-    } else if inventory == false {	
-        ShowingDespription = false
+		 } else if inventory == false {	
+		
+		        ShowingDespription = false
     }
 
 #endregion

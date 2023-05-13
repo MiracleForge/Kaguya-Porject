@@ -68,56 +68,47 @@ enum Infos{
 	}
 	
 
-	
-#region   /add inf description
-
-
-
-
-#endregion
-	
+#region               //--------- Grid create, inventory names e discriptions  ------//
 grid_itens = ds_grid_create(Infos.altura,total_slots);
 ds_grid_set_region(grid_itens, 0,0, Infos.altura -1, total_slots -1, -1);
 
-
-
-
-item_names = [  "Scout Saber", 
-"Hunter Bow",
-"Rod of Whispers", 
-" Hearth",  
-"Slime Jelly",
-"Orc Helmet",
-"Orc Tooth"
-
+// Infos.name and Infos.discriptions  |  itens_armas 
+// names_weapons_info[0][0] for names
+// and names_weapons_info[0][1] for discriptions
+names_weapons_info = [   
+	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks"],
+    ["Hunter Bow", "Made of wood and string and not so good"],
+    ["Rod of Whispers", "Bring insanity for the weak ones"],
+    ["Hearth", "Piece of someone heart"]
 ];
 
-item_Info = [ " A saber used by explorers,  ideal for quick but not precise attacks ",
-"Made of wood and string and not so good ",
-"Bring insanity for the weak ones",
-"Piece of someone heart",
-"A viscous and shiny substance",
-"Rust and deacay piece of metal",
-"Someone maybe need a new one",
+// Infos.name and Infos.discriptions  |  itens_inimigos 
+// names_foe_info[0][0] for names
+// names_foe_info[0][1] for discriptions
+names_foe_info = [  
+	["Slime Jelly", "A viscous and shiny substance"],
+    ["Orc Helmet", "Rust and decay piece of metal"],
+    ["Orc Tooth", "Someone maybe need a new one"]
+];
 
-]
+// add item to grid argument 0 = item,
+//argument 1 = quantity, 
+//argument 2 = sprite,
+//argument 3 = name,
+//argument 4 = discription
 
+ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1]);
 
+ds_grid_add_item(itens_armas.espada, 52 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1]);
+ds_grid_add_item(itens_armas.cajado, 98 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1]);
+ds_grid_add_item(itens_armas.espada, 32 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1]);
 
+ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1]);
+ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, names_foe_info[1][0], names_foe_info[1][1]);
 
+ds_grid_add_item(item_inimigos.orc_tooth, 12 , spr_items_inimigos, names_foe_info[2][0], names_foe_info[2][1]);
 
+ds_grid_add_item(item_inimigos.Slime_jelly, 5 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1]);
+ds_grid_add_item(itens_armas.obj_pickup_heart, 5 ,spr_life_recorver,names_weapons_info[3][0], names_weapons_info[3][1]);
 
-ds_grid_add_item(itens_armas.arco, 1 , spr_items, "Hunter Bow", "Made of wood and string and not so good ");
-
-ds_grid_add_item(itens_armas.espada, 52 , spr_items, "Scout Saber", " A saber used by explorers,  ideal for quick but not precise attacks ");
-ds_grid_add_item(itens_armas.cajado, 98 , spr_items, "Rod of Whispers", "Bring insanity for the weak ones");
-ds_grid_add_item(itens_armas.espada, 32 , spr_items, "Scout Saber", " A saber used by explorers,  ideal for quick but not precise attacks ");
-
-ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, "Slime Jelly", "A viscous and shiny substance");
-ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, "Orc Helmet", "Rust and deacay piece of metal");
-
-ds_grid_add_item(item_inimigos.orc_tooth, 12 , spr_items_inimigos, "Orc Tooth", "Someone maybe need a new one");
-
-ds_grid_add_item(item_inimigos.Slime_jelly, 5 , spr_items_inimigos, "Slime Jelly", "A viscous and shiny substance");
-ds_grid_add_item(itens_armas.obj_pickup_heart, 5 ,spr_life_recorver," Hearth", "Piece of someone heart");
-
+#endregion
