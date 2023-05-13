@@ -76,10 +76,11 @@ function ds_grid_add_item(){
 	///@arg Quantity
 	///@arg sprite
 	///@arg name
+	///@arg discription
 	
 var _grid = Obj_inventario.grid_itens;
 var _empty_slots = 0;
-var _itensname = Obj_inventario.item_names
+
 if obj_Player.attack == false {
     // percorre o grid e conta os slots vazios
     for (var i = 0; i < ds_grid_height(_grid); i++) {
@@ -98,7 +99,8 @@ if obj_Player.attack == false {
         _grid[# 0, _checking] = argument[0];
         _grid[# 1, _checking] = argument[1];
         _grid[# 2, _checking] = argument[2];
-        _grid[# 3, _checking] = _itensname[argument[0]];
+        _grid[# 3, _checking] = argument[3];
+		_grid[# 4, _checking] = argument[4];
 		
     } else {
         // exibe uma mensagem de erro informando que o inventário está cheio

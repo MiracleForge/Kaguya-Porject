@@ -49,13 +49,13 @@ if inventory == true {
 	
         Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c_white, 1);
 
+draw_set_font(Font1);
+draw_set_halign(fa_middle);
+draw_text(1080,150, grid_itens[# Infos.name, i]);
+draw_text(1100, 210, grid_itens[# Infos.discription, i]);
+draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c_white, 1);
 
-draw_text(955,120, grid_itens[# Infos.name, i])
-        draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 1000, 200, global.escala, global.escala, 0, c_white, 1);
-	
 
-	
-	
 	   draw_rectangle_color(1190, 115, 1210, 135, c_green, c_green, c_green, c_green, false)
 
     } else if inventory == false {	
@@ -74,10 +74,14 @@ draw_text(955,120, grid_itens[# Infos.name, i])
 					_inst.sprite_index = grid_itens[# Infos.sprite, i];
 					_inst.image_index = grid_itens[# Infos.item, i];
 					_inst.quant_item = grid_itens[# Infos.quantity, i];
+					_inst.obj_name = grid_itens[# Infos.name, i];
+					_inst.info_desc = grid_itens[# Infos.discription, i];
 					
 				grid_itens[# Infos.item, i] = -1;
 				grid_itens[# Infos.quantity, i] = -1;
 				grid_itens[# Infos.sprite, i] = -1;
+				grid_itens[# Infos.name, i] = -1;
+				grid_itens[# Infos.discription, i] = -1;
 				
 				}
 				
@@ -95,21 +99,25 @@ draw_text(955,120, grid_itens[# Infos.name, i])
 				}else {	
 							// caso o item do slot seja diferente
 					if item_select == grid_itens [# Infos.item, i] and pos_select !=i and grid_itens[# Infos.sprite, i] == grid_itens[# Infos.sprite, pos_select] {	
-						grid_itens[# Infos.quantity, i] += grid_itens[# Infos.quantity, pos_select];
-							
+						grid_itens[# Infos.quantity, i] += grid_itens[# Infos.quantity, pos_select];							
 						grid_itens[# Infos.item, pos_select] = -1;
 						grid_itens[# Infos.quantity, pos_select] = -1;
+						
 						item_select = - 1;
 						pos_select = - 1;
 				}		//caso o slot selecionado esteja vazio
 					else if grid_itens[# Infos.item, i] == -1 {
 							grid_itens[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
-							grid_itens[# Infos.quantity, i] =grid_itens[# Infos.quantity, pos_select];
-							grid_itens[# Infos.sprite, i] =grid_itens[# Infos.sprite, pos_select];
+							grid_itens[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+							grid_itens[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+							grid_itens[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+							grid_itens[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
 							
 							grid_itens[# Infos.item, pos_select] = -1;
 							grid_itens[# Infos.quantity, pos_select] = -1;
 							grid_itens[# Infos.sprite, pos_select] = -1;
+							grid_itens[# Infos.name, pos_select] = -1;
+							grid_itens[# Infos.discription, pos_select] = -1;
 							item_select = - 1;
 							pos_select = - 1;
 								
@@ -117,17 +125,22 @@ draw_text(955,120, grid_itens[# Infos.name, i])
 					}
 						else if grid_itens[# Infos.item, pos_select] != grid_itens[# Infos.item, i] or grid_itens[# Infos.sprite, pos_select] != grid_itens[# Infos.sprite, i]{	
 								var _item = grid_itens[# Infos.item, i];
-								var _quantity =grid_itens[# Infos.quantity, i];
-								var _spr =grid_itens[# Infos.sprite, i];
-						        
+								var _quantity = grid_itens[# Infos.quantity, i];
+								var _spr = grid_itens[# Infos.sprite, i];
+						        var _name = grid_itens[# Infos.name, i]
+								var _info = grid_itens[# Infos.discription, i]
 								
 								grid_itens[# Infos.item, i] = grid_itens [# Infos.item, pos_select];
 								grid_itens[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
 								grid_itens[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+								grid_itens[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+								grid_itens[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select]
 						
 								grid_itens[# Infos.item, pos_select] =  _item;
 								grid_itens[# Infos.quantity, pos_select] = _quantity;
 								grid_itens[# Infos.sprite, pos_select] = _spr;
+								grid_itens[# Infos.name, pos_select] = _name;
+								grid_itens[# Infos.discription, pos_select] = _info;
 								item_select = - 1;
 								pos_select = - 1;
 						

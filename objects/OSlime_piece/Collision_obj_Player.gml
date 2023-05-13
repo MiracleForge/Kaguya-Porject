@@ -18,7 +18,7 @@ for (var i = 0; i < ds_grid_height(_grid); i++) {
 // verifica se há espaço suficiente para adicionar um novo item
 if (_empty_slots > 0) {
     // chama a função para adicionar o item
-   ds_grid_add_item(item_inimigos.Slime_jelly, irandom(20) , spr_items_inimigos);
+   ds_grid_add_item(item_inimigos.Slime_jelly, irandom(20) , spr_items_inimigos, "Slime Jelly", "A viscous and shiny substance");
 	instance_destroy();
 } else {
     // exibe uma mensagem de erro informando que o inventário está cheio

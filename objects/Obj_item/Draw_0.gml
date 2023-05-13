@@ -1,6 +1,8 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
+// No evento Draw do objeto pai obj_item, use a estrutura "switch" para desenhar o sprite
+
 draw_self();
 // alpha change alert
 if alarm[0] <150 {	

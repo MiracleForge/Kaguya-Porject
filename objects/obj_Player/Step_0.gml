@@ -29,9 +29,10 @@ if arma >= armas.altura {
 #region   // pick up item - inventory
 if instance_exists(Obj_item) and Obj_inventario.inventory == false {
     var _inst = instance_nearest(x, y, Obj_item);
+
     if distance_to_point(_inst.x, _inst.y) <= 20 {
         if keyboard_check_pressed(ord("F")) {
-            ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index);
+            ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index, _inst.obj_name, _inst.info_desc);
             instance_destroy(_inst);
         }
     }
