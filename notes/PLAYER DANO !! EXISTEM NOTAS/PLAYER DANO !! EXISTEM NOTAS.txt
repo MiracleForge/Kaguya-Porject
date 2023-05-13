@@ -1,0 +1,5 @@
+O dano do player está com o array do dano do pet , para teste.     --- retirar
+    - Contador de dano sem modificação dos valores baseados no array --- concertar
+	
+
+- Dano do pet desativado, pois está dando conflito com o novo array de dano
