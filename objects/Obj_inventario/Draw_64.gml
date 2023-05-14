@@ -119,6 +119,7 @@ if inventory == true {
 							grid_itens[# Infos.sprite, pos_select] = -1;
 							grid_itens[# Infos.name, pos_select] = -1;
 							grid_itens[# Infos.discription, pos_select] = -1;
+							
 							item_select = - 1;
 							pos_select = - 1;
 								
@@ -142,21 +143,18 @@ if inventory == true {
 								grid_itens[# Infos.sprite, pos_select] = _spr;
 								grid_itens[# Infos.name, pos_select] = _name;
 								grid_itens[# Infos.discription, pos_select] = _info;
+								
 								item_select = - 1;
-								pos_select = - 1;
-						
-					
-					 }	
-			 
-			 }
-				
-		}	
+								pos_select = - 1;					
+		 }	
+		 
+	 }				
+}	
 #endregion	
 
 	}
 
 		
-
 var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 
 	if grid_itens[# Infos.item, i] != -1{	//desenho dos itens (chega se o valor do inventario for diferente de 1)
@@ -190,9 +188,6 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 	}
 
 
-
-
-
 			if item_select	!= -1{	
 	
 				draw_sprite_ext(grid_itens[# Infos.sprite, pos_select], item_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
@@ -200,8 +195,64 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 
 		}
 
+#region      ---------------------------Equip System ------------------------------------------
+    var eqx = 0; // variaveis que guardam o tracking
+	var eqy = 0;
+	for (var i = 0; i < total_equipS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
+	
+	
+	var _equipslotx = _invx + x_equip + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
+	var _equipsloty = _invy + y_equip + ((size_slots + buffer -15) * eqy);
+	
 
-				 
+	
+		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
+    
+
+	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+
+
+}
+
+
+		eqx ++;  // adiciona os slots horizontalmente
+		
+		if eqx >= slots_equiH {   //se os slots add foram maior que os slots _h adicionar slot y
+			eqx = 0;
+			eqy ++;
+			
+	}
+	
+}
+#endregion 
+
+
+#region ---------------------------------Potion Equip ------------------------------
+    var eqx = 0; // variaveis que guardam o tracking
+	var eqy = 0;
+	for (var i = 0; i < total_pots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
+	
+	
+	var _equipslotx = _invx + x_pots + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
+	var _equipsloty = _invy + y_pots + ((size_slots + buffer -15) * eqy);
+	
+		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
+    
+	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+}
+
+		eqx ++;  // adiciona os slots horizontalmente
+		
+		if eqx >= slots_potH {   //se os slots add foram maior que os slots _h adicionar slot y
+			eqx = 0;
+			eqy ++;
+			
+	}
+	
+}
+#endregion
+
+
 #region  // status wallet
 //status player
 //life player
@@ -297,7 +348,7 @@ else {
 	
 
 
-	}
+}
 
 
 

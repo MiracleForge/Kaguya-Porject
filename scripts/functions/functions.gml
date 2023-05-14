@@ -108,6 +108,41 @@ if obj_Player.attack == false {
     }
 }
 }
+
+function ds_grid_equip_item(){	
+	///@arg item
+	///@arg Quantity
+	///@arg sprite
+	///@arg name
+	///@arg discription
+	
+var _grid = Obj_inventario.grid_equip;
+var _empty_slots = 0;
+
+if Obj_inventario.inventory == true {
+    // percorre o grid e conta os slots vazios
+    for (var i = 0; i < ds_grid_height(_grid); i++) {
+        if (_grid[# Infos.item, i] == -1) {
+            _empty_slots++;
+        }
+    }
+
+    // verifica se há espaço suficiente para adicionar um novo item
+    if (_empty_slots > 0) {
+        var _checking = 0;
+        while (_grid[# Infos.item, _checking] != -1) {	
+            _checking++;
+        } 
+		
+        _grid[# 0, _checking] = argument[0];
+        _grid[# 1, _checking] = argument[1];
+        _grid[# 2, _checking] = argument[2];
+        _grid[# 3, _checking] = argument[3];
+		_grid[# 4, _checking] = argument[4];
+		
+    } 
+}
+}
 	
 	/*original code
 	

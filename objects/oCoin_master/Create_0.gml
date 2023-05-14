@@ -20,3 +20,7 @@ time = 0;
 alarm[0] = 600;
 alarm_alpha = -1;
 
+// itens feature 
+
+
+

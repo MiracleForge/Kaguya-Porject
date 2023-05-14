@@ -1,14 +1,15 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
- 
+ // coin 
 global.coin = (0);
 global.silver = (0);
 global.nebulite = (0);
 
+
 global.escala = 3;
 inventory = false;
 
-
+#region           // Inventory base
 //distnacia entre a borda da sprite e do primeiro slot
 x_inventory = 113 * global.escala
 y_inventory = 57 * global.escala
@@ -37,8 +38,25 @@ Sequence = undefined;
 silly_animation = false;
 silly_count = 0;
 
-desc_x = 1190;
-desc_y =  115 ;
+
+#endregion
+
+// equip Items
+
+slots_equiH = 1
+slots_equiV = 4
+total_equipS = slots_equiH * slots_equiV;
+x_equip = 81 * global.escala;
+y_equip = 57 * global.escala;
+
+
+
+// potions System 
+slots_potH = 2;
+slots_potV = 1;
+total_pots = slots_potH * slots_potV;
+x_pots = 30 * global.escala;
+y_pots = 117 * global.escala;
 
 
 
@@ -47,8 +65,7 @@ enum itens_armas{
 	arco,
 	cajado ,
 	obj_pickup_heart,
-	altura
-	
+	altura	
 	}
 	
 enum item_inimigos {	
@@ -68,9 +85,14 @@ enum Infos{
 	}
 	
 
+
+
+
 #region               //--------- Grid create, inventory names e discriptions  ------//
 grid_itens = ds_grid_create(Infos.altura,total_slots);
 ds_grid_set_region(grid_itens, 0,0, Infos.altura -1, total_slots -1, -1);
+
+
 
 // Infos.name and Infos.discriptions  |  itens_armas 
 // names_weapons_info[0][0] for names
@@ -91,11 +113,15 @@ names_foe_info = [
     ["Orc Tooth", "Someone maybe need a new one"]
 ];
 
+
 // add item to grid argument 0 = item,
 //argument 1 = quantity, 
 //argument 2 = sprite,
 //argument 3 = name,
 //argument 4 = discription
+
+
+
 
 ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1]);
 
