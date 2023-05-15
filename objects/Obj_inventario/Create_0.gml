@@ -38,7 +38,6 @@ Sequence = undefined;
 silly_animation = false;
 silly_count = 0;
 
-
 #endregion
 
 // equip Items
@@ -50,15 +49,12 @@ x_equip = 81 * global.escala;
 y_equip = 57 * global.escala;
 
 
-
 // potions System 
 slots_potH = 2;
 slots_potV = 1;
 total_pots = slots_potH * slots_potV;
 x_pots = 30 * global.escala;
 y_pots = 117 * global.escala;
-
-
 
 enum itens_armas{	
 	espada ,
@@ -83,17 +79,17 @@ enum Infos{
 	discription,   //discription
 	altura
 	}
-	
-
-
 
 
 #region               //--------- Grid create, inventory names e discriptions  ------//
 grid_itens = ds_grid_create(Infos.altura,total_slots);
 ds_grid_set_region(grid_itens, 0,0, Infos.altura -1, total_slots -1, -1);
 
+grid_equip = ds_grid_create(Infos.altura,total_equipS);
+ds_grid_set_region(grid_equip, 0,0, Infos.altura -1, total_equipS -1, -1);
 
 
+#region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
 // names_weapons_info[0][0] for names
 // and names_weapons_info[0][1] for discriptions
@@ -113,13 +109,13 @@ names_foe_info = [
     ["Orc Tooth", "Someone maybe need a new one"]
 ];
 
+#endregion
 
 // add item to grid argument 0 = item,
 //argument 1 = quantity, 
 //argument 2 = sprite,
 //argument 3 = name,
 //argument 4 = discription
-
 
 
 

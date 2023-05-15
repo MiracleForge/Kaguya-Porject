@@ -13,6 +13,9 @@ var _my = device_mouse_y_to_gui(0);
 if inventory == true {
 	
 	
+	
+	
+
 	 // local variable and loof for slots
 	
 	var _invx =  _guiL/2 - inventory_L/2;  // dividir o tamanho da sprite 
@@ -93,6 +96,7 @@ if inventory == true {
 
 				// não tenha item selecionado
 				if item_select == -1{
+				
 				item_select =  grid_itens[# Infos.item, i];
 				pos_select = i;
 				// caso tenha item selecionado
@@ -146,8 +150,7 @@ if inventory == true {
 								
 								item_select = - 1;
 								pos_select = - 1;					
-		 }	
-		 
+		 }			 
 	 }				
 }	
 #endregion	
@@ -196,8 +199,11 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 		}
 
 #region      ---------------------------Equip System ------------------------------------------
+
     var eqx = 0; // variaveis que guardam o tracking
 	var eqy = 0;
+	
+	
 	for (var i = 0; i < total_equipS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
 	
 	
@@ -205,15 +211,36 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 	var _equipsloty = _invy + y_equip + ((size_slots + buffer -15) * eqy);
 	
 
-	
-		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
-    
-
+	if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
+  
 	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+		
+if item_select == grid_itens [# Infos.item, i] and pos_select == i and grid_equip[# Infos.item, i] = -1 {
+						
+						grid_equip[# Infos.item, i] = grid_itens[# Infos.item, i];
+							grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+							grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+							grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+							grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+							
+							grid_itens[# Infos.item, pos_select] = -1;
+							grid_itens[# Infos.quantity, pos_select] = -1;
+							grid_itens[# Infos.sprite, pos_select] = -1;
+							grid_itens[# Infos.name, pos_select] = -1;
+							grid_itens[# Infos.discription, pos_select] = -1;
+							
+							item_select = - 1;
+							pos_select = - 1;
+					 }		
+	}
+			
+	
+if grid_equip[# Infos.item, i] != -1{
+	
+	var  _sprite = grid_equip[# Infos.sprite, i];
+	draw_sprite_ext(_sprite, grid_equip[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 
-
-}
-
+} 
 
 		eqx ++;  // adiciona os slots horizontalmente
 		
@@ -222,8 +249,9 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 			eqy ++;
 			
 	}
-	
+
 }
+	
 #endregion 
 
 

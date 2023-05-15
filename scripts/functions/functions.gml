@@ -69,8 +69,6 @@ draw_text_ext(argument0,argument1,argument2,argument6,argument7);
 }
 	
 
-
-
 function ds_grid_add_item(){	
 	///@arg item
 	///@arg Quantity
@@ -109,6 +107,7 @@ if obj_Player.attack == false {
 }
 }
 
+
 function ds_grid_equip_item(){	
 	///@arg item
 	///@arg Quantity
@@ -119,7 +118,7 @@ function ds_grid_equip_item(){
 var _grid = Obj_inventario.grid_equip;
 var _empty_slots = 0;
 
-if Obj_inventario.inventory == true {
+if obj_Player.attack == false {
     // percorre o grid e conta os slots vazios
     for (var i = 0; i < ds_grid_height(_grid); i++) {
         if (_grid[# Infos.item, i] == -1) {
@@ -140,24 +139,12 @@ if Obj_inventario.inventory == true {
         _grid[# 3, _checking] = argument[3];
 		_grid[# 4, _checking] = argument[4];
 		
-    } 
+    } else {
+        // exibe uma mensagem de erro informando que o inventário está cheio
+        inventario_cheio = true;
+    }
 }
 }
-	
-	/*original code
-	
-	var _grid = Obj_inventario.grid_itens;
-	
-	var _checking = 0;
-	while _grid  [# Infos.item, _checking] != -1 {	
-		_checking++;
-		} 
-		
-		_grid[# 0, _checking] = argument[0];
-		_grid[# 1, _checking] = argument[1];
-		_grid[# 2, _checking] = argument[2];
-		_grid[# 3, _checking] = argument[3];
-		*/
 	
 
 function loop_animation(){
