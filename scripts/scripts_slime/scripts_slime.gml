@@ -1,27 +1,24 @@
 // Os recursos de script mudaram para a v2.3.0; veja
 
-function scr_slime_collision() {	
-	if place_meeting(x+ hveloc, y, obj_wall){	
-	while !place_meeting(x +sign(hveloc), y, obj_wall){	
-		x += sign(hveloc);
+function scr_slime_collision() {
+	if place_meeting(x + hveloc, y, obj_wall) {
+		while !place_meeting(x + sign(hveloc), y, obj_wall) {
+			x += sign(hveloc);
 		}
-		hveloc = 0;    // fecha o loop
+		hveloc = 0;
 	}
-	
-x += hveloc;
 
-
-
-if place_meeting(x, y+vveloc, obj_wall){	
-	while !place_meeting(x, y + sign(vveloc), obj_wall){	
-		y += sign(vveloc);
+	if place_meeting(x, y + vveloc, obj_wall) {
+		while !place_meeting(x, y + sign(vveloc), obj_wall) {
+			y += sign(vveloc);
 		}
 		vveloc = 0;
 	}
-	
-y += vveloc;
 
-	}
+	x += hveloc;
+	y += vveloc;
+}
+
 
 function scr_check_player_prox() {
     if (distance_to_object(obj_Player) <= dist_aggro || vida < max_vida) {
@@ -91,14 +88,18 @@ function scr_slime_chasing() {
 }
 }
 
-function scr_slime_hit (){
+function scr_slime_hit() {
 	alarm[2] = 180;
 	push_veloc = lerp(push_veloc, 0, 0.5);
-	
+
 	hveloc = lengthdir_x(push_veloc, push_dir);
 	vveloc = lengthdir_y(push_veloc, push_dir);
-	
+
+	// Atualize as variáveis hveloc e vveloc antes da colisão
+	x += hveloc;
+	y += vveloc;
+
 	scr_slime_collision();
-	}
-	
+}
+
 	

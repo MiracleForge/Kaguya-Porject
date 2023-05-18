@@ -17,10 +17,13 @@ for (var i = 0; i < ds_grid_height(_grid); i++) {
 
 // verifica se há espaço suficiente para adicionar um novo item
 if (_empty_slots > 0) {
-	var _drop_name = Obj_inventario.names_foe_info[0][0]
-	var _drop_info = Obj_inventario.names_foe_info[0][1]
+	var _drop_name = Obj_inventario.names_foe_info[0][0];
+	var _drop_info = Obj_inventario.names_foe_info[0][1];
+	var _drop_equip = Obj_inventario.names_foe_info[0][2];
+	var _drop_coin = Obj_inventario.names_foe_info[0][3];
+	var _drop_cost = Obj_inventario.names_foe_info[0][4]
     // chama a função para adicionar o item
-   ds_grid_add_item(item_inimigos.Slime_jelly, irandom(20) , spr_items_inimigos,_drop_name, _drop_info);
+   ds_grid_add_item(item_inimigos.Slime_jelly, irandom(20) , spr_items_inimigos,_drop_name, _drop_info, _drop_equip, _drop_coin, _drop_cost);
 	instance_destroy();
 } else {
     // exibe uma mensagem de erro informando que o inventário está cheio

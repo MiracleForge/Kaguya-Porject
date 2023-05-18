@@ -162,7 +162,7 @@ function scr_character_attacking(){
 				vida -= obj_slime_pet.damage[obj_slime_pet.level];
 				var _dir = point_direction(obj_Player.x, obj_Player.y, other.x, other.y)
 				push_dir = _dir;
-				push_veloc = 6;
+				push_veloc = 20;	
 				state = scr_slime_hit;
 				
 				alarm[1] = 5;
@@ -239,7 +239,7 @@ function scr_combo_attack1 (){
 				vida -= (obj_Player.damage);
 				var _dir = point_direction(obj_Player.x, obj_Player.y, other.x, other.y)
 				push_dir = _dir;
-				push_veloc = 6;
+				push_veloc =20;
 				state = scr_slime_hit;
 				alarm[1] = 5;
 				hit = true;
@@ -401,5 +401,10 @@ if shield_up {
 
 function scr_transformation() {
 	
+	
+	
+	
+if 	obj_slime_pet.triggered_transform == true{
 state = scr_transformed_walking
+}
 }

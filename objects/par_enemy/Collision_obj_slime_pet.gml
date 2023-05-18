@@ -1,7 +1,7 @@
 /// @description PET ATTACK BEHAVIOR
 // Você pode escrever seu código neste editor
 
-if obj_Player.attack == true {
+if obj_Player.attack == true  and obj_Player.transformed == false{
 	var  dir_hit = point_direction(x, y, other.x, other.y);
 	pet_hit ++;
 

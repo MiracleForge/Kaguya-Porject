@@ -45,9 +45,10 @@ if instance_exists(Obj_item) and Obj_inventario.inventory == false {
         }
     }
 
+					
     if distance_to_point(_inst.x, _inst.y) <= 20 and  (_empty_slots > 0) {
         if keyboard_check_pressed(ord("F"))  {
-            ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index, _inst.obj_name, _inst.info_desc);
+            ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index, _inst.obj_name, _inst.info_desc, _inst.equip,_inst.coinType, _inst.cost );
             instance_destroy(_inst);
         }
     }

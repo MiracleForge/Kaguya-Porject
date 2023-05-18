@@ -38,7 +38,28 @@ if inventory == true {
 	var _slotsx = _invx + x_inventory + ((size_slots + buffer) * ix);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
 	var _slotsy = _invy + y_inventory + ((size_slots + buffer -14) * iy);
 	
+	#region -----------------------------Trash Can------------------------------------------------
+	if !ShowingDespription { 
+draw_sprite_ext(spr_trash_hui, 0, 970, 180, global.escala / 5, global.escala / 5, 0, c_white, 1);
 	
+	
+if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
+   
+    
+    if mouse_check_button_pressed(mb_left) {
+        grid_itens[# Infos.item, pos_select] = -1;
+        grid_itens[# Infos.quantity, pos_select] = -1;
+        grid_itens[# Infos.sprite, pos_select] = -1;
+        grid_itens[# Infos.name, pos_select] = -1;
+        grid_itens[# Infos.discription, pos_select] = -1;
+        
+        item_select = -1;
+        pos_select = -1;
+    }
+}
+	}
+#endregion
+
 	
 	if point_in_rectangle(_mx, _my, _slotsx, _slotsy, _slotsx + size_slots, _slotsy + size_slots) {
     
@@ -47,24 +68,44 @@ if inventory == true {
 
 #region   //discription
     // desenhar a sprite do item na aba de descrição
+	
+	
        if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
+	
+    	
+	    var c = c_white;
+	
 		
-	    var c = c_white;	
 	    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
 
 		draw_set_font(Font1);
 		draw_set_halign(fa_middle);
 		draw_text(1080,150, grid_itens[# Infos.name, i]);
-		draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 *global.escala, c, c, c, c, 1);
+		draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
 		draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
+		
+	switch (grid_itens[# Infos.coin, i]) {
+    case 1:
+        draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+        break;
+    case 2:
+        draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+        break;
+    case 3:
+        draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+        break;
+}
 
+		draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_itens[# Infos.cost, i], 2, c_black, 23, 50, 100 )
 
-		draw_rectangle_color(1190, 115, 1210, 135, c_green, c_green, c_green, c_green, false)
 
 		 } else if inventory == false {	
 		
 		        ShowingDespription = false
     }
+	
+	
+	
 
 #endregion
 		
@@ -80,14 +121,22 @@ if inventory == true {
 					_inst.quant_item = grid_itens[# Infos.quantity, i];
 					_inst.obj_name = grid_itens[# Infos.name, i];
 					_inst.info_desc = grid_itens[# Infos.discription, i];
+					_inst.equip = grid_itens[# Infos.equipable, i]; 
+					_inst.coinType = grid_itens[# Infos.coin, i];
+					_inst.cost = grid_itens[# Infos.cost, i];
 					
 				grid_itens[# Infos.item, i] = -1;
 				grid_itens[# Infos.quantity, i] = -1;
 				grid_itens[# Infos.sprite, i] = -1;
 				grid_itens[# Infos.name, i] = -1;
 				grid_itens[# Infos.discription, i] = -1;
+				grid_itens[# Infos.equipable, i] = -1;
+			    grid_itens[# Infos.coin, i] = -1;
+				grid_itens[# Infos.cost, i] = -1;
+				 
 				
 				}
+				
 				
 #endregion	
 
@@ -100,6 +149,7 @@ if inventory == true {
 				item_select =  grid_itens[# Infos.item, i];
 				pos_select = i;
 				// caso tenha item selecionado
+				
 
 				}else {	
 							// caso o item do slot seja diferente
@@ -117,12 +167,18 @@ if inventory == true {
 							grid_itens[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
 							grid_itens[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
 							grid_itens[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+							grid_itens[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+							grid_itens[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+							grid_itens[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
 							
 							grid_itens[# Infos.item, pos_select] = -1;
 							grid_itens[# Infos.quantity, pos_select] = -1;
 							grid_itens[# Infos.sprite, pos_select] = -1;
 							grid_itens[# Infos.name, pos_select] = -1;
 							grid_itens[# Infos.discription, pos_select] = -1;
+							grid_itens[# Infos.equipable, pos_select] = -1;
+							grid_itens[# Infos.coin, pos_select] = -1;
+						    grid_itens[# Infos.cost, pos_select] = -1;
 							
 							item_select = - 1;
 							pos_select = - 1;
@@ -133,20 +189,30 @@ if inventory == true {
 								var _item = grid_itens[# Infos.item, i];
 								var _quantity = grid_itens[# Infos.quantity, i];
 								var _spr = grid_itens[# Infos.sprite, i];
-						        var _name = grid_itens[# Infos.name, i]
-								var _info = grid_itens[# Infos.discription, i]
+						        var _name = grid_itens[# Infos.name, i];
+								var _info = grid_itens[# Infos.discription, i];
+								var _equip =  grid_itens[# Infos.equipable, i];
+								var _coin = grid_itens[# Infos.coin, i];
+								var _cost = grid_itens[# Infos.cost, i]; 
 								
 								grid_itens[# Infos.item, i] = grid_itens [# Infos.item, pos_select];
 								grid_itens[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
 								grid_itens[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
 								grid_itens[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
 								grid_itens[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select]
+								grid_itens[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+								grid_itens[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+								grid_itens[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+						       
 						
 								grid_itens[# Infos.item, pos_select] =  _item;
 								grid_itens[# Infos.quantity, pos_select] = _quantity;
 								grid_itens[# Infos.sprite, pos_select] = _spr;
 								grid_itens[# Infos.name, pos_select] = _name;
 								grid_itens[# Infos.discription, pos_select] = _info;
+								grid_itens[# Infos.equipable, pos_select] = _equip
+								grid_itens[# Infos.coin, pos_select] = _coin
+								grid_itens[# Infos.cost, pos_select] = _cost
 								
 								item_select = - 1;
 								pos_select = - 1;					
@@ -194,9 +260,13 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 			if item_select	!= -1{	
 	
 				draw_sprite_ext(grid_itens[# Infos.sprite, pos_select], item_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
-	
 
 		}
+		
+			
+
+
+	
 
 #region      ---------------------------Equip System ------------------------------------------
 
@@ -215,23 +285,28 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
   
 	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 		
-if item_select == grid_itens [# Infos.item, i] and pos_select == i and grid_equip[# Infos.item, i] = -1 {
+if mouse_check_button_pressed(mb_left){
 						
-						grid_equip[# Infos.item, i] = grid_itens[# Infos.item, i];
+						    grid_equip[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
 							grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
 							grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
 							grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
 							grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+							grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+							grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+							grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
 							
 							grid_itens[# Infos.item, pos_select] = -1;
 							grid_itens[# Infos.quantity, pos_select] = -1;
 							grid_itens[# Infos.sprite, pos_select] = -1;
 							grid_itens[# Infos.name, pos_select] = -1;
 							grid_itens[# Infos.discription, pos_select] = -1;
+						    grid_itens[# Infos.coin, pos_select] = -1;
+							 grid_itens[# Infos.cost, pos_select] = -1;
 							
 							item_select = - 1;
 							pos_select = - 1;
-					 }		
+}
 	}
 			
 	

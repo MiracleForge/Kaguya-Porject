@@ -71,7 +71,7 @@ armor_transformation[4] = 4;
 armor_transformation[5] = 5;
 #endregion
 
-
+triggered_transform = false;
 
 alarm[11] = 0; // Desativa o alarme 1
 

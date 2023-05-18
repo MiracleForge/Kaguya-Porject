@@ -2,11 +2,11 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 para obter mais informações
 function scr_transformed_walking(){	
 
-if transformed and  obj_slime_pet.transform >= 2  {
+
 	
 	obj_slime_pet.transform -=1;
 	
-}else if obj_slime_pet.transform <= 2 {	
+ if obj_slime_pet.transform <= 2 {	
 		
 		 transformed = false;
 		state = scr_personagem_andando;

@@ -210,6 +210,7 @@
     {"name":"snd_Hi3","order":2,"path":"sounds/snd_Hi3/snd_Hi3.yy",},
     {"name":"snd_atk_1_license_Lemonjolly","order":6,"path":"sounds/snd_atk_1_license_Lemonjolly/snd_atk_1_license_Lemonjolly.yy",},
     {"name":"title_housing","order":7,"path":"tilesets/title_housing/title_housing.yy",},
+    {"name":"spr_trash_hui","order":19,"path":"sprites/spr_trash_hui/spr_trash_hui.yy",},
     {"name":"Rocks107","order":15,"path":"sprites/Rocks107/Rocks107.yy",},
     {"name":"spr_hud_portrait","order":9,"path":"sprites/spr_hud_portrait/spr_hud_portrait.yy",},
     {"name":"Spr_chest_state1","order":9,"path":"sprites/Spr_chest_state1/Spr_chest_state1.yy",},

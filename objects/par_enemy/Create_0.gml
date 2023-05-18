@@ -28,5 +28,5 @@ push_dir = 0;
 push_veloc = 0;
 hit = false;
 pet_hit = 0;
-shield_push = 0;
+
 sombra = -1;

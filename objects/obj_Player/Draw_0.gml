@@ -4,6 +4,7 @@ depth = bbox_bottom;
 draw_self();
 var _scale = 0.5
 
+
 if alarm[3] >0 {	
 	if image_alpha >= 1{		
 		damage_alpha = -0.05; 
@@ -46,5 +47,7 @@ draw_set_alpha(1);
 }
 #endregion
 
+draw_text(x, y, obj_Player.transformed)
 
+draw_text(obj_Player.x , obj_Player.y -50, obj_slime_pet.triggered_transform )
 

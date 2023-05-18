@@ -1,10 +1,13 @@
 // função para seguir o player 
 //mudar direção da sprite
 function scr_pet_slime_walking() { 
+
+	
 		
-	scr_check_enemy_prox();
-	
-	
+
+if obj_Player.transformed == false{
+		scr_check_enemy_prox();
+		
 		#region  //moviment aleatory
 var _hveloc_player = obj_Player.hveloc;
 var _vveloc_player = obj_Player.vveloc;
@@ -49,7 +52,10 @@ if (_total_player_mov == 0) and obj_Player.attack == false {
     }
 
     scr_teleport_distanc();
-}	
+}
+} else {	
+	state = scr_pet_transform;
+	}	
 }
 
 // função para desenhar variaveis no mapa
@@ -104,7 +110,6 @@ function scr_check_enemy_prox() {
 
 //controla mudança de state do pet
 function scr_control_pet(){
-
 
 	prox_state = choose(scr_pet_slime_walking, scr_stop);
 	if prox_state == scr_pet_slime_walking{	
@@ -252,7 +257,33 @@ function scr_sleep_animation() {
 
 
 
-
+function scr_pet_transform() {	
+	
+	if obj_Player.transformed   {	
+		
+		
+	var transfor_dest_x = obj_Player.x;
+    var transfor_dest_y = obj_Player.y
+	var end_point = distance_to_object(obj_Player) < 10,
+	
+	var _dir = point_direction(x, y, transfor_dest_x, transfor_dest_y);
+	
+	hveloc = lengthdir_x(veloc_chasing, _dir);
+	vveloc = lengthdir_y(veloc_chasing, _dir);
+	
+	scr_collision_character();
+	
+	if end_point {	
+		
+		obj_slime_pet.triggered_transform = true;
+		visible =  false;
+		}
+	}	else {	
+		state = scr_control_pet;
+		visible = true;
+		}
+		
+	}
 
 
 

@@ -263,6 +263,7 @@
     {"id":{"name":"snd_atk_1_license_Lemonjolly","path":"sounds/snd_atk_1_license_Lemonjolly/snd_atk_1_license_Lemonjolly.yy",},},
     {"id":{"name":"title_housing","path":"tilesets/title_housing/title_housing.yy",},},
     {"id":{"name":"obj_Player","path":"objects/obj_Player/obj_Player.yy",},},
+    {"id":{"name":"spr_trash_hui","path":"sprites/spr_trash_hui/spr_trash_hui.yy",},},
     {"id":{"name":"Rocks107","path":"sprites/Rocks107/Rocks107.yy",},},
     {"id":{"name":"spr_hud_portrait","path":"sprites/spr_hud_portrait/spr_hud_portrait.yy",},},
     {"id":{"name":"Spr_chest_state1","path":"sprites/Spr_chest_state1/Spr_chest_state1.yy",},},

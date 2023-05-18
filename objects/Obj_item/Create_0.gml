@@ -9,6 +9,9 @@ inventario_cheio = false;
 quant_item = -1;
 obj_name = -1;
 info_desc = -1;
+coinType = -1;
+equip = -1;
+cost = -1;
 //randomize coord drop_item
 drop_move = true;
 var itemdir = irandom_range(0, irandom(300));

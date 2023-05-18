@@ -19,5 +19,5 @@ if level == 5 {
     xp = 0;
 }
 
-	
-visible = obj_Player.transformed ? false : true;
+
+

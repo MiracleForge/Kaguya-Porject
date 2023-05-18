@@ -75,6 +75,9 @@ function ds_grid_add_item(){
 	///@arg sprite
 	///@arg name
 	///@arg discription
+	///@arg equipable
+	///@arg coin type
+	///@arg cost
 	
 var _grid = Obj_inventario.grid_itens;
 var _empty_slots = 0;
@@ -99,6 +102,9 @@ if obj_Player.attack == false {
         _grid[# 2, _checking] = argument[2];
         _grid[# 3, _checking] = argument[3];
 		_grid[# 4, _checking] = argument[4];
+		_grid[# 5, _checking] = argument[5];
+		_grid[# 6, _checking] = argument[6];
+		_grid[# 7, _checking] = argument[7];
 		
     } else {
         // exibe uma mensagem de erro informando que o inventário está cheio
