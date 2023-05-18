@@ -57,11 +57,12 @@ damage[4] = 4;
 damage[5] = 5;
 
 
-transformation_time[1] = 100;
-transformation_time[2] = 120;
-transformation_time[3] = 130;
-transformation_time[4] = 140;
-transformation_time[5] = 150;
+transformation_time[1] = 300;
+transformation_time[2] = 340;
+transformation_time[3] = 400;
+transformation_time[4] = 440;
+transformation_time[5] = 500;
+transform = transformation_time[level];
 
 armor_transformation[1] = 1;
 armor_transformation[2] = 2;

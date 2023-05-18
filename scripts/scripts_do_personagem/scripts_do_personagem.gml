@@ -44,7 +44,7 @@ function scr_personagem_andando(){
 //mudança de sprite
  //flor transforma o resultado do mouse me numero inteiro
 dir = floor ((point_direction(x, y, mouse_x, mouse_y)+45) /90);
-
+#region ----------------------------------- Region Sprites ------------------------------------
 if hveloc == 0 and vveloc == 0{		
 switch dir{	
 	default:
@@ -76,17 +76,9 @@ switch dir{
 	break;	
 	}
 	}
+#endregion
 
-	
-	if estamina >=10{ 
-	if mouse_check_button_pressed(mb_side1){
-	estamina -=30;  //valor gasto da stamina por uso
-	alarm[1] = 180; //tempo que leva a pstemina aumentar
-	alarm [0] = 8;
-	dash_dir = point_direction(x, y, mouse_x,mouse_y);
-	state = scr_personagem_dash;
-	}
-}
+	#region ------------------------------- ANOTHER FUNCTIONS CALLS ------------------
   if mouse_check_button_pressed(mb_right){
   
  if estamina >=40 and shield == true{	
@@ -95,6 +87,15 @@ switch dir{
 			state = scr_shield_posture;
 			} 
   }
+
+
+if  keyboard_check_pressed(ord("J")) and obj_slime_pet.transform >=10 and !transformed and !shield_up {	
+	
+	state = scr_transformation;
+	transformed = true;
+	}
+
+#endregion
 
 if (collision_point(mouse_x, mouse_y, obj_slime_pet,false,false) or collision_point(mouse_x, mouse_y, obj_Player,false,false)) {
     // Não ative o código abaixo
@@ -260,31 +261,7 @@ function scr_combo_attack1 (){
 			}
 	}
 
-function scr_personagem_dash(){	
-    // Desabilita o dano durante o dash
-    take_damage = false;
-	
-    // Verifica as colisões antes do dash
-    scr_collision_character();
-	
-    // Define a velocidade do personagem na direção do dash
-    hveloc = lengthdir_x(dash_veloc, dash_dir);
-    vveloc = lengthdir_y(dash_veloc, dash_dir);
-	
-    // Verifica as colisões durante o dash
-    scr_collision_character();
 
-    // Move player and NPC
-    x += hveloc;
-    y += vveloc;
-	
-    // Verify collision after dash
-    scr_collision_character();
-	
-    // visual effect (opcional)
-    var _inst = instance_create_layer(x, y, "Instances", obj_dash);
-    _inst.sprite_index = sprite_index;
-}
 
 	
 function scr_character_hit() {	
@@ -297,8 +274,11 @@ function scr_character_hit() {
 		
 	}else {
 			audio_play_sound(snd_hit_license_Lemonjolly,  1 , 0)
+			if shield_up {
+				state =scr_shield_posture;
+				}else{
 		    state = scr_personagem_andando;
-		
+				}
     }
 }
 	
@@ -417,4 +397,9 @@ if shield_up {
 
 }
 	
+
+
+function scr_transformation() {
 	
+state = scr_transformed_walking
+}

@@ -8,6 +8,9 @@ var _max_vida = obj_Player.max_vida;
 var _stamina = obj_Player.estamina;
 var _max_stamina = obj_Player.max_stamina;
 
+
+var _transform = obj_slime_pet.transform;
+var _max_transform = obj_slime_pet.transformation_time[obj_slime_pet.level]
 //huda = hight
 draw_set_alpha(1);
 draw_sprite_ext(spr_hud_barra_vida, 0, +81, _huda - 600,(_vida/_max_vida) * global.escala, global.escala, 0, c_white, 1);
@@ -38,10 +41,11 @@ draw_sprite_ext(spr_hud_weapon, 0, + 95, _huda -520, global.escala, global.escal
 	 draw_sprite_ext(spr_hud_portrait_shield, 0, + 95, _huda -520, global.escala, global.escala, 0, c_white, 1);
 	 break;
 	 }
-	 
+
 #endregion
 
-
+draw_sprite_ext(spr_hui_transform,0,35,_huda - 550, global.escala, global.escala,0,c_white,1);
+draw_sprite_ext(spr_hui_transform_bar, 0, 35, _huda - 410 - (_transform / _max_transform) * (_huda - 550), global.escala, (_transform / _max_transform) * global.escala, 0, c_white, 1);
 
 
 //barra de boss

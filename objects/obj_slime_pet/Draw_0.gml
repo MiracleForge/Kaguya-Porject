@@ -42,7 +42,7 @@ draw_set_alpha(1);
 // Reduz o tempo restante no alarme a cada quadro
 alarm[11]--;
 
-
+draw_text(x,y, transform)
 /*
 // Define a posição onde será desenhado o texto
 var text_x = x;

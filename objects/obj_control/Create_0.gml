@@ -3,7 +3,6 @@
  _mx = device_mouse_x_to_gui(0);
  _my = device_mouse_y_to_gui(0);
 
- _escala = 3;
  _guia = display_get_gui_height();
  _spra = sprite_get_height(spr_hud_vida) * global.escala;
  _huda = _guia - _spra;

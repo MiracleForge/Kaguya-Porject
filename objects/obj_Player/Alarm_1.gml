@@ -1,3 +1,3 @@
-/// @description corrigir
+/// @description recharg stamina
 
 

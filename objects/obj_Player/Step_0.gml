@@ -4,7 +4,12 @@ script_execute(state);
 #region   //stamina regen
 if alarm[1] <= 0 {
     estamina += 1;
+	
 }
+
+if transformed ==false and obj_slime_pet.transform != obj_slime_pet.transformation_time[obj_slime_pet.level] {	
+	obj_slime_pet.transform +=0.01;
+	}
 
 estamina = clamp(estamina, 0, max_stamina);
 #endregion

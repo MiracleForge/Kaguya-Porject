@@ -31,14 +31,20 @@ vida = max_vida;
 take_damage = true;
 push_dir = 0;
 
+// damage and triggered
 damage = 1 + obj_slime_pet.damage[obj_slime_pet.level];
 attack = false;
 damage_alpha = -1;
 combo = false;
-#endregion
+
+//shield variable
 shield_up = false;
 shield = true;
 arma = 0;
+
+#endregion
+
+
 //sistema de arma
 enum armas{	
 	espada,
@@ -49,3 +55,9 @@ enum armas{
 	
 enemyhit = ds_list_create();
 
+
+
+
+// transformations
+
+transformed = false;

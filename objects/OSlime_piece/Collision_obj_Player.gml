@@ -7,7 +7,7 @@
 var _grid = Obj_inventario.grid_itens;
 var _empty_slots = 0;
 
-if obj_Player.attack == false{
+if obj_Player.attack == false and obj_Player.transformed == false{
 // percorre o grid e conta os slots vazios
 for (var i = 0; i < ds_grid_height(_grid); i++) {
     if (_grid[# Infos.item, i] == -1) {
@@ -26,4 +26,12 @@ if (_empty_slots > 0) {
     // exibe uma mensagem de erro informando que o inventário está cheio
 	 inventario_cheio = true;
 }
+}else if obj_Player.transformed == true{
+	if obj_slime_pet.transform <= (obj_slime_pet.transformation_time[obj_slime_pet.level] - 20){
+obj_slime_pet.transform += 20;
+instance_destroy();
+	}else {	
+		instance_destroy();
+		}
+
 }

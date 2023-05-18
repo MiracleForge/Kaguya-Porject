@@ -11,16 +11,16 @@ with (par_enemy){
 }*/
 // Evento "collision" do objeto inimigo
 
-var angle = point_direction(x, y, x, y);
-x -= dcos(angle);
-y -= dsin(angle);
+
 
 var dir_hit = point_direction(x, y, other.x, other.y);
 // iff anemy hit player without shield
 if (other.take_damage == true and other.attack ==false)  {
 
     with (other) { 
-		
+		var angle = point_direction(x, y, x, y);
+x -= dcos(angle);
+y -= dsin(angle);
 		if place_meeting (x,y, obj_wall) {
 			
 			push_dir = dir_hit;
