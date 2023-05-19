@@ -2,8 +2,6 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 para obter mais informações
 function scr_transformed_walking(){	
 
-
-	
 	obj_slime_pet.transform -=1;
 	
  if obj_slime_pet.transform <= 2 {	
@@ -110,10 +108,10 @@ function scr_personagem_dash(){
     x += hveloc;
     y += vveloc;
 	
-    // Verify collision after dash
+    
     scr_collision_character();
 	
-    // visual effect (opcional)
+    // visual effect 
     var _inst = instance_create_layer(x, y, "Instances", obj_dash);
     _inst.sprite_index = sprite_index;
 }

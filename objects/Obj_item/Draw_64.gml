@@ -1,4 +1,4 @@
-/// @description Inserir descrição aqui
+/// @description drawing a full inventory message
 // Você pode escrever seu código neste editor
 if (inventario_cheio == true) {
     draw_set_alpha(1);

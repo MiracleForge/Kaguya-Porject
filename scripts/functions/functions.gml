@@ -69,49 +69,52 @@ draw_text_ext(argument0,argument1,argument2,argument6,argument7);
 }
 	
 
-function ds_grid_add_item(){	
-	///@arg item
-	///@arg Quantity
-	///@arg sprite
-	///@arg name
-	///@arg discription
-	///@arg equipable
-	///@arg coin type
-	///@arg cost
-	
-var _grid = Obj_inventario.grid_itens;
-var _empty_slots = 0;
+function ds_grid_add_item() {
+    ///@arg item
+    ///@arg Quantity
+    ///@arg sprite
+    ///@arg name
+    ///@arg discription
+    ///@arg equipable
+    ///@arg cointype
+    ///@arg cost
+    
+    var _grid = Obj_inventario.grid_itens;
+    var _empty_slots = 0;
 
-if obj_Player.attack == false {
-    // percorre o grid e conta os slots vazios
-    for (var i = 0; i < ds_grid_height(_grid); i++) {
-        if (_grid[# Infos.item, i] == -1) {
-            _empty_slots++;
+    if obj_Player.attack == false {
+        // percorre o grid e conta os slots vazios
+        var _grid_height = ds_grid_height(_grid);  // Chamada da função apenas uma vez
+        for (var i = 0; i < _grid_height; i++) {  // Utilizando a variável _grid_height como limite do loop
+            if (_grid[# Infos.item, i] == -1) {
+                _empty_slots++;
+            }
+        }
+
+        // verifica se há espaço suficiente para adicionar um novo item
+        if (_empty_slots > 0) {
+            var _checking = 0;
+            while (_grid[# Infos.item, _checking] != -1) {    
+                _checking++;
+            } 
+            
+            _grid[# 0, _checking] = argument[0];
+            _grid[# 1, _checking] = argument[1];
+            _grid[# 2, _checking] = argument[2];
+            _grid[# 3, _checking] = argument[3];
+            _grid[# 4, _checking] = argument[4];
+            _grid[# 5, _checking] = argument[5];
+            _grid[# 6, _checking] = argument[6];
+            _grid[# 7, _checking] = argument[7];
+			_grid[# 8, _checking] = argument[8];
+            
+        } else {
+            // exibe uma mensagem de erro informando que o inventário está cheio
+            inventario_cheio = true;
         }
     }
+}
 
-    // verifica se há espaço suficiente para adicionar um novo item
-    if (_empty_slots > 0) {
-        var _checking = 0;
-        while (_grid[# Infos.item, _checking] != -1) {	
-            _checking++;
-        } 
-		
-        _grid[# 0, _checking] = argument[0];
-        _grid[# 1, _checking] = argument[1];
-        _grid[# 2, _checking] = argument[2];
-        _grid[# 3, _checking] = argument[3];
-		_grid[# 4, _checking] = argument[4];
-		_grid[# 5, _checking] = argument[5];
-		_grid[# 6, _checking] = argument[6];
-		_grid[# 7, _checking] = argument[7];
-		
-    } else {
-        // exibe uma mensagem de erro informando que o inventário está cheio
-        inventario_cheio = true;
-    }
-}
-}
 
 
 function ds_grid_equip_item(){	

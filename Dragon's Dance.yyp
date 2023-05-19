@@ -87,7 +87,7 @@
     {"id":{"name":"obj_slime_pet","path":"objects/obj_slime_pet/obj_slime_pet.yy",},},
     {"id":{"name":"spr_hud_portrait_weapon","path":"sprites/spr_hud_portrait_weapon/spr_hud_portrait_weapon.yy",},},
     {"id":{"name":"spr_personagem_arco_esquerda","path":"sprites/spr_personagem_arco_esquerda/spr_personagem_arco_esquerda.yy",},},
-    {"id":{"name":"transformation_1","path":"scripts/transformation_1/transformation_1.yy",},},
+    {"id":{"name":"Transformation_script","path":"scripts/Transformation_script/Transformation_script.yy",},},
     {"id":{"name":"spr_personagem_parado_cima","path":"sprites/spr_personagem_parado_cima/spr_personagem_parado_cima.yy",},},
     {"id":{"name":"spr_shield_porture_left","path":"sprites/spr_shield_porture_left/spr_shield_porture_left.yy",},},
     {"id":{"name":"Sprite89","path":"sprites/Sprite89/Sprite89.yy",},},

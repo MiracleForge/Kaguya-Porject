@@ -12,9 +12,6 @@ var _my = device_mouse_y_to_gui(0);
 
 if inventory == true {
 	
-	
-	
-	
 
 	 // local variable and loof for slots
 	
@@ -55,6 +52,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
         
         item_select = -1;
         pos_select = -1;
+		equip_select = -1;
     }
 }
 	}
@@ -67,48 +65,37 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 
 
 #region   //discription
-    // desenhar a sprite do item na aba de descrição
-	
-	
-       if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
-	
-    	
-	    var c = c_white;
-	
-		
-	    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+// desenhar a sprite do item na aba de descrição
 
-		draw_set_font(Font1);
-		draw_set_halign(fa_middle);
-		draw_text(1080,150, grid_itens[# Infos.name, i]);
-		draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-		draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
-		
-	switch (grid_itens[# Infos.coin, i]) {
-    case 1:
-        draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-        break;
-    case 2:
-        draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-        break;
-    case 3:
-        draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-        break;
-}
+if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
 
-		draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_itens[# Infos.cost, i], 2, c_black, 23, 50, 100 )
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
 
-
-		 } else if inventory == false {	
-		
-		        ShowingDespription = false
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_itens[# Infos.name, i]);
+    draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+    draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
+draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
+    switch (grid_itens[# Infos.coin, i]) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
     }
-	
-	
-	
 
+    draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_itens[# Infos.cost, i], 2, c_black, 23, 50, 100 )
+} else if inventory == false {
+    ShowingDespription = false
+}
 #endregion
-		
+	
 		
 		
 #region  // Pickup itens and drop	
@@ -124,6 +111,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 					_inst.equip = grid_itens[# Infos.equipable, i]; 
 					_inst.coinType = grid_itens[# Infos.coin, i];
 					_inst.cost = grid_itens[# Infos.cost, i];
+					_inst.type_wep = grid_itens[# Infos.typeWeapon, i]; 
 					
 				grid_itens[# Infos.item, i] = -1;
 				grid_itens[# Infos.quantity, i] = -1;
@@ -133,6 +121,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 				grid_itens[# Infos.equipable, i] = -1;
 			    grid_itens[# Infos.coin, i] = -1;
 				grid_itens[# Infos.cost, i] = -1;
+				grid_itens[# Infos.typeWeapon, i]  = -1;
 				 
 				
 				}
@@ -147,6 +136,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 				if item_select == -1{
 				
 				item_select =  grid_itens[# Infos.item, i];
+				equip_select = grid_itens[# Infos.equipable,i];
 				pos_select = i;
 				// caso tenha item selecionado
 				
@@ -160,6 +150,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 						
 						item_select = - 1;
 						pos_select = - 1;
+						equip_select = -1;
 				}		//caso o slot selecionado esteja vazio
 					else if grid_itens[# Infos.item, i] == -1 {
 							grid_itens[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
@@ -170,6 +161,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 							grid_itens[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
 							grid_itens[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
 							grid_itens[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+							grid_itens[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
 							
 							grid_itens[# Infos.item, pos_select] = -1;
 							grid_itens[# Infos.quantity, pos_select] = -1;
@@ -179,9 +171,11 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 							grid_itens[# Infos.equipable, pos_select] = -1;
 							grid_itens[# Infos.coin, pos_select] = -1;
 						    grid_itens[# Infos.cost, pos_select] = -1;
+							grid_itens[# Infos.typeWeapon, pos_select] = -1;
 							
 							item_select = - 1;
 							pos_select = - 1;
+							equip_select = -1;
 								
 							//caso o slot selecionado ja tenha um item, trocar posição
 					}
@@ -193,7 +187,8 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 								var _info = grid_itens[# Infos.discription, i];
 								var _equip =  grid_itens[# Infos.equipable, i];
 								var _coin = grid_itens[# Infos.coin, i];
-								var _cost = grid_itens[# Infos.cost, i]; 
+								var _cost = grid_itens[# Infos.cost, i];
+								var _wep = grid_itens[# Infos.typeWeapon, i]; 
 								
 								grid_itens[# Infos.item, i] = grid_itens [# Infos.item, pos_select];
 								grid_itens[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
@@ -203,6 +198,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 								grid_itens[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
 								grid_itens[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
 								grid_itens[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+								grid_itens[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
 						       
 						
 								grid_itens[# Infos.item, pos_select] =  _item;
@@ -210,12 +206,14 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 								grid_itens[# Infos.sprite, pos_select] = _spr;
 								grid_itens[# Infos.name, pos_select] = _name;
 								grid_itens[# Infos.discription, pos_select] = _info;
-								grid_itens[# Infos.equipable, pos_select] = _equip
-								grid_itens[# Infos.coin, pos_select] = _coin
-								grid_itens[# Infos.cost, pos_select] = _cost
+								grid_itens[# Infos.equipable, pos_select] = _equip;
+								grid_itens[# Infos.coin, pos_select] = _coin;
+								grid_itens[# Infos.cost, pos_select] = _cost;
+							    grid_itens[# Infos.typeWeapon, pos_select] = _wep;
 								
 								item_select = - 1;
-								pos_select = - 1;					
+								pos_select = - 1;
+								equip_select = -1;
 		 }			 
 	 }				
 }	
@@ -254,6 +252,7 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 		if mouse_check_button_pressed(mb_right){
 			item_select = -1;
 			pos_select = -1;
+			equip_select = -1;
 	}
 
 
@@ -261,71 +260,70 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 	
 				draw_sprite_ext(grid_itens[# Infos.sprite, pos_select], item_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
 
-		}
+		} 
 		
 			
 
 
 	
 
-#region      ---------------------------Equip System ------------------------------------------
+#region ---------------------------Armor System ------------------------------------------
 
-    var eqx = 0; // variaveis que guardam o tracking
-	var eqy = 0;
-	
-	
-	for (var i = 0; i < total_equipS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
-	
-	
-	var _equipslotx = _invx + x_equip + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
-	var _equipsloty = _invy + y_equip + ((size_slots + buffer -15) * eqy);
-	
+var eqx = 0; // variáveis que guardam o tracking
+var eqy = 0;
 
-	if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
-  
-	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
-		
-if mouse_check_button_pressed(mb_left){
-						
-						    grid_equip[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
-							grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
-							grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
-							grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
-							grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
-							grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
-							grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
-							grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
-							
-							grid_itens[# Infos.item, pos_select] = -1;
-							grid_itens[# Infos.quantity, pos_select] = -1;
-							grid_itens[# Infos.sprite, pos_select] = -1;
-							grid_itens[# Infos.name, pos_select] = -1;
-							grid_itens[# Infos.discription, pos_select] = -1;
-						    grid_itens[# Infos.coin, pos_select] = -1;
-							 grid_itens[# Infos.cost, pos_select] = -1;
-							
-							item_select = - 1;
-							pos_select = - 1;
+for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor que total slots acrescenta mais 1
+
+    var _equipslotx = _invx + x_equip + ((size_slots + buffer) * eqx); // soma o início do slot com o comprimento e multiplica pelo número de slots para começar o próximo slot
+    var _equipsloty = _invy + y_equip + ((size_slots + buffer - 15) * eqy);
+
+    if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
+
+        draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+
+        if mouse_check_button_pressed(mb_left) {
+            if equip_select == 1 {
+
+                grid_equip[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
+                grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+                grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+                grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+                grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+                grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+                grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+                grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+				grid_equip[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+
+                grid_itens[# Infos.item, pos_select] = -1;
+                grid_itens[# Infos.quantity, pos_select] = -1;
+                grid_itens[# Infos.sprite, pos_select] = -1;
+                grid_itens[# Infos.name, pos_select] = -1;
+                grid_itens[# Infos.discription, pos_select] = -1;
+                grid_itens[# Infos.coin, pos_select] = -1;
+                grid_itens[# Infos.cost, pos_select] = -1;
+			    grid_itens[# Infos.typeWeapon, pos_select] = -1;
+
+                item_select = -1;
+                pos_select = -1;
+                equip_select = -1;
+            }
+        }
+    }
+
+    if grid_equip[# Infos.item, i] != -1 {
+
+        var _sprite = grid_equip[# Infos.sprite, i];
+        draw_sprite_ext(_sprite, grid_equip[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+    }
+
+    eqx++; // adiciona os slots horizontalmente
+
+    if eqx >= slots_equiH { // se os slots add foram maior que os slots _h adicionar slot y
+        eqx = 0;
+        eqy++;
+    }
 }
-	}
-			
-	
-if grid_equip[# Infos.item, i] != -1{
-	
-	var  _sprite = grid_equip[# Infos.sprite, i];
-	draw_sprite_ext(_sprite, grid_equip[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 
-} 
-
-		eqx ++;  // adiciona os slots horizontalmente
-		
-		if eqx >= slots_equiH {   //se os slots add foram maior que os slots _h adicionar slot y
-			eqx = 0;
-			eqy ++;
-			
-	}
-
-}
 	
 #endregion 
 
@@ -341,8 +339,12 @@ if grid_equip[# Infos.item, i] != -1{
 	
 		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
     
-	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+			draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+				
+			
 }
+
+
 
 		eqx ++;  // adiciona os slots horizontalmente
 		
@@ -354,6 +356,75 @@ if grid_equip[# Infos.item, i] != -1{
 	
 }
 #endregion
+
+
+#region ------------------------------------ Weapon equip Slots -----------------------------
+   var eqx = 0; // variaveis que guardam o tracking
+   var eqy = 0;
+   for (var i = 0; i < total_wepS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
+	
+	
+	var _equipslotx = _invx + x_weps + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
+	var _equipsloty = _invy + y_weps + ((size_slots + buffer -15) * eqy);
+	
+		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
+    
+	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+	
+	 if mouse_check_button_pressed(mb_left) {
+            if equip_select == 1 and grid_weapon[# Infos.item,i] = -1 {
+				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
+				
+               if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20)){
+	                grid_weapon[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
+	                grid_weapon[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+	                grid_weapon[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+	                grid_weapon[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+	                grid_weapon[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+	                grid_weapon[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+	                grid_weapon[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+	                grid_weapon[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+					grid_weapon[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+
+	                grid_itens[# Infos.item, pos_select] = -1;
+	                grid_itens[# Infos.quantity, pos_select] = -1;
+	                grid_itens[# Infos.sprite, pos_select] = -1;
+	                grid_itens[# Infos.name, pos_select] = -1;
+	                grid_itens[# Infos.discription, pos_select] = -1;
+	                grid_itens[# Infos.coin, pos_select] = -1;
+	                grid_itens[# Infos.cost, pos_select] = -1;
+				    grid_itens[# Infos.typeWeapon, pos_select] = -1;
+
+	                item_select = -1;
+	                pos_select = -1;
+	                equip_select = -1;
+			} 
+         } 
+    }
+}
+
+   if grid_weapon[# Infos.item, i] != -1 {
+
+        var _sprite = grid_weapon[# Infos.sprite, i];
+        draw_sprite_ext(_sprite, grid_weapon[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+    }
+
+		eqx ++;  // adiciona os slots horizontalmente
+		
+		if eqx >= slots_wepH {   //se os slots add foram maior que os slots _h adicionar slot y
+			eqx = 0;
+			eqy ++;
+			
+	}
+	
+}
+
+
+#endregion
+
+
+
+
 
 
 #region  // status wallet

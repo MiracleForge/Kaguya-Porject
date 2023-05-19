@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "transformation_1",
+  "name": "Transformation_script",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -31,6 +31,7 @@ wallet_A = sprite_get_height(spr_wallet_hui) * global.escala;
 //mouse interactions
 item_select = -1;
 pos_select	= -1;
+equip_select = -1;
 
 // description e animations
 ShowingDespription = false;
@@ -40,7 +41,8 @@ silly_count = 0;
 
 #endregion
 
-// equip Items
+#region --------------------------------------SLOTS EQUIPS / POTIONS/ARMORS/WEAPONS ----------------------
+// armor Items slots
 
 slots_equiH = 1
 slots_equiV = 4
@@ -55,6 +57,16 @@ slots_potV = 1;
 total_pots = slots_potH * slots_potV;
 x_pots = 30 * global.escala;
 y_pots = 117 * global.escala;
+
+// Weapons System
+slots_wepH = 2;
+slots_wepV = 1;
+total_wepS = slots_wepH * slots_wepV;
+x_weps = 30 * global.escala;
+y_weps = 32 * global.escala;
+
+
+#endregion
 
 enum itens_armas{	
 	espada ,
@@ -80,6 +92,7 @@ enum Infos{
 	equipable,    //equipable
 	coin,        //gold, silver or nebulanita
 	cost,       // sell and buy
+	typeWeapon,//Type of item
 	altura
 	}
 
@@ -91,6 +104,9 @@ ds_grid_set_region(grid_itens, 0,0, Infos.altura -1, total_slots -1, -1);
 grid_equip = ds_grid_create(Infos.altura,total_equipS);
 ds_grid_set_region(grid_equip, 0,0, Infos.altura -1, total_equipS -1, -1);
 
+grid_weapon = ds_grid_create(Infos.altura,total_wepS);
+ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
+
 #region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
 // names_weapons_info[0][0] for names
@@ -98,12 +114,13 @@ ds_grid_set_region(grid_equip, 0,0, Infos.altura -1, total_equipS -1, -1);
 // names_weapons_info[0][2] for equippable
 // names_weapons_info[0][3] for coin type
 // names_weapons_info[0][4] for cost
+// names_weapons_info[0][5] for type of Weapon    One hand = 10 | Shield = 20 | Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
 
 names_weapons_info = [   
-	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1 ],
-    ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1],
-    ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1],
-    ["Hearth", "Piece of someone heart", false, 2, 1]
+	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
+    ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 10],
+    ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 10],
+    ["Hearth", "Piece of someone heart", false, 2, 1, 0]
 ];
 
 // Infos.name and Infos.discriptions  |  itens_inimigos 
@@ -113,9 +130,9 @@ names_weapons_info = [
 // names_foe_info[0][3] for coin type
 // names_foe_info[0][4] for cost
 names_foe_info = [  
-	["Slime Jelly", "A viscous and shiny substance", false,2, 1],
-    ["Orc Helmet", "Rust and decay piece of metal",false,1,1],
-    ["Orc Tooth", "Someone maybe need a new one",false, 2,2]
+	["Slime Jelly", "A viscous and shiny substance", false,2, 1, 0],
+    ["Orc Helmet", "Rust and decay piece of metal",false,1,1,0],
+    ["Orc Tooth", "Someone maybe need a new one",false, 2,2,0]
 ];
 
 
@@ -129,21 +146,22 @@ names_foe_info = [
 //argument 5 = equippable,
 //argument 6 = coin type
 //argument 7 = cost,
+//argument 8 = WeaponType,
 
 
 
-ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4]);
+ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);
 
-ds_grid_add_item(itens_armas.espada, 52 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2], names_weapons_info[0][3], names_weapons_info[0][4]);
-ds_grid_add_item(itens_armas.cajado, 98 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1],names_weapons_info[2][2], names_weapons_info[2][3], names_weapons_info[2][4]);
-ds_grid_add_item(itens_armas.espada, 32 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2],names_weapons_info[0][3], names_weapons_info[0][4]);
+ds_grid_add_item(itens_armas.espada, 52 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2], names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
+ds_grid_add_item(itens_armas.cajado, 98 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1],names_weapons_info[2][2], names_weapons_info[2][3], names_weapons_info[2][4], names_weapons_info[2][5]);
+ds_grid_add_item(itens_armas.espada, 32 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2],names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
 
-ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4]);
-ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, names_foe_info[1][0], names_foe_info[1][1],names_foe_info[1][2], names_foe_info[1][3], names_foe_info[1][4]);
+ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5]);
+ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, names_foe_info[1][0], names_foe_info[1][1],names_foe_info[1][2], names_foe_info[1][3], names_foe_info[1][4], names_foe_info[1][5]);
 
-ds_grid_add_item(item_inimigos.orc_tooth, 12 , spr_items_inimigos, names_foe_info[2][0], names_foe_info[2][1],names_foe_info[2][2], names_foe_info[2][3], names_foe_info[2][4]);
+ds_grid_add_item(item_inimigos.orc_tooth, 12 , spr_items_inimigos, names_foe_info[2][0], names_foe_info[2][1],names_foe_info[2][2], names_foe_info[2][3], names_foe_info[2][4], names_foe_info[2][5]);
 
-ds_grid_add_item(item_inimigos.Slime_jelly, 5 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4]);
-ds_grid_add_item(itens_armas.obj_pickup_heart, 5 ,spr_life_recorver,names_weapons_info[3][0], names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4]);
+ds_grid_add_item(item_inimigos.Slime_jelly, 5 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][4]);
+ds_grid_add_item(itens_armas.obj_pickup_heart, 5 ,spr_life_recorver,names_weapons_info[3][0], names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
 
 #endregion

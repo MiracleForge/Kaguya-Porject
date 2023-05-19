@@ -1,7 +1,6 @@
-/// @description Inserir descrição aqui
-// Você pode escrever seu código neste editor
+/// @description draw fade 
 
-// No evento Draw do objeto pai obj_item, use a estrutura "switch" para desenhar o sprite
+// Você pode escrever seu código neste editor
 
 draw_self();
 // alpha change alert

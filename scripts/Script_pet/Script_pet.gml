@@ -2,8 +2,6 @@
 //mudar direção da sprite
 function scr_pet_slime_walking() { 
 
-	
-		
 
 if obj_Player.transformed == false{
 		scr_check_enemy_prox();

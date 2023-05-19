@@ -1,15 +1,19 @@
 
 script_execute(state);
 
-#region   //stamina regen
+
+#region   //stamina regen, status, energy increment
 if alarm[1] <= 0 {
     estamina += 1;
 	
 }
 
-if transformed ==false and obj_slime_pet.transform != obj_slime_pet.transformation_time[obj_slime_pet.level] {	
-	obj_slime_pet.transform +=0.01;
-	}
+var TimeTransfor = obj_slime_pet.transform
+var TimeTransfor_max = obj_slime_pet.transformation_time[obj_slime_pet.level]
+// if player transformed and 
+if !transformed and TimeTransfor != TimeTransfor_max {
+    obj_slime_pet.transform += 0.01;
+}
 
 estamina = clamp(estamina, 0, max_stamina);
 #endregion
@@ -48,7 +52,18 @@ if instance_exists(Obj_item) and Obj_inventario.inventory == false {
 					
     if distance_to_point(_inst.x, _inst.y) <= 20 and  (_empty_slots > 0) {
         if keyboard_check_pressed(ord("F"))  {
-            ds_grid_add_item(_inst.image_index, _inst.quant_item, _inst.sprite_index, _inst.obj_name, _inst.info_desc, _inst.equip,_inst.coinType, _inst.cost );
+            ds_grid_add_item(
+			_inst.image_index,
+			_inst.quant_item,
+			_inst.sprite_index,
+			_inst.obj_name,
+			_inst.info_desc,
+			_inst.equip,
+			_inst.coinType,
+			_inst.cost,
+			_inst.type_wep
+			);
+			
             instance_destroy(_inst);
         }
     }
