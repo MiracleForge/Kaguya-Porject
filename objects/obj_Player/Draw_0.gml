@@ -47,7 +47,5 @@ draw_set_alpha(1);
 }
 #endregion
 
-draw_text(x, y, obj_Player.transformed)
 
-draw_text(obj_Player.x , obj_Player.y -50, obj_slime_pet.triggered_transform )
 

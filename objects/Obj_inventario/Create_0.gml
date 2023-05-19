@@ -32,6 +32,9 @@ wallet_A = sprite_get_height(spr_wallet_hui) * global.escala;
 item_select = -1;
 pos_select	= -1;
 equip_select = -1;
+weapon_select = -1;
+posWeapon_select = -1;
+quantity_select = -1
 
 // description e animations
 ShowingDespription = false;
@@ -119,7 +122,7 @@ ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
 names_weapons_info = [   
 	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
     ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 10],
-    ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 10],
+    ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 20],
     ["Hearth", "Piece of someone heart", false, 2, 1, 0]
 ];
 
@@ -152,8 +155,8 @@ names_foe_info = [
 
 ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);
 
-ds_grid_add_item(itens_armas.espada, 52 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2], names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
-ds_grid_add_item(itens_armas.cajado, 98 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1],names_weapons_info[2][2], names_weapons_info[2][3], names_weapons_info[2][4], names_weapons_info[2][5]);
+ds_grid_add_item(itens_armas.espada, 1 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2], names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
+ds_grid_add_item(itens_armas.cajado, 1 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1],names_weapons_info[2][2], names_weapons_info[2][3], names_weapons_info[2][4], names_weapons_info[2][5]);
 ds_grid_add_item(itens_armas.espada, 32 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2],names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
 
 ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5]);
