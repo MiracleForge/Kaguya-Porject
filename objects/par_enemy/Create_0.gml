@@ -1,9 +1,13 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
-pushing = 0;
+
 
 randomize();
-possible_itens = [OSlime_piece, oTeeth_enemy];
+possible_itens = [OSlime_piece,
+oTeeth_enemy,
+Slime_Esssence_Ring
+
+];
 //movimento
 state = scr_slime_chosing_state;
 prox_state = 0;

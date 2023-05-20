@@ -3,6 +3,5 @@
 
 // Inherit the parent event
 event_inherited();
-
-atk = 1;
-price_silver = 1;
+draw_self();
+draw_sprite_ext(spr_items, 5, x, y, image_xscale, image_yscale, image_angle, c_white, image_alpha);

@@ -34,7 +34,11 @@ pos_select	= -1;
 equip_select = -1;
 weapon_select = -1;
 posWeapon_select = -1;
-quantity_select = -1
+quantity_select = -1;
+potion_select = -1;
+pospotion_select = -1;
+armor_select = -1;
+posarmor_select = -1;
 
 // description e animations
 ShowingDespription = false;
@@ -71,12 +75,18 @@ y_weps = 32 * global.escala;
 
 #endregion
 
+#region --------------------------------------Enum itens -------------------------------------------------
 enum itens_armas{	
 	espada ,
 	arco,
 	cajado ,
 	small_health_pot,
 	cat_shield,
+	ring_slime1,
+	ribbon_pink,
+	girl_dress,
+	girl_pants,
+	old_bots,
 	altura	
 	}
 	
@@ -101,6 +111,7 @@ enum Infos{
 	altura
 	}
 
+#endregion
 
 #region               //--------- Grid create, inventory names e discriptions  ------//
 grid_itens = ds_grid_create(Infos.altura,total_slots);
@@ -111,6 +122,9 @@ ds_grid_set_region(grid_equip, 0,0, Infos.altura -1, total_equipS -1, -1);
 
 grid_weapon = ds_grid_create(Infos.altura,total_wepS);
 ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
+
+grid_potions = ds_grid_create(Infos.altura,total_pots);
+ds_grid_set_region(grid_potions, 0,0, Infos.altura -1, total_pots -1, -1);
 
 #region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
@@ -123,10 +137,16 @@ ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
 
 names_weapons_info = [   
 	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
-    ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 10],
+    ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 20],
     ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 20],
 	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." + chr(10) + chr(10) + "Consumable", true, 2, 1, 70 ],
-	["Feline Guardian Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 20]
+	["Feline Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 20],
+	["Slime Essence Ring", "Crafted from enchanted slime essence. The eye in the middle looks kind familiar" + chr(10) + chr(10) + "Equippable item", true,1,5,80],
+	["Cute Ribbon", " A ribbon made sweet with tenderness." + chr(10) + chr(10) + "Equippable item", true, 2,1, 30 ],
+	["Cute Dress", " Cute dress made by hand." + chr(10) + chr(10) + "Equippable item", true,2, 1, 40],
+	["Cute Pants", " Cute pants with little flowers" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 50],
+	["Old shoes", "A old girl shoes" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 60]
+	
 ];
 
 // Infos.name and Infos.discriptions  |  itens_inimigos 
@@ -154,6 +174,16 @@ names_foe_info = [
 //argument 6 = coin type
 //argument 7 = cost,
 //argument 8 = WeaponType,
+
+ds_grid_add_item(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
+
+ds_grid_add_item(itens_armas.girl_pants, 1 , spr_items, names_weapons_info[8][0],names_weapons_info[8][1],names_weapons_info[8][2], names_weapons_info[8][3], names_weapons_info[8][4], names_weapons_info[8][5]);
+
+ds_grid_add_item(itens_armas.girl_dress, 1 , spr_items, names_weapons_info[7][0],names_weapons_info[7][1],names_weapons_info[7][2], names_weapons_info[7][3], names_weapons_info[7][4], names_weapons_info[7][5]);
+
+ds_grid_add_item(itens_armas.ribbon_pink, 1 , spr_items, names_weapons_info[6][0],names_weapons_info[6][1],names_weapons_info[6][2], names_weapons_info[6][3], names_weapons_info[6][4], names_weapons_info[6][5]);
+
+ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
 
 ds_grid_add_item(item_inimigos.apple_bite, 2 , spr_items_inimigos, names_foe_info[3][0], names_foe_info[3][1],names_foe_info[3][2], names_foe_info[3][3], names_foe_info[3][4], names_foe_info[3][5]);
 

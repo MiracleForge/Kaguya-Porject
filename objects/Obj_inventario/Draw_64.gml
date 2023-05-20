@@ -1,5 +1,6 @@
 /// @description Inserir descrição aqui
-// Você pode escrever seu código neste editor
+///////////////////////////////////////////// SEPARA OS ELEMENTOS ///////////////////////
+//---------------------------------- SEPARA FUNÇÕES DENTRO DO MESMO ELEMENTO ////////////
 
 //centralização  da sprite
 var _guiL = display_get_gui_width();
@@ -34,8 +35,10 @@ if inventory == true {
 	
 	var _slotsx = _invx + x_inventory + ((size_slots + buffer) * ix);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
 	var _slotsy = _invy + y_inventory + ((size_slots + buffer -14) * iy);
-	
-	#region -----------------------------Trash Can------------------------------------------------
+
+
+
+#region ------------------------- Trash Can---------------------------------------------------------------------
 	if !ShowingDespription { 
 draw_sprite_ext(spr_trash_hui, 0, 970, 180, global.escala / 5, global.escala / 5, 0, c_white, 1);
 	
@@ -63,6 +66,30 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
         weapon_select = -1;
         posWeapon_select = -1;
 		
+		grid_potions[# Infos.item, pospotion_select] = -1;
+		grid_potions[# Infos.quantity, pospotion_select] = -1;
+		grid_potions[# Infos.sprite, pospotion_select] = -1;
+		grid_potions[# Infos.name, pospotion_select] = -1;
+		grid_potions[# Infos.discription, pospotion_select] = -1;
+		grid_potions[# Infos.coin, pospotion_select] = -1;
+		grid_potions[# Infos.cost, pospotion_select] = -1;
+		grid_potions[# Infos.typeWeapon, pospotion_select] = -1;
+
+		potion_select = -1;
+		pospotion_select = -1;
+		
+		grid_equip[# Infos.item, posarmor_select] = -1;
+		grid_equip[# Infos.quantity, posarmor_select] = -1;
+		grid_equip[# Infos.sprite, posarmor_select] = -1;
+		grid_equip[# Infos.name, posarmor_select] = -1;
+		grid_equip[# Infos.discription, posarmor_select] = -1;
+		grid_equip[# Infos.coin, posarmor_select] = -1;
+		grid_equip[# Infos.cost, posarmor_select] = -1;
+		grid_equip[# Infos.typeWeapon, posarmor_select] = -1;
+
+		armor_select = -1;
+		posarmor_select = -1;
+		
 		}
 }
 	}
@@ -74,7 +101,7 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 	draw_sprite_ext(spr_inventario_seletor, 0, _slotsx, _slotsy, global.escala, global.escala, 0, c_white, 1); // desenho do retangulo do mouse
 
 
-#region   //discription
+#region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
 // desenhar a sprite do item na aba de descrição
 
 if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
@@ -105,10 +132,8 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
     ShowingDespription = false
 }
 #endregion
-	
-		
-		
-#region  // Pickup itens and drop	
+			
+#region  // ---------------------- Pickup itens and drop	------------------------------------------------------
 
 				// esvaziando inventario
 				if keyboard_check_pressed(ord("F")) and grid_itens[# Infos.item, i] != -1 and item_select == -1 {
@@ -139,9 +164,9 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 				
 #endregion	
 
-#region	 // ------------check slots   ------------------ 		
+#region	 // ---------------------- Check slots   ----------------------------------------------------------------- 		
 				if mouse_check_button_pressed(mb_left) {
-          if weapon_select = -1 {
+          if weapon_select == -1 and potion_select == -1 and armor_select == -1 {
 				// não tenha item selecionado
 				if item_select == -1  {
 				
@@ -151,7 +176,7 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 				pos_select = i;
 				// caso tenha item selecionado
 				
-
+#region -------------------------- inventory - to - inventory    ---------------------------------
 				}else {	
 							// caso o item do slot seja diferente
 					if item_select == grid_itens [# Infos.item, i] and pos_select !=i and grid_itens[# Infos.sprite, i] == grid_itens[# Infos.sprite, pos_select] {	
@@ -228,9 +253,12 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 								equip_select = -1;
 							}		
 						}
-				 }	else {	
+						#endregion
+
+#region -------------------------- weapon slots - to - inventory ---------------------------------
+						 }	else if weapon_select != -1 and grid_itens[# Infos.item,i] = -1 {	
 		 
-								if weapon_select != -1 and grid_itens[# Infos.item,i] = -1 {
+								
 			
 
 					                grid_itens[# Infos.item, i] = grid_weapon[# Infos.item, posWeapon_select];
@@ -255,7 +283,7 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 					                weapon_select = -1;
 					                posWeapon_select = -1;
 								
-								}else if weapon_select != -1 and grid_weapon[# Infos.item, posWeapon_select] != grid_itens[# Infos.item, i] and grid_weapon[# Infos.typeWeapon, posWeapon_select] == grid_itens[# Infos.typeWeapon, i]  {
+						}else if weapon_select != -1 and grid_weapon[# Infos.item, posWeapon_select] != grid_itens[# Infos.item, i] and grid_weapon[# Infos.typeWeapon, posWeapon_select] == grid_itens[# Infos.typeWeapon, i]  {
            
 								    var _item = grid_weapon[# Infos.item, posWeapon_select];
 								    var _quantity = grid_weapon[# Infos.quantity, posWeapon_select];
@@ -289,15 +317,137 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 
 								    weapon_select = -1;
 								    posWeapon_select = -1;
-								
-									}
+						#endregion	
+						
+#region -------------------------- potionsslots - to - inventory ---------------------------------
+						 }	else  if potion_select != -1 and grid_itens[# Infos.item,i] = -1 {	
+									
 
-							}
-				 }			
+					                grid_itens[# Infos.item, i] = grid_potions[# Infos.item, pospotion_select];
+					                grid_itens[# Infos.quantity, i] = grid_potions[# Infos.quantity, pospotion_select];
+					                grid_itens[# Infos.sprite, i] = grid_potions[# Infos.sprite, pospotion_select];
+					                grid_itens[# Infos.name, i] = grid_potions[# Infos.name, pospotion_select];
+					                grid_itens[# Infos.discription, i] = grid_potions[# Infos.discription, pospotion_select];
+					                grid_itens[# Infos.equipable, i] = grid_potions[# Infos.equipable, pospotion_select];
+					                grid_itens[# Infos.coin, i] = grid_potions[# Infos.coin, pospotion_select];
+					                grid_itens[# Infos.cost, i] = grid_potions[# Infos.cost, pospotion_select];
+									grid_itens[# Infos.typeWeapon, i] = grid_potions[# Infos.typeWeapon, pospotion_select];
+
+					                grid_potions[# Infos.item, pospotion_select] = -1;
+					                grid_potions[# Infos.quantity, pospotion_select] = -1;
+					                grid_potions[# Infos.sprite, pospotion_select] = -1;
+					                grid_potions[# Infos.name, pospotion_select] = -1;
+					                grid_potions[# Infos.discription, pospotion_select] = -1;
+					                grid_potions[# Infos.coin, pospotion_select] = -1;
+					                grid_potions[# Infos.cost, pospotion_select] = -1;
+								    grid_potions[# Infos.typeWeapon, pospotion_select] = -1;
+
+					                potion_select = -1;
+					                pospotion_select = -1;
+								
+								}else if potion_select != -1 and grid_potions[# Infos.item, pospotion_select] != grid_itens[# Infos.item, i] and grid_potions[# Infos.typeWeapon, pospotion_select] == grid_itens[# Infos.typeWeapon, i]  {
+           
+								    var _item = grid_potions[# Infos.item, pospotion_select];
+								    var _quantity = grid_potions[# Infos.quantity, pospotion_select];
+								    var _spr = grid_potions[# Infos.sprite, pospotion_select];
+								    var _name = grid_potions[# Infos.name, pospotion_select];
+								    var _info = grid_potions[# Infos.discription, pospotion_select];
+								    var _equip =  grid_potions[# Infos.equipable, pospotion_select];
+								    var _coin = grid_potions[# Infos.coin, pospotion_select];
+								    var _cost = grid_potions[# Infos.cost, pospotion_select];
+								    var _wep = grid_potions[# Infos.typeWeapon, pospotion_select]; 
+
+								    grid_potions[# Infos.item, pospotion_select] = grid_itens[# Infos.item, i];
+								    grid_potions[# Infos.quantity,pospotion_select] = grid_itens[# Infos.quantity, i];
+								    grid_potions[# Infos.sprite, pospotion_select] = grid_itens[# Infos.sprite, i];
+								    grid_potions[# Infos.name, pospotion_select] = grid_itens[# Infos.name, i];
+								    grid_potions[# Infos.discription, pospotion_select] = grid_itens[# Infos.discription, i];
+								    grid_potions[# Infos.equipable, pospotion_select] = grid_itens[# Infos.equipable, i];
+								    grid_potions[# Infos.coin, pospotion_select] = grid_itens[# Infos.coin, i];
+								    grid_potions[# Infos.cost, pospotion_select] = grid_itens[# Infos.cost, i];
+								    grid_potions[# Infos.typeWeapon, pospotion_select] = grid_itens[# Infos.typeWeapon, i];
+
+								    grid_itens[# Infos.item, i] = _item;
+								    grid_itens[# Infos.quantity, i] = _quantity;
+								    grid_itens[# Infos.sprite, i] = _spr;
+								    grid_itens[# Infos.name, i] = _name;
+								    grid_itens[# Infos.discription, i] = _info;
+								    grid_itens[# Infos.equipable, i] = _equip;
+								    grid_itens[# Infos.coin, i] = _coin;
+								    grid_itens[# Infos.cost, i] = _cost;
+								    grid_itens[# Infos.typeWeapon, i] = _wep;
+
+								    potion_select = -1;
+								    pospotion_select = -1;
+									
+								} else if armor_select != -1 and grid_itens[# Infos.item,i] == -1 {	
+									
+
+					                grid_itens[# Infos.item, i] = grid_equip[# Infos.item, posarmor_select];
+					                grid_itens[# Infos.quantity, i] = grid_equip[# Infos.quantity, posarmor_select];
+					                grid_itens[# Infos.sprite, i] = grid_equip[# Infos.sprite, posarmor_select];
+					                grid_itens[# Infos.name, i] = grid_equip[# Infos.name, posarmor_select];
+					                grid_itens[# Infos.discription, i] = grid_equip[# Infos.discription, posarmor_select];
+					                grid_itens[# Infos.equipable, i] = grid_equip[# Infos.equipable, posarmor_select];
+					                grid_itens[# Infos.coin, i] = grid_equip[# Infos.coin, posarmor_select];
+					                grid_itens[# Infos.cost, i] = grid_equip[# Infos.cost, posarmor_select];
+									grid_itens[# Infos.typeWeapon, i] = grid_equip[# Infos.typeWeapon, posarmor_select];
+
+					                grid_equip[# Infos.item, posarmor_select] = -1;
+					                grid_equip[# Infos.quantity, posarmor_select] = -1;
+					                grid_equip[# Infos.sprite, posarmor_select] = -1;
+					                grid_equip[# Infos.name, posarmor_select] = -1;
+					                grid_equip[# Infos.discription, posarmor_select] = -1;
+					                grid_equip[# Infos.coin, posarmor_select] = -1;
+					                grid_equip[# Infos.cost, posarmor_select] = -1;
+								    grid_equip[# Infos.typeWeapon, posarmor_select] = -1;
+
+					                armor_select = -1;
+					                posarmor_select = -1;
+								
+								} else if armor_select != -1 and grid_equip[# Infos.item, posarmor_select] != grid_itens[# Infos.item, i] and grid_equip[# Infos.typeWeapon, posarmor_select] == grid_itens[# Infos.typeWeapon, i]  {
+           
+								    var _item = equip[# Infos.item, posarmor_select];
+								    var _quantity = equip[# Infos.quantity, posarmor_select];
+								    var _spr = grid_equip[# Infos.sprite,posarmor_select];
+								    var _name = grid_equip[# Infos.name,posarmor_select];
+								    var _info = grid_equip[# Infos.discription, posarmor_select];
+								    var _equip =  grid_equip[# Infos.equipable, posarmor_select];
+								    var _coin = grid_equip[# Infos.coin, posarmor_select];
+								    var _cost = grid_equip[# Infos.cost, posarmor_select];
+								    var _wep = grid_equip[# Infos.typeWeapon, posarmor_select]; 
+
+								    grid_equip[# Infos.item, posarmor_select] = grid_itens[# Infos.item, i];
+								    grid_equip[# Infos.quantity,posarmor_select] = grid_itens[# Infos.quantity, i];
+								    grid_equip[# Infos.sprite, posarmor_select] = grid_itens[# Infos.sprite, i];
+								    grid_equip[# Infos.name, posarmor_select] = grid_itens[# Infos.name, i];
+								    grid_equip[# Infos.discription, posarmor_select] = grid_itens[# Infos.discription, i];
+								    grid_equip[# Infos.equipable, posarmor_select] = grid_itens[# Infos.equipable, i];
+								    grid_equip[# Infos.coin, posarmor_select] = grid_itens[# Infos.coin, i];
+								    grid_equip[# Infos.cost, posarmor_select] = grid_itens[# Infos.cost, i];
+								    grid_equip[# Infos.typeWeapon, posarmor_select] = grid_itens[# Infos.typeWeapon, i];
+
+								    grid_itens[# Infos.item, i] = _item;
+								    grid_itens[# Infos.quantity, i] = _quantity;
+								    grid_itens[# Infos.sprite, i] = _spr;
+								    grid_itens[# Infos.name, i] = _name;
+								    grid_itens[# Infos.discription, i] = _info;
+								    grid_itens[# Infos.equipable, i] = _equip;
+								    grid_itens[# Infos.coin, i] = _coin;
+								    grid_itens[# Infos.cost, i] = _cost;
+								    grid_itens[# Infos.typeWeapon, i] = _wep;
+
+								    armor_select = -1;
+								    posarmor_select = -1;
+									
+								}
+								#endregion
+					 }		
 	   }	
 	
 #endregion
-		
+	
+#region  //----------------------- Itens inventory sprites -------------------------------------------------------
 var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 
 	if grid_itens[# Infos.item, i] != -1{	//desenho dos itens (chega se o valor do inventario for diferente de 1)
@@ -310,7 +460,8 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 			draw_set_halign(fa_center);
 			draw_text_colour_outline(_slotsx + size_slots, _slotsy + size_slots - 8, grid_itens[# Infos.quantity, i], 4, c_black, 16, 100, 100);
 			} 
-			
+
+#endregion
 			
 		
 		ix ++;  // adiciona os slots horizontalmente
@@ -323,7 +474,7 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 	
 }
 	
-	
+#region	 ------------------ Drop item from mouse and quantity of item on mouse to draw --------------------------
 	//largar item
 		if mouse_check_button_pressed(mb_right){
 			item_select = -1;
@@ -331,10 +482,14 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 			equip_select = -1;
 			weapon_select = -1;
 			posWeapon_select = -1;
+			potion_select = -1;
+			pospotion_select = -1;
+			armor_select = -1;
+			posarmor_select = -1;
 	}
 
 
-			if item_select	!= -1 and weapon_select == -1{	
+			if item_select	!= -1 and weapon_select == -1 and armor_select == -1 {	
 	
 			draw_sprite_ext(grid_itens[# Infos.sprite, pos_select], item_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
 			draw_set_alpha(1);
@@ -344,11 +499,17 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 
 		}  else if weapon_select != -1  {	
 			draw_sprite_ext(grid_weapon[# Infos.sprite, posWeapon_select], weapon_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
-			}
-		
+			}else if  potion_select != -1{	
+				draw_sprite_ext(grid_potions[# Infos.sprite, pospotion_select], potion_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
+				} else if armor_select != -1{	
+					draw_sprite_ext(grid_equip[# Infos.sprite, posarmor_select], armor_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
+					}
+#endregion		
 
 
-#region  ---------------------------Armor System ------------------------------------------
+// /////////////////////////////////////////// OTHER SLOTS //////////////////////////////////////////////////////
+
+#region  ------------------------------------- Armor SLOTS ------------------------------------------------------
 
 var eqx = 0; // variáveis que guardam o tracking
 var eqy = 0;
@@ -361,36 +522,120 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
     if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
 
         draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+		
+#region --------------------------------------- Discription PRESS "O" --------------------------------------------
+// desenhar a sprite do item na aba de descrição
+
+if grid_equip[# Infos.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
+
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_equip[# Infos.name, i]);
+    draw_text_ext_color(1100, 210, grid_equip[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+    draw_sprite_ext(grid_equip[# Infos.sprite, i], grid_equip[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
+
+    switch (grid_equip[# Infos.coin, i]) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+    }
+
+  
+} else if inventory == false {
+    ShowingDespription = false
+}
+#endregion
 
         if mouse_check_button_pressed(mb_left) {
-			
-            if equip_select == 1 {
+			if item_select != -1 {
+  
 
-                grid_equip[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
-                grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
-                grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
-                grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
-                grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
-                grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
-                grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
-                grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
-				grid_equip[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+            if equip_select == 1 and grid_equip[# Infos.item,i] = -1 {
+				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
+				
+               if ((i == 0 && itemType == 30) || (i == 1 && itemType == 40) || (i == 2 && itemType == 50) || (i == 3 && itemType == 60)){
+	                grid_equip[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
+	                grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+	                grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+	                grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+	                grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+	                grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+	                grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+	                grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+					grid_equip[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
 
-                grid_itens[# Infos.item, pos_select] = -1;
-                grid_itens[# Infos.quantity, pos_select] = -1;
-                grid_itens[# Infos.sprite, pos_select] = -1;
-                grid_itens[# Infos.name, pos_select] = -1;
-                grid_itens[# Infos.discription, pos_select] = -1;
-                grid_itens[# Infos.coin, pos_select] = -1;
-                grid_itens[# Infos.cost, pos_select] = -1;
-			    grid_itens[# Infos.typeWeapon, pos_select] = -1;
+	                grid_itens[# Infos.item, pos_select] = -1;
+	                grid_itens[# Infos.quantity, pos_select] = -1;
+	                grid_itens[# Infos.sprite, pos_select] = -1;
+	                grid_itens[# Infos.name, pos_select] = -1;
+	                grid_itens[# Infos.discription, pos_select] = -1;
+	                grid_itens[# Infos.coin, pos_select] = -1;
+	                grid_itens[# Infos.cost, pos_select] = -1;
+				    grid_itens[# Infos.typeWeapon, pos_select] = -1;
 
-                item_select = -1;
-                pos_select = -1;
-                equip_select = -1;
-            }
-        }
+	                item_select = -1;
+	                pos_select = -1;
+	                equip_select = -1;
+				} 
+			  }else if equip_select == 1 and grid_itens[# Infos.item, pos_select] != grid_potions[# Infos.item,i]   {    
+			 var itemType = grid_itens[# Infos.typeWeapon, pos_select];
+    
+		     if ((i == 0 && itemType == 30) || (i == 1 && itemType == 40) || (i == 2 && itemType == 50) || (i == 3 && itemType == 60)){
+		        var _item = grid_equip[# Infos.item, i];
+		        var _quantity = grid_equip[# Infos.quantity, i];
+		        var _spr = grid_equip[# Infos.sprite, i];
+		        var _name = grid_equip[# Infos.name, i];
+		        var _info = grid_equip[# Infos.discription, i];
+		        var _equip =  grid_equip[# Infos.equipable, i];
+		        var _coin = grid_equip[# Infos.coin, i];
+		        var _cost = grid_equip[# Infos.cost, i];
+		        var _wep = grid_equip[# Infos.typeWeapon, i]; 
+                            
+		        grid_equip[# Infos.item, i] = grid_itens [# Infos.item, pos_select];
+		        grid_equip[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+		        grid_equip[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+		        grid_equip[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+		        grid_equip[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+		        grid_equip[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+		        grid_equip[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+		        grid_equip[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+		        grid_equip[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+                   
+		        grid_itens[# Infos.item, pos_select] =  _item;
+		        grid_itens[# Infos.quantity, pos_select] = _quantity;
+		        grid_itens[# Infos.sprite, pos_select] = _spr;
+		        grid_itens[# Infos.name, pos_select] = _name;
+		        grid_itens[# Infos.discription, pos_select] = _info;
+		        grid_itens[# Infos.equipable, pos_select] = _equip;
+		        grid_itens[# Infos.coin, pos_select] = _coin;
+		        grid_itens[# Infos.cost, pos_select] = _cost;
+		        grid_itens[# Infos.typeWeapon, pos_select] = _wep;
+                        
+		        item_select = -1;
+		        pos_select = -1;
+		        equip_select = -1;
+
+				}
+			 }
+
+			}else {	
+			 if armor_select == -1{
+				armor_select =  grid_equip[# Infos.item, i];
+				posarmor_select = i;
+			} 
+		 }			
     }
+}
+ 
 
     if grid_equip[# Infos.item, i] != -1 {
 
@@ -409,7 +654,7 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
 #endregion
 
 
-#region ---------------------------------Potion Equip ------------------------------
+#region -------------------------------------- Potion and rings SLOTS -------------------------------------------
     var eqx = 0; // variaveis que guardam o tracking
 	var eqy = 0;
 	for (var i = 0; i < total_pots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
@@ -421,11 +666,137 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
 		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
     
 			draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
-				
 			
+#region --------------------------------------- Discription PRESS "O" --------------------------------------------
+// desenhar a sprite do item na aba de descrição
+
+if grid_potions[# Infos.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
+
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_potions[# Infos.name, i]);
+    draw_text_ext_color(1100, 210, grid_potions[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+    draw_sprite_ext(grid_equip[# Infos.sprite, i], grid_potions[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
+
+    switch (grid_potions[# Infos.coin, i]) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+    }
+
+  
+} else if inventory == false {
+    ShowingDespription = false
+}
+#endregion
+
+		 if mouse_check_button_pressed(mb_left) {
+		 if item_select != -1 {
+  
+
+            if equip_select == 1 and grid_potions[# Infos.item,i] = -1 {
+				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
+				
+               if ((i == 0 && itemType == 80) || (i == 1 && itemType == 70)){
+	                grid_potions[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
+	                grid_potions[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+	                grid_potions[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+	                grid_potions[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+	                grid_potions[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+	                grid_potions[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+	                grid_potions[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+	                grid_potions[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+					grid_potions[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+
+	                grid_itens[# Infos.item, pos_select] = -1;
+	                grid_itens[# Infos.quantity, pos_select] = -1;
+	                grid_itens[# Infos.sprite, pos_select] = -1;
+	                grid_itens[# Infos.name, pos_select] = -1;
+	                grid_itens[# Infos.discription, pos_select] = -1;
+	                grid_itens[# Infos.coin, pos_select] = -1;
+	                grid_itens[# Infos.cost, pos_select] = -1;
+				    grid_itens[# Infos.typeWeapon, pos_select] = -1;
+
+	                item_select = -1;
+	                pos_select = -1;
+	                equip_select = -1;
+				} 	
+			}else if equip_select == 1 and grid_itens[# Infos.item, pos_select] != grid_potions[# Infos.item,i]   {    
+			 var itemType = grid_itens[# Infos.typeWeapon, pos_select];
+    
+		    if ((i == 0 && itemType == 80) || (i == 1 && itemType == 70)) {
+		        var _item = grid_potions[# Infos.item, i];
+		        var _quantity = grid_potions[# Infos.quantity, i];
+		        var _spr = grid_potions[# Infos.sprite, i];
+		        var _name = grid_potions[# Infos.name, i];
+		        var _info = grid_potions[# Infos.discription, i];
+		        var _equip =  grid_potions[# Infos.equipable, i];
+		        var _coin = grid_potions[# Infos.coin, i];
+		        var _cost = grid_potions[# Infos.cost, i];
+		        var _wep = grid_potions[# Infos.typeWeapon, i]; 
+                            
+		        grid_potions[# Infos.item, i] = grid_itens [# Infos.item, pos_select];
+		        grid_potions[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
+		        grid_potions[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
+		        grid_potions[# Infos.name, i] = grid_itens[# Infos.name, pos_select];
+		        grid_potions[# Infos.discription, i] = grid_itens[# Infos.discription, pos_select];
+		        grid_potions[# Infos.equipable, i] = grid_itens[# Infos.equipable, pos_select];
+		        grid_potions[# Infos.coin, i] = grid_itens[# Infos.coin, pos_select];
+		        grid_potions[# Infos.cost, i] = grid_itens[# Infos.cost, pos_select];
+		        grid_potions[# Infos.typeWeapon, i] = grid_itens[# Infos.typeWeapon, pos_select];
+                   
+		        grid_itens[# Infos.item, pos_select] =  _item;
+		        grid_itens[# Infos.quantity, pos_select] = _quantity;
+		        grid_itens[# Infos.sprite, pos_select] = _spr;
+		        grid_itens[# Infos.name, pos_select] = _name;
+		        grid_itens[# Infos.discription, pos_select] = _info;
+		        grid_itens[# Infos.equipable, pos_select] = _equip;
+		        grid_itens[# Infos.coin, pos_select] = _coin;
+		        grid_itens[# Infos.cost, pos_select] = _cost;
+		        grid_itens[# Infos.typeWeapon, pos_select] = _wep;
+                        
+		        item_select = -1;
+		        pos_select = -1;
+		        equip_select = -1;
+
+				}
+			 }
+ } else {	
+			 if potion_select == -1{
+				potion_select =  grid_potions[# Infos.item, i];
+				pospotion_select = i;
+				} 
+			 }			
+    }
 }
 
+var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
 
+	if grid_potions[# Infos.item, i] != -1{	//desenho dos itens (chega se o valor do inventario for diferente de 1)
+		
+		draw_sprite_ext(_sprite, grid_potions[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
+		
+			//quantidade dos itens
+			draw_set_alpha(1);
+			draw_set_font(Font1);
+			draw_set_halign(fa_center);
+			draw_text_colour_outline(_equipslotx, _equipsloty, grid_potions[# Infos.quantity, i], 4, c_black, 16, 100, 100);
+			} 
+			
+			 if i == 0 {	
+				 draw_text_colour_outline(_equipslotx + size_slots + 7  ,_equipsloty + size_slots-20 , 1 , 4, c_red,16,100,100)
+				 } else {
+				  draw_text_colour_outline(_equipslotx + size_slots + 8  ,_equipsloty + size_slots-20 , 2 , 4, c_red,16,100,100)
+				 }
 
 		eqx ++;  // adiciona os slots horizontalmente
 		
@@ -439,7 +810,7 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
 #endregion
 
 
-#region ------------------------------------ Weapon equip Slots -----------------------------
+#region -------------------------------------- Weapon  Slots ----------------------------------------------------
    var eqx = 0; // variaveis que guardam o tracking
    var eqy = 0;
    for (var i = 0; i < total_wepS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
@@ -452,7 +823,7 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
     
 	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 
-#region   //discription
+#region --------------------------------------- Discription PRESS "O" --------------------------------------------
 // desenhar a sprite do item na aba de descrição
 
 if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
@@ -484,10 +855,11 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 }
 #endregion
 	
+#region --------------------------------------- Checking SLOTS AND Tranfering items ------------------------------
 	 if mouse_check_button_pressed(mb_left) {
 		 if item_select != -1 {
   
-
+#region --------------------------------------- Inventory - to  - weapon ----------------------------------------- 
             if equip_select == 1 and grid_weapon[# Infos.item,i] = -1 and quantity_select = 1 {
 				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
 				
@@ -515,6 +887,9 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 	                pos_select = -1;
 	                equip_select = -1;
 			} 
+#endregion
+
+#region ------------------------------------ Inventory - to - occuped weapon inventory --------------------------
          }else if equip_select == 1 and grid_itens[# Infos.item, pos_select] != grid_weapon[# Infos.item,i] and quantity_select = 1  {    
 			 var itemType = grid_itens[# Infos.typeWeapon, pos_select];
     
@@ -555,7 +930,9 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 
 				}
 			 }
-		 } else {	
+		 }
+		 #endregion
+		 else {	
 			 if weapon_select == -1{
 				weapon_select =  grid_weapon[# Infos.item, i];
 				posWeapon_select = i;
@@ -563,6 +940,7 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 			 }			
     }
 }
+#endregion
 
    if grid_weapon[# Infos.item, i] != -1 {
 
@@ -588,12 +966,12 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 
 
 
+// ////////////////////////////////////////// Status ands inventory draws ///////////////////////////////////////
 
 
+#region  // ------------- status wallet ------- //status player ------- // Pet status  --------------------------
 
-#region  // status wallet
-//status player
-//life player
+
 
 var str_vida = string(obj_Player.vida);
 var str_max_vida = string(obj_Player.max_vida);
@@ -638,14 +1016,6 @@ if (silly_animation) {
 
 
 
-//pet
-/*
-var _pet_vida = obj_slime_pet.vida[obj_slime_pet.level];
-var _max_pet_vida = obj_slime_pet.max_vida[obj_slime_pet.level];
-
-draw_sprite_ext(spr_xp_pet, 0, 720, 578, (_pet_vida/_max_pet_vida) * escala, escala, 0, c_white, 1);
-*/
-//PET
 var _xp = obj_slime_pet.xp;
 var _maxxp = obj_slime_pet.max_exp[obj_slime_pet.level];
 

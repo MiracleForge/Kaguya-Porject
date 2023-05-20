@@ -4,4 +4,4 @@
 // Inherit the parent event
 event_inherited();
 draw_self();
- draw_sprite_ext(spr_items_inimigos, 0, x, y, image_xscale, image_yscale, image_angle, c_white, image_alpha);
+draw_sprite_ext(spr_items_inimigos, 0, x, y, image_xscale, image_yscale, image_angle, c_white, image_alpha);

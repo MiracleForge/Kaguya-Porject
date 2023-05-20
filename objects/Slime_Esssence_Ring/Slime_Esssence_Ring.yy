@@ -1,9 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "Sword_basic",
+  "name": "Slime_Esssence_Ring",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":{"name":"obj_Player","path":"objects/obj_Player/obj_Player.yy",},"eventNum":0,"eventType":4,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
@@ -12,8 +13,8 @@
     "path": "folders/Objetos/Objetos/Drop.yy",
   },
   "parentObjectId": {
-    "name": "oCoin_master",
-    "path": "objects/oCoin_master/oCoin_master.yy",
+    "name": "Obj_item",
+    "path": "objects/Obj_item/Obj_item.yy",
   },
   "persistent": false,
   "physicsAngularDamping": 0.1,
