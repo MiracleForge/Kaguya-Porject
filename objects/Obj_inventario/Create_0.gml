@@ -75,7 +75,8 @@ enum itens_armas{
 	espada ,
 	arco,
 	cajado ,
-	obj_pickup_heart,
+	small_health_pot,
+	cat_shield,
 	altura	
 	}
 	
@@ -83,6 +84,7 @@ enum item_inimigos {
 	Slime_jelly,
 	orc_helmet,
 	orc_tooth,
+	apple_bite,
 	altura
 	}	
 	
@@ -123,7 +125,8 @@ names_weapons_info = [
 	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
     ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 10],
     ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 20],
-    ["Hearth", "Piece of someone heart", false, 2, 1, 0]
+	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." + chr(10) + chr(10) + "Consumable", true, 2, 1, 70 ],
+	["Feline Guardian Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 20]
 ];
 
 // Infos.name and Infos.discriptions  |  itens_inimigos 
@@ -135,7 +138,8 @@ names_weapons_info = [
 names_foe_info = [  
 	["Slime Jelly", "A viscous and shiny substance", false,2, 1, 0],
     ["Orc Helmet", "Rust and decay piece of metal",false,1,1,0],
-    ["Orc Tooth", "Someone maybe need a new one",false, 2,2,0]
+    ["Orc Tooth", "Someone maybe need a new one",false, 2,2,0],
+	["Chrysalis Bite", " A yummy Home", false,2,1,0]
 ];
 
 
@@ -151,7 +155,11 @@ names_foe_info = [
 //argument 7 = cost,
 //argument 8 = WeaponType,
 
+ds_grid_add_item(item_inimigos.apple_bite, 2 , spr_items_inimigos, names_foe_info[3][0], names_foe_info[3][1],names_foe_info[3][2], names_foe_info[3][3], names_foe_info[3][4], names_foe_info[3][5]);
 
+ds_grid_add_item(itens_armas.small_health_pot, 5 , spr_items, names_weapons_info[3][0],names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
+
+ds_grid_add_item(itens_armas.cat_shield, 1 , spr_items, names_weapons_info[4][0],names_weapons_info[4][1],names_weapons_info[4][2], names_weapons_info[4][3], names_weapons_info[4][4], names_weapons_info[4][5]);
 
 ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);
 
@@ -165,6 +173,6 @@ ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, names_foe_in
 ds_grid_add_item(item_inimigos.orc_tooth, 12 , spr_items_inimigos, names_foe_info[2][0], names_foe_info[2][1],names_foe_info[2][2], names_foe_info[2][3], names_foe_info[2][4], names_foe_info[2][5]);
 
 ds_grid_add_item(item_inimigos.Slime_jelly, 5 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][4]);
-ds_grid_add_item(itens_armas.obj_pickup_heart, 5 ,spr_life_recorver,names_weapons_info[3][0], names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
+
 
 #endregion
