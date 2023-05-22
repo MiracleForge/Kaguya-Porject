@@ -105,6 +105,50 @@ function ds_grid_add_item() {
 }
 
 
+function ds_grid_add_pet (){	
+    ///@arg item
+    ///@arg sprite
+    ///@arg name
+    ///@arg discription
+    ///@arg damage
+    ///@arg class
+
+    
+    var _gridpet = Obj_inventario.grid_pet;
+    var _empty_slots = 0;
+    var _grid_height = ds_grid_height(_gridpet);  
+        for (var i = 0; i < _grid_height; i++) {  // Utilizando a variável _grid_height como limite do loop
+            if (_gridpet[# pet_info.item, i] == -1) {
+                _empty_slots++;
+            }
+        }
+
+        // verifica se há espaço suficiente para adicionar um novo item
+        if (_empty_slots > 0) {
+            var _checking = 0;
+            while (_gridpet[# pet_info.item, _checking] != -1) {    
+                _checking++;
+            } 
+            
+            _gridpet[# 0, _checking] = argument[0];
+            _gridpet[# 1, _checking] = argument[1];
+            _gridpet[# 2, _checking] = argument[2];
+            _gridpet[# 3, _checking] = argument[3];
+            _gridpet[# 4, _checking] = argument[4];
+            _gridpet[# 5, _checking] = argument[5];
+           
+            
+        } else {
+            // exibe uma mensagem de erro informando que o inventário está cheio
+            inventario_cheio = true;
+        }
+   
+}
+
+
+
+
+
 
 function ds_grid_equip_item(){	
 	///@arg item

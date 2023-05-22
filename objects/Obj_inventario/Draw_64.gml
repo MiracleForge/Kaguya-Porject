@@ -2,6 +2,21 @@
 ///////////////////////////////////////////// SEPARA OS ELEMENTOS ///////////////////////
 //---------------------------------- SEPARA FUNÇÕES DENTRO DO MESMO ELEMENTO ////////////
 
+	//largar item
+		if mouse_check_button_pressed(mb_right) or !inventory {
+			item_select = -1;
+			pos_select = -1;
+			equip_select = -1;
+			weapon_select = -1;
+			posWeapon_select = -1;
+			potion_select = -1;
+			pospotion_select = -1;
+			armor_select = -1;
+			posarmor_select = -1;
+			pet_select = -1;
+			pospet_select = -1;
+	}
+
 //centralização  da sprite
 var _guiL = display_get_gui_width();
 var _guia = display_get_gui_height();
@@ -18,7 +33,9 @@ if inventory == true {
 	
 	var _invx =  _guiL/2 - inventory_L/2;  // dividir o tamanho da sprite 
 	var _invy = _guia/2 - inventory_A/2;
-	var _walletx = _guia/2 - wallet_L/2;
+	
+	
+	var _walletx = _guia/2 - wallet_L/2; // wallet sprite
     var _wallety = _guia/2 - wallet_A/2;
 	
 	draw_set_alpha(0.7)
@@ -166,7 +183,7 @@ draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
 
 #region	 // ---------------------- Check slots   ----------------------------------------------------------------- 		
 				if mouse_check_button_pressed(mb_left) {
-          if weapon_select == -1 and potion_select == -1 and armor_select == -1 {
+          if weapon_select == -1 and potion_select == -1 and armor_select == -1 and pet_select == -1 {
 				// não tenha item selecionado
 				if item_select == -1  {
 				
@@ -475,18 +492,7 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 }
 	
 #region	 ------------------ Drop item from mouse and quantity of item on mouse to draw --------------------------
-	//largar item
-		if mouse_check_button_pressed(mb_right){
-			item_select = -1;
-			pos_select = -1;
-			equip_select = -1;
-			weapon_select = -1;
-			posWeapon_select = -1;
-			potion_select = -1;
-			pospotion_select = -1;
-			armor_select = -1;
-			posarmor_select = -1;
-	}
+
 
 
 			if item_select	!= -1 and weapon_select == -1 and armor_select == -1 {	
@@ -503,7 +509,9 @@ var  _sprite = grid_itens[# Infos.sprite, i]; //checar se tem item no slot
 				draw_sprite_ext(grid_potions[# Infos.sprite, pospotion_select], potion_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
 				} else if armor_select != -1{	
 					draw_sprite_ext(grid_equip[# Infos.sprite, posarmor_select], armor_select, _mx, _my, global.escala, global.escala, 0, c_white, 1);
-					}
+					}else if pet_select != -1{	
+						draw_sprite_ext(grid_pet[# pet_info.sprite, pospet_select], pet_select, _mx, _my, global.escala / 29, global.escala / 29, 0 , c_white, 1);
+						}
 #endregion		
 
 
@@ -516,8 +524,8 @@ var eqy = 0;
 
 for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor que total slots acrescenta mais 1
 
-    var _equipslotx = _invx + x_equip + ((size_slots + buffer) * eqx); // soma o início do slot com o comprimento e multiplica pelo número de slots para começar o próximo slot
-    var _equipsloty = _invy + y_equip + ((size_slots + buffer - 15) * eqy);
+    var _equipslotx = _invx + x_equip  // soma o início do slot com o comprimento e multiplica pelo número de slots para começar o próximo slot
+    var _equipsloty = _invy + y_equip + ((size_slots + buffer_equip) * eqy);
 
     if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
 
@@ -643,12 +651,9 @@ if grid_equip[# Infos.item, i] != -1 and ShowingDespription == true {
         draw_sprite_ext(_sprite, grid_equip[# 0, i], _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
     }
 
-    eqx++; // adiciona os slots horizontalmente
+    eqy++; // adiciona os slots horizontalmente
 
-    if eqx >= slots_equiH { // se os slots add foram maior que os slots _h adicionar slot y
-        eqx = 0;
-        eqy++;
-    }
+  
 }
 	
 #endregion
@@ -656,12 +661,12 @@ if grid_equip[# Infos.item, i] != -1 and ShowingDespription == true {
 
 #region -------------------------------------- Potion and rings SLOTS -------------------------------------------
     var eqx = 0; // variaveis que guardam o tracking
-	var eqy = 0;
+	
 	for (var i = 0; i < total_pots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
 	
 	
 	var _equipslotx = _invx + x_pots + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
-	var _equipsloty = _invy + y_pots + ((size_slots + buffer -15) * eqy);
+	var _equipsloty = _invy + y_pots;
 	
 		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
     
@@ -799,12 +804,6 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
 				 }
 
 		eqx ++;  // adiciona os slots horizontalmente
-		
-		if eqx >= slots_potH {   //se os slots add foram maior que os slots _h adicionar slot y
-			eqx = 0;
-			eqy ++;
-			
-	}
 	
 }
 #endregion
@@ -812,12 +811,12 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
 
 #region -------------------------------------- Weapon  Slots ----------------------------------------------------
    var eqx = 0; // variaveis que guardam o tracking
-   var eqy = 0;
+ 
    for (var i = 0; i < total_wepS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
 	
 	
 	var _equipslotx = _invx + x_weps + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
-	var _equipsloty = _invy + y_weps + ((size_slots + buffer -15) * eqy);
+	var _equipsloty = _invy + y_weps;
 	
 		if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
     
@@ -950,11 +949,6 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 
 		eqx ++;  // adiciona os slots horizontalmente
 		
-		if eqx >= slots_wepH {   //se os slots add foram maior que os slots _h adicionar slot y
-			eqx = 0;
-			eqy ++;
-			
-	}
 	
 }
 	if weapon_select != -1 {	
@@ -964,7 +958,174 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 
 #endregion
 
+#region -------------------------------------- PET SLOTS --------------------------------------------------------
+var petx = 0;
 
+for (var i = 0; i < total_petS; i++) {
+    var petslotX = _invx + x_pets + ((size_slots + buffer_pet) * petx);
+    var petslotY = _invy + y_pets;
+    
+    if point_in_rectangle(_mx, _my, petslotX, petslotY, petslotX + size_slots, petslotY + size_slots) {
+        draw_sprite_ext(spr_inventario_seletor, 0, petslotX, petslotY, global.escala, global.escala, 0, c_white, 1);
+       
+#region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
+// desenhar a sprite do item na aba de descrição
+
+if grid_pet[# pet_info.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
+
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_pet[# pet_info.name, i]);
+    draw_text_ext_color(1100, 210, grid_pet[# pet_info.description, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+    draw_sprite_ext(grid_pet[# pet_info.sprite, i], grid_pet[# pet_info.item, i], 970, 200, global.escala / 29, global.escala / 29, 0, c, 1);
+ 
+} else if inventory == false {
+    ShowingDespription = false
+}
+#endregion	   
+	   
+	   
+        if mouse_check_button_pressed(mb_left) {
+            if item_select != -1 {
+                // Você pode adicionar lógica aqui caso haja um item selecionado anteriormente
+            } else { // Não tem item selecionado
+                if (pet_select == -1) {
+                    pet_select = grid_pet[#pet_info.item, i];
+                    pospet_select = i;
+                }
+            }
+        }
+    }
+    
+    if (grid_pet[# pet_info.item, i] != -1) {
+        var _sprite = grid_pet[# pet_info.sprite, i];
+        draw_sprite_ext(_sprite, grid_pet[#0, i], petslotX, petslotY, global.escala / 29, global.escala / 29, 0, c_white, 1);
+    }
+    
+    petx++;
+}
+
+
+var activeslotx = _invx + x_active;
+var activesloty = _invy + y_active;
+
+
+var activelloop = 0;
+for (var i = 0; activelloop < total_active; i++) {
+    // código aqui
+	
+    if (point_in_rectangle(_mx, _my, activeslotx, activesloty, activeslotx + size_activex, activesloty + size_activey)) {
+        draw_sprite_ext(spr_inventario_seletor_active, 0, activeslotx, activesloty, global.escala, global.escala, 0, c_white, 1);
+		
+#region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
+// desenhar a sprite do item na aba de descrição
+
+if grid_active[# pet_info.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
+
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_active[# pet_info.name, i]);
+    draw_text_ext_color(1100, 210, grid_active[# pet_info.description, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+
+		switch (grid_active[# pet_info.item, i]){
+			case 0:
+			draw_sprite_ext(spr_pet_inventory ,image_index, 970, 200 , global.escala, global.escala, 0, c_white, 1);
+			
+			break;
+			
+			case 1 :
+			draw_sprite_ext(spr_petpurple_inventory ,image_index, 970, 200, global.escala, global.escala, 0, c_white, 1);
+			
+			break;
+		
+		}
+ 
+} else if inventory == false {
+    ShowingDespription = false
+}
+#endregion	   
+if mouse_check_button_pressed(mb_left){
+        if grid_active[# pet_info.item, i] == -1 and pet_select != -1  {
+            grid_active[# pet_info.item, i] = grid_pet[# pet_info.item, pospet_select];
+            grid_active[# pet_info.sprite, i] = grid_pet[# pet_info.sprite, pospet_select];
+            grid_active[# pet_info.name, i] = grid_pet[# pet_info.name, pospet_select];
+            grid_active[# pet_info.description, i] = grid_pet[# pet_info.description, pospet_select];
+            grid_active[# pet_info.damage, i] = grid_pet[# pet_info.damage, pospet_select];
+            grid_active[# pet_info.class, i] = grid_pet[# pet_info.class, pospet_select];
+
+            grid_pet[# pet_info.item, pospet_select] = -1;           
+            grid_pet[# pet_info.sprite, pospet_select] = -1;
+            grid_pet[# pet_info.name, pospet_select] = -1;
+            grid_pet[# pet_info.description, pospet_select] = -1;
+            grid_pet[# pet_info.damage, pospet_select] = -1;
+            grid_pet[# pet_info.class, pospet_select] = -1;
+
+            pet_select = -1;
+            pospet_select = -1;
+			
+        }else if grid_active[# pet_info.item, i] != -1 and pet_select != -1 and grid_pet[# pet_info.item, pospet_select] != grid_active[# pet_info.item,i] {    
+			 
+
+		    var _item = grid_active[# pet_info.item, i]
+            var _spr = grid_active[# pet_info.sprite, i]
+            var _name = grid_active[# pet_info.name, i] 
+            var _info = grid_active[# pet_info.description, i] 
+            var _damage = grid_active[# pet_info.damage, i]
+            var _class = grid_active[# pet_info.class, i]
+		
+                            
+		        grid_active[# pet_info.item, i] = grid_pet [# pet_info.item, pospet_select];
+		        grid_active[# pet_info.sprite, i] = grid_pet[# pet_info.sprite, pospet_select];
+		        grid_active[# pet_info.name, i] = grid_pet[# pet_info.name, pospet_select];
+		        grid_active[# pet_info.description, i] = grid_pet[# pet_info.description, pospet_select];
+		        grid_active[# pet_info.damage, i] = grid_pet[# pet_info.damage, pospet_select];
+                   
+		        grid_pet[# pet_info.item, pospet_select] =  _item;
+		        grid_pet[# pet_info.sprite, pospet_select] = _spr;
+		        grid_pet[# pet_info.name, pospet_select] = _name;
+		        grid_pet[# pet_info.description, pospet_select] = _info;
+				grid_pet[# pet_info.damage, pospet_select] = _damage;
+				grid_pet[# pet_info.class, pospet_select] = _class;
+		
+                        
+		        pet_select = -1;
+		        pospet_select = -1;
+		        
+
+		}
+}
+    }
+
+   
+		switch (grid_active[# pet_info.item, i]){
+			case 0:
+			draw_sprite_ext(spr_pet_inventory ,image_index,  activeslotx +25, activesloty  - 10 , global.escala, global.escala, 0, c_white, 1);
+			
+			break;
+			
+			case 1 :
+			draw_sprite_ext(spr_petpurple_inventory ,image_index,  activeslotx +25 , activesloty -10  , global.escala, global.escala, 0, c_white, 1);
+			
+			break;
+		
+		}
+    
+    
+    activelloop++;
+}
+
+
+
+
+
+
+#endregion
 
 // ////////////////////////////////////////// Status ands inventory draws ///////////////////////////////////////
 
@@ -1059,5 +1220,5 @@ else {
 }
 
 
-
+///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY /////////////////////////////
 

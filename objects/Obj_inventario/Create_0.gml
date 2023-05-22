@@ -39,6 +39,8 @@ potion_select = -1;
 pospotion_select = -1;
 armor_select = -1;
 posarmor_select = -1;
+pet_select = -1;
+pospet_select = -1;
 
 // description e animations
 ShowingDespription = false;
@@ -69,8 +71,25 @@ y_pots = 117 * global.escala;
 slots_wepH = 2;
 slots_wepV = 1;
 total_wepS = slots_wepH * slots_wepV;
+buffer_equip = 4 * global.escala;
 x_weps = 30 * global.escala;
 y_weps = 32 * global.escala;
+
+// PET slot inventory sprite
+slots_petH = 2;
+slots_petV = 1;
+total_petS = slots_petH * slots_petV;
+x_pets = 160 * global.escala;
+y_pets = 159 * global.escala;
+buffer_pet = 11 * global.escala;
+
+
+// Slots active pet 
+size_activex = 37 * global.escala ;
+size_activey = 24 *global.escala;
+x_active =  114 * global.escala;
+y_active = 147 * global.escala;
+total_active = 1;
 
 
 #endregion
@@ -113,7 +132,28 @@ enum Infos{
 
 #endregion
 
-#region               //--------- Grid create, inventory names e discriptions  ------//
+#region ------------------------------------- enum pets --------------------------------------------------
+
+enum pets_crafted {
+    petorange,
+	petpurple,
+	petred,
+	height
+}
+
+enum pet_info{	
+	item,
+	sprite,
+	name,
+	description,
+	damage,
+	class,
+	height
+	}
+
+#endregion
+
+#region ------------------------- Grid create, inventory names - discriptions - pets ---------------------
 grid_itens = ds_grid_create(Infos.altura,total_slots);
 ds_grid_set_region(grid_itens, 0,0, Infos.altura -1, total_slots -1, -1);
 
@@ -125,6 +165,14 @@ ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
 
 grid_potions = ds_grid_create(Infos.altura,total_pots);
 ds_grid_set_region(grid_potions, 0,0, Infos.altura -1, total_pots -1, -1);
+
+grid_pet = ds_grid_create(pet_info.height, total_petS);
+ds_grid_set_region(grid_pet, 0,0,pet_info.height - 1, total_petS -1, -1);
+
+
+grid_active = ds_grid_create(pet_info.height, total_active);
+ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
+
 
 #region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
@@ -163,6 +211,20 @@ names_foe_info = [
 ];
 
 
+#region ----------------------------------------- PET ARRAY ------------------------------------------------------
+// pet_names[0][0] for names,
+// pet_names[0][1] for discriptions,
+// pet_names[0][2] for damage,
+// pet_names[]0[3] for classe,
+pet_names = [	
+["Default pet", " wierd slime pet" + chr(10) + chr(10) + "Equippable item", 1, 10],
+["Purple pet ", " wierd slime purple slime" + chr(10) + chr(10) + "Equippable item", 2, 20 ]
+];
+
+
+#endregion
+
+
 #endregion
 
 // add item to grid argument 0 = item,
@@ -174,6 +236,9 @@ names_foe_info = [
 //argument 6 = coin type
 //argument 7 = cost,
 //argument 8 = WeaponType,
+
+ds_grid_add_pet(pets_crafted.petpurple, spr_pet_pot, pet_names[1][0], pet_names[1][1], pet_names[1][2], pet_names[1][3]);
+ds_grid_add_pet(pets_crafted.petorange, spr_pet_pot, pet_names[0][0], pet_names[0][1], pet_names[0][2], pet_names[0][3]);
 
 ds_grid_add_item(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
 
