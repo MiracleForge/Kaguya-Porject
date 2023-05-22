@@ -11,6 +11,24 @@ global.pauseON = !global.pauseON
 }
 
 
+if grid_weapon[# Infos.item, 0 ] != -1 {	
+	obj_Player.active_sword = true;
+	}else if grid_weapon[# Infos.item, 0 ] == -1{	
+		obj_Player.active_sword = false;
+		}
+		
+		if grid_weapon[# Infos.item, 1 ] != -1 {
+			if grid_weapon[# Infos.typeWeapon, 1] == 20{
+				obj_Player.shield = false;
+				obj_Player.active_bow = true;
+				} else if grid_weapon[# Infos.typeWeapon, 1] == 25{	
+					obj_Player.shield = true;
+					obj_Player.active_bow = false;
+					}
+		}else {	
+			obj_Player.shield = false;
+			obj_Player.active_bow = false;
+			}
 
 if keyboard_check_pressed(ord("O"))  {
 	

@@ -121,33 +121,9 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 #region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
 // desenhar a sprite do item na aba de descrição
 
-if grid_itens[# Infos.item, i] != -1 and ShowingDespription == true {
-    var c = c_white;
+draw_info_inventory(grid_itens[# Infos.item, i], grid_itens[# Infos.name,i], grid_itens[# Infos.discription,i], grid_itens[# Infos.sprite,i], grid_itens[# Infos.coin,i], grid_itens[# Infos.cost,i],1);
 
-    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
 
-    draw_set_font(Font1);
-    draw_set_halign(fa_middle);
-    draw_text(1080, 150, grid_itens[# Infos.name, i]);
-    draw_text_ext_color(1100, 210, grid_itens[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-    draw_sprite_ext(grid_itens[# Infos.sprite, i], grid_itens[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
-draw_text(960, 200,grid_itens[# Infos.typeWeapon,i])
-    switch (grid_itens[# Infos.coin, i]) {
-        case 1:
-            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 2:
-            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 3:
-            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-    }
-
-    draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_itens[# Infos.cost, i], 2, c_black, 23, 50, 100 )
-} else if inventory == false {
-    ShowingDespription = false
-}
 #endregion
 			
 #region  // ---------------------- Pickup itens and drop	------------------------------------------------------
@@ -530,38 +506,8 @@ for (var i = 0; i < total_equipS; i++) { // i igual a 0, enquanto i for menor qu
     if point_in_rectangle(_mx, _my, _equipslotx, _equipsloty, _equipslotx + size_slots, _equipsloty + size_slots) {
 
         draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
-		
-#region --------------------------------------- Discription PRESS "O" --------------------------------------------
-// desenhar a sprite do item na aba de descrição
-
-if grid_equip[# Infos.item, i] != -1 and ShowingDespription == true {
-    var c = c_white;
-
-    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
-
-    draw_set_font(Font1);
-    draw_set_halign(fa_middle);
-    draw_text(1080, 150, grid_equip[# Infos.name, i]);
-    draw_text_ext_color(1100, 210, grid_equip[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-    draw_sprite_ext(grid_equip[# Infos.sprite, i], grid_equip[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
-
-    switch (grid_equip[# Infos.coin, i]) {
-        case 1:
-            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 2:
-            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 3:
-            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-    }
-
-  
-} else if inventory == false {
-    ShowingDespription = false
-}
-#endregion
+	
+		draw_info_inventory(grid_equip[# Infos.item, i],grid_equip[# Infos.name, i], grid_equip[# Infos.discription, i], grid_equip[# Infos.sprite, i], grid_equip[# Infos.coin, i], grid_equip[# Infos.cost, i], 1);
 
         if mouse_check_button_pressed(mb_left) {
 			if item_select != -1 {
@@ -672,37 +618,9 @@ if grid_equip[# Infos.item, i] != -1 and ShowingDespription == true {
     
 			draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 			
-#region --------------------------------------- Discription PRESS "O" --------------------------------------------
-// desenhar a sprite do item na aba de descrição
 
-if grid_potions[# Infos.item, i] != -1 and ShowingDespription == true {
-    var c = c_white;
+			draw_info_inventory(grid_potions[# Infos.item, i ],grid_potions[# Infos.name, i ], grid_potions[# Infos.discription, i ], grid_potions[# Infos.sprite, i ], grid_potions[# Infos.coin, i ], grid_potions[# Infos.cost, i ], 1);
 
-    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
-
-    draw_set_font(Font1);
-    draw_set_halign(fa_middle);
-    draw_text(1080, 150, grid_potions[# Infos.name, i]);
-    draw_text_ext_color(1100, 210, grid_potions[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-    draw_sprite_ext(grid_equip[# Infos.sprite, i], grid_potions[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
-
-    switch (grid_potions[# Infos.coin, i]) {
-        case 1:
-            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 2:
-            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 3:
-            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-    }
-
-  
-} else if inventory == false {
-    ShowingDespription = false
-}
-#endregion
 
 		 if mouse_check_button_pressed(mb_left) {
 		 if item_select != -1 {
@@ -822,37 +740,7 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
     
 	draw_sprite_ext(spr_inventario_seletor, 0, _equipslotx, _equipsloty, global.escala, global.escala, 0, c_white, 1);
 
-#region --------------------------------------- Discription PRESS "O" --------------------------------------------
-// desenhar a sprite do item na aba de descrição
-
-if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
-    var c = c_white;
-
-    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
-
-    draw_set_font(Font1);
-    draw_set_halign(fa_middle);
-    draw_text(1080, 150, grid_weapon[# Infos.name, i]);
-    draw_text_ext_color(1100, 210, grid_weapon[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-    draw_sprite_ext(grid_weapon[# Infos.sprite, i], grid_weapon[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
-
-    switch (grid_weapon[# Infos.coin, i]) {
-        case 1:
-            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 2:
-            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-        case 3:
-            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
-            break;
-    }
-
-    draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_weapon[# Infos.cost, i], 2, c_black, 23, 50, 100 )
-} else if inventory == false {
-    ShowingDespription = false
-}
-#endregion
+	draw_info_inventory(grid_weapon[# Infos.item,i], grid_weapon[# Infos.name,i],grid_weapon[# Infos.discription,i], grid_weapon[# Infos.sprite,i],grid_weapon[# Infos.coin,i], grid_weapon[# Infos.cost,i],1)
 	
 #region --------------------------------------- Checking SLOTS AND Tranfering items ------------------------------
 	 if mouse_check_button_pressed(mb_left) {
@@ -862,7 +750,8 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
             if equip_select == 1 and grid_weapon[# Infos.item,i] = -1 and quantity_select = 1 {
 				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
 				
-               if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20)){
+               if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20 or i == 1 && itemType == 25 )){
+				   
 	                grid_weapon[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
 	                grid_weapon[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
 	                grid_weapon[# Infos.sprite, i] = grid_itens[# Infos.sprite, pos_select];
@@ -885,6 +774,7 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 	                item_select = -1;
 	                pos_select = -1;
 	                equip_select = -1;
+					
 			} 
 #endregion
 
@@ -892,7 +782,7 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
          }else if equip_select == 1 and grid_itens[# Infos.item, pos_select] != grid_weapon[# Infos.item,i] and quantity_select = 1  {    
 			 var itemType = grid_itens[# Infos.typeWeapon, pos_select];
     
-		    if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20)) {
+		    if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20 or i == 1 && itemType == 25 )) {
 		        var _item = grid_weapon[# Infos.item, i];
 		        var _quantity = grid_weapon[# Infos.quantity, i];
 		        var _spr = grid_weapon[# Infos.sprite, i];
@@ -967,7 +857,8 @@ for (var i = 0; i < total_petS; i++) {
     
     if point_in_rectangle(_mx, _my, petslotX, petslotY, petslotX + size_slots, petslotY + size_slots) {
         draw_sprite_ext(spr_inventario_seletor, 0, petslotX, petslotY, global.escala, global.escala, 0, c_white, 1);
-       
+ draw_info_inventory(grid_pet[# pet_info.item,i],grid_pet[# pet_info.name,i],grid_pet[# pet_info.description,i],grid_pet[# pet_info.sprite, i], 0, 0,29)
+ /*
 #region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
 // desenhar a sprite do item na aba de descrição
 
@@ -986,7 +877,7 @@ if grid_pet[# pet_info.item, i] != -1 and ShowingDespription == true {
     ShowingDespription = false
 }
 #endregion	   
-	   
+*/	   
 	   
         if mouse_check_button_pressed(mb_left) {
             if item_select != -1 {

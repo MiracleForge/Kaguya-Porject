@@ -8,6 +8,11 @@
  _huda = _guia - _spra;
  _xcoord = (10 * 100);
 
+_sprite_pick = noone;
+item_pickup = false;
+
+
+
 global.dialogo = false;
 
 global.pauseON = false;

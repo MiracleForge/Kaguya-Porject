@@ -100,8 +100,8 @@ if  keyboard_check_pressed(ord("J")) and obj_slime_pet.transform >=10 and !trans
 if (collision_point(mouse_x, mouse_y, obj_slime_pet,false,false) or collision_point(mouse_x, mouse_y, obj_Player,false,false)) {
     // Não ative o código abaixo
 } else {		
-if mouse_check_button_pressed(mb_left) and shield_up == false{
-	if arma == armas.espada{
+if mouse_check_button_pressed(mb_left) and shield_up == false {
+	if active_sword{
 	attack = true;
 	dir = floor ((point_direction(x, y, mouse_x, mouse_y)+45) /90);
 	ds_list_clear(enemyhit);
@@ -132,7 +132,7 @@ if mouse_check_button_pressed(mb_left) and shield_up == false{
 		}
 		state = scr_character_attacking;
 	
-		}else if arma == armas.arco{	
+		}else if active_bow {	
 		image_index = 0;
 		
 		state = scr_character_bow;

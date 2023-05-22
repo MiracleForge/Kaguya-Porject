@@ -18,21 +18,8 @@ if !transformed and TimeTransfor != TimeTransfor_max {
 estamina = clamp(estamina, 0, max_stamina);
 #endregion
 
-#region   // sistema de armas
-if keyboard_check_pressed(ord("E")) {
-    arma += 1;
-}
 
-if keyboard_check_pressed(ord("Q")) {
-    arma -= 1;
-}
 
-if arma >= armas.altura {
-    arma = 0;
-} else if arma < 0 {
-    arma = armas.altura - 1;
-}
-#endregion
 
 
 

@@ -82,7 +82,7 @@ function ds_grid_add_item() {
 
         // verifica se há espaço suficiente para adicionar um novo item
         if (_empty_slots > 0) {
-            var _checking = 0;
+            var _checking = 0;		
             while (_grid[# Infos.item, _checking] != -1) {    
                 _checking++;
             } 
@@ -190,7 +190,7 @@ if obj_Player.attack == false {
 	
 
 function loop_animation(){
-	///action_loop()
+///action_loop()
 ///@param ani_state
 ///@param ani_speed
 ///@param ani_start
@@ -215,3 +215,92 @@ if ani_start <= ani_end {
     ani_start = argument[2]; // reset animation
 }
 }
+
+function draw_info_inventory(){	
+	///@arg filledCell
+    ///@arg nameCell
+	///@arg discription
+	///@arg sprite
+	///@arg coinType
+	///@arg cost
+	///@arg escala
+	
+
+	
+	var c = c_white;
+	var _escala = global.escala ;
+    var _guia = display_get_gui_height();
+	var wallet_sprL = Obj_inventario.wallet_L/2;
+	var wallet_sprA = Obj_inventario.wallet_A/2;
+	var ishowingDescription = Obj_inventario.ShowingDespription
+	
+	
+	
+	var _walletx = _guia/2 - wallet_sprL; // wallet sprite
+    var _wallety = _guia/2 - wallet_sprA;
+		
+
+	if argument[0] != -1 and ishowingDescription {
+	Obj_inventario.Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120,_escala,_escala, 0 , c, 1)
+	
+	draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, argument[1]);
+	draw_text_ext_color(1100, 210, argument[2], string_height("M"), 55 * _escala, c, c, c, c, 1);
+    draw_sprite_ext(argument[3], argument[0], 970, 200, _escala/argument[6], _escala/argument[6] , 0, c, 1);
+	
+	
+	if argument[4] != 0{
+	  switch (argument[4]) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), _escala * 0.6, _escala * 0.6, 0, c, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), _escala * 0.6, _escala * 0.6, 0, c, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), _escala * 0.6, _escala * 0.6, 0, c, 1);
+            break;
+    }
+	
+	  draw_text_colour_outline(_walletx + 940, _wallety - (-200), argument[5], 2, c_black, 23, 50, 100 )
+	}
+	} else if !ishowingDescription  {
+			 Obj_inventario.ShowingDespription = false
+	}
+}		
+	#region --------------------------------------- original code description --------------------------------------------
+/*
+// desenhar a sprite do item na aba de descrição
+
+if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
+    var c = c_white;
+
+    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
+
+    draw_set_font(Font1);
+    draw_set_halign(fa_middle);
+    draw_text(1080, 150, grid_weapon[# Infos.name, i]);
+    draw_text_ext_color(1100, 210, grid_weapon[# Infos.discription, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
+    draw_sprite_ext(grid_weapon[# Infos.sprite, i], grid_weapon[# Infos.item, i], 970, 200, global.escala, global.escala, 0, c, 1);
+
+    switch (grid_weapon[# Infos.coin, i]) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _walletx + 950, _wallety - (-199), global.escala * 0.6, global.escala * 0.6, 0, c, 1);
+            break;
+    }
+
+    draw_text_colour_outline(_walletx + 940, _wallety - (-200), grid_weapon[# Infos.cost, i], 2, c_black, 23, 50, 100 )
+} else if inventory == false {
+    ShowingDespription = false
+}
+
+	}
+	*/
+#endregion

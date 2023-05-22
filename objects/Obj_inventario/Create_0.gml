@@ -48,6 +48,7 @@ Sequence = undefined;
 silly_animation = false;
 silly_count = 0;
 
+
 #endregion
 
 #region --------------------------------------SLOTS EQUIPS / POTIONS/ARMORS/WEAPONS ----------------------
@@ -181,14 +182,14 @@ ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
 // names_weapons_info[0][2] for equippable
 // names_weapons_info[0][3] for coin type
 // names_weapons_info[0][4] for cost
-// names_weapons_info[0][5] for type of Weapon    One hand = 10 | Shield = 20 | Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
+// names_weapons_info[0][5] for type of Weapon    One hand = 10 | hand = 20 shield = 25 | Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
 
 names_weapons_info = [   
 	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
     ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 20],
     ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 20],
 	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." + chr(10) + chr(10) + "Consumable", true, 2, 1, 70 ],
-	["Feline Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 20],
+	["Feline Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 25],
 	["Slime Essence Ring", "Crafted from enchanted slime essence. The eye in the middle looks kind familiar" + chr(10) + chr(10) + "Equippable item", true,1,5,80],
 	["Cute Ribbon", " A ribbon made sweet with tenderness." + chr(10) + chr(10) + "Equippable item", true, 2,1, 30 ],
 	["Cute Dress", " Cute dress made by hand." + chr(10) + chr(10) + "Equippable item", true,2, 1, 40],

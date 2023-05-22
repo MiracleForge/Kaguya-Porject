@@ -251,6 +251,7 @@
     {"id":{"name":"spr_personagem_atacando_baixoHB","path":"sprites/spr_personagem_atacando_baixoHB/spr_personagem_atacando_baixoHB.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"spr_inventory_description","path":"sprites/spr_inventory_description/spr_inventory_description.yy",},},
+    {"id":{"name":"spr_pick_up","path":"sprites/spr_pick_up/spr_pick_up.yy",},},
     {"id":{"name":"Ground_Tileset","path":"sprites/Ground_Tileset/Ground_Tileset.yy",},},
     {"id":{"name":"spr_personagem_correndo_esquerdaf","path":"sprites/spr_personagem_correndo_esquerdaf/spr_personagem_correndo_esquerdaf.yy",},},
     {"id":{"name":"Idle_Working","path":"sprites/Idle_Working/Idle_Working.yy",},},

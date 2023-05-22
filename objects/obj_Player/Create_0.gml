@@ -39,9 +39,11 @@ combo = false;
 
 //shield variable
 shield_up = false;
-shield = true;
+shield = false;
 arma = 0;
 
+active_sword = false;
+active_bow = false;
 #endregion
 
 

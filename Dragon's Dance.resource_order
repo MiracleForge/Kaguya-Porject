@@ -201,6 +201,7 @@
     {"name":"spr_personagem_atacando_cima_combo","order":3,"path":"sprites/spr_personagem_atacando_cima_combo/spr_personagem_atacando_cima_combo.yy",},
     {"name":"spr_personagem_atacando_baixoHB","order":1,"path":"sprites/spr_personagem_atacando_baixoHB/spr_personagem_atacando_baixoHB.yy",},
     {"name":"spr_inventory_description","order":5,"path":"sprites/spr_inventory_description/spr_inventory_description.yy",},
+    {"name":"spr_pick_up","order":23,"path":"sprites/spr_pick_up/spr_pick_up.yy",},
     {"name":"Ground_Tileset","order":2,"path":"sprites/Ground_Tileset/Ground_Tileset.yy",},
     {"name":"spr_personagem_correndo_esquerdaf","order":2,"path":"sprites/spr_personagem_correndo_esquerdaf/spr_personagem_correndo_esquerdaf.yy",},
     {"name":"Idle_Working","order":10,"path":"sprites/Idle_Working/Idle_Working.yy",},
