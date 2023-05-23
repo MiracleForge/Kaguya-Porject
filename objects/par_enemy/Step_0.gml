@@ -5,7 +5,7 @@ script_execute(state);
 
 
 if vida <= 0{
-	if obj_Player.transformed == false {
+	if obj_Player.transformed == false and obj_slime_pet.active_pet ==true{
     obj_slime_pet.xp += 50;
 	}
 	 var random_index = irandom(array_length(possible_itens) - 1);

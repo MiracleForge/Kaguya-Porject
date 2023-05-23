@@ -85,7 +85,21 @@ switch dir{
 		 
 			image_index = 0;
 			state = scr_shield_posture;
-			} 
+			} else if active_bow {
+				
+				image_index = 0;
+				state = scr_character_bow;
+				}else if istrowing {
+					image_index = 0;
+					var _dir = point_direction(x,y, mouse_x, mouse_y);
+					var _xx = lengthdir_x(5, _dir);
+					var _yy = lengthdir_y(5, _dir);
+					
+					var _inst = instance_create_layer(x + _xx, y + _yy, "Instances", obj_bomb);
+					_inst.direction = _dir;
+					_inst.image_angle = _dir;
+					_inst.speed = 1;
+		}
   }
 
 
@@ -132,10 +146,6 @@ if mouse_check_button_pressed(mb_left) and shield_up == false {
 		}
 		state = scr_character_attacking;
 	
-		}else if active_bow {	
-		image_index = 0;
-		
-		state = scr_character_bow;
 		}
 	}
 } 
@@ -400,11 +410,9 @@ if shield_up {
 
 
 function scr_transformation() {
-	
-	
-	
-	
-if 	obj_slime_pet.triggered_transform == true{
-state = scr_transformed_walking
+
+	if 	obj_slime_pet.triggered_transform == true{
+	state = scr_transformed_walking
+	}
 }
-}
+

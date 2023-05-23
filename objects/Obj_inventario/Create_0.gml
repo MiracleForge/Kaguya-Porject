@@ -107,6 +107,7 @@ enum itens_armas{
 	girl_dress,
 	girl_pants,
 	old_bots,
+	little_bomb,
 	altura	
 	}
 	
@@ -182,7 +183,9 @@ ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
 // names_weapons_info[0][2] for equippable
 // names_weapons_info[0][3] for coin type
 // names_weapons_info[0][4] for cost
-// names_weapons_info[0][5] for type of Weapon    One hand = 10 | hand = 20 shield = 25 | Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
+// names_weapons_info[0][5] for type of Weapon   
+
+//One hand = 10 || hand = 20 bomb = 21 | shield = 25 || Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
 
 names_weapons_info = [   
 	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
@@ -194,7 +197,8 @@ names_weapons_info = [
 	["Cute Ribbon", " A ribbon made sweet with tenderness." + chr(10) + chr(10) + "Equippable item", true, 2,1, 30 ],
 	["Cute Dress", " Cute dress made by hand." + chr(10) + chr(10) + "Equippable item", true,2, 1, 40],
 	["Cute Pants", " Cute pants with little flowers" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 50],
-	["Old shoes", "A old girl shoes" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 60]
+	["Old shoes", "A old girl shoes" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 60],
+	["Instabooom", " Small explosive device with an unpredictable twist." + chr(10) + chr(10) + "Equippable item", true, 1, 2,21]
 	
 ];
 
@@ -238,6 +242,8 @@ pet_names = [
 //argument 7 = cost,
 //argument 8 = WeaponType,
 
+ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+
 ds_grid_add_pet(pets_crafted.petpurple, spr_pet_pot, pet_names[1][0], pet_names[1][1], pet_names[1][2], pet_names[1][3]);
 ds_grid_add_pet(pets_crafted.petorange, spr_pet_pot, pet_names[0][0], pet_names[0][1], pet_names[0][2], pet_names[0][3]);
 
@@ -261,7 +267,7 @@ ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names
 
 ds_grid_add_item(itens_armas.espada, 1 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2], names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
 ds_grid_add_item(itens_armas.cajado, 1 , spr_items, names_weapons_info[2][0], names_weapons_info[2][1],names_weapons_info[2][2], names_weapons_info[2][3], names_weapons_info[2][4], names_weapons_info[2][5]);
-ds_grid_add_item(itens_armas.espada, 32 , spr_items, names_weapons_info[0][0], names_weapons_info[0][1],names_weapons_info[0][2],names_weapons_info[0][3], names_weapons_info[0][4], names_weapons_info[0][5]);
+
 
 ds_grid_add_item(item_inimigos.Slime_jelly, 6 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5]);
 ds_grid_add_item(item_inimigos.orc_helmet, 54 , spr_items_inimigos, names_foe_info[1][0], names_foe_info[1][1],names_foe_info[1][2], names_foe_info[1][3], names_foe_info[1][4], names_foe_info[1][5]);

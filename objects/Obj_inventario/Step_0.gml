@@ -21,13 +21,20 @@ if grid_weapon[# Infos.item, 0 ] != -1 {
 			if grid_weapon[# Infos.typeWeapon, 1] == 20{
 				obj_Player.shield = false;
 				obj_Player.active_bow = true;
+				obj_Player.istrowing = false;
 				} else if grid_weapon[# Infos.typeWeapon, 1] == 25{	
 					obj_Player.shield = true;
 					obj_Player.active_bow = false;
-					}
+					obj_Player.istrowing = false;
+					}else if grid_weapon[# Infos.typeWeapon,1] == 21{	
+						obj_Player.istrowing = true;
+						obj_Player.shield = false;
+					     obj_Player.active_bow = false;
+						}
 		}else {	
 			obj_Player.shield = false;
 			obj_Player.active_bow = false;
+			obj_Player.istrowing = false;
 			}
 
 if keyboard_check_pressed(ord("O"))  {

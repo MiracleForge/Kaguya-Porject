@@ -14,10 +14,10 @@ repeat (3){
 		instance_create_layer(x,y, "instances",obj_slime);
 		
 		}
-	
+	if obj_slime_pet.active_pet{
 	obj_slime_pet.xp = 100;
 
-
+	}
 
 	instance_destroy();
 	}

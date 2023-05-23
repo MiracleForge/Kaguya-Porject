@@ -108,8 +108,8 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
 		posarmor_select = -1;
 		
 		}
-}
 	}
+}
 #endregion
 
 	
@@ -732,7 +732,7 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
  
    for (var i = 0; i < total_wepS; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
 	
-	
+
 	var _equipslotx = _invx + x_weps + ((size_slots + buffer ) * eqx);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
 	var _equipsloty = _invy + y_weps;
 	
@@ -750,7 +750,7 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
             if equip_select == 1 and grid_weapon[# Infos.item,i] = -1 and quantity_select = 1 {
 				var itemType = grid_itens[# Infos.typeWeapon, pos_select];
 				
-               if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20 or i == 1 && itemType == 25 )){
+               if ((i == 0 && itemType == 10) || (i == 1 &&  (itemType >= 20 &&  itemType <= 25))){
 				   
 	                grid_weapon[# Infos.item, i] = grid_itens[# Infos.item, pos_select];
 	                grid_weapon[# Infos.quantity, i] = grid_itens[# Infos.quantity, pos_select];
@@ -782,7 +782,7 @@ var  _sprite = grid_potions[# Infos.sprite, i]; //checar se tem item no slot
          }else if equip_select == 1 and grid_itens[# Infos.item, pos_select] != grid_weapon[# Infos.item,i] and quantity_select = 1  {    
 			 var itemType = grid_itens[# Infos.typeWeapon, pos_select];
     
-		    if ((i == 0 && itemType == 10) || (i == 1 && itemType == 20 or i == 1 && itemType == 25 )) {
+		    if ((i == 0 && itemType == 10) || (i == 1 && (itemType >= 20 &&  itemType <= 25))) {
 		        var _item = grid_weapon[# Infos.item, i];
 		        var _quantity = grid_weapon[# Infos.quantity, i];
 		        var _spr = grid_weapon[# Infos.sprite, i];
@@ -1111,5 +1111,5 @@ else {
 }
 
 
-///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY /////////////////////////////
+///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY ///////////////////////
 

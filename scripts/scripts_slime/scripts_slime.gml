@@ -1,7 +1,9 @@
 // Os recursos de script mudaram para a v2.3.0; veja
 
 function scr_slime_collision() {
+	
 	if place_meeting(x + hveloc, y, obj_wall) {
+	
 		while !place_meeting(x + sign(hveloc), y, obj_wall) {
 			x += sign(hveloc);
 		}
@@ -9,6 +11,7 @@ function scr_slime_collision() {
 	}
 
 	if place_meeting(x, y + vveloc, obj_wall) {
+		
 		while !place_meeting(x, y + sign(vveloc), obj_wall) {
 			y += sign(vveloc);
 		}

@@ -19,10 +19,6 @@ estamina = clamp(estamina, 0, max_stamina);
 #endregion
 
 
-
-
-
-
 #region   // pick up item - inventory
 if instance_exists(Obj_item) and Obj_inventario.inventory == false {
     var _inst = instance_nearest(x, y, Obj_item);

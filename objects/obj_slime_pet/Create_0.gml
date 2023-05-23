@@ -3,6 +3,7 @@
 // Inherit the parent event
 state = scr_control_pet;
 prox_state = 0;
+active_pet = false;
 
 #region //variables general
 hveloc = 0;
