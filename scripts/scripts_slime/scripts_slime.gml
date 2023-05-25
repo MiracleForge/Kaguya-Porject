@@ -98,11 +98,12 @@ function scr_slime_hit() {
 	hveloc = lengthdir_x(push_veloc, push_dir);
 	vveloc = lengthdir_y(push_veloc, push_dir);
 
+scr_slime_collision();
 	// Atualize as variáveis hveloc e vveloc antes da colisão
 	x += hveloc;
 	y += vveloc;
 
-	scr_slime_collision();
+	
 }
 
 	

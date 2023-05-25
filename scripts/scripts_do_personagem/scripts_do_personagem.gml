@@ -28,6 +28,19 @@ function scr_personagem_andando(){
     down = keyboard_check(ord("S"));
     right = keyboard_check(ord("D"));
     left = keyboard_check(ord("A"));
+	interact = keyboard_check_pressed(vk_space);
+	
+	if interact == true{	
+		var _dirblock = point_direction(x,y, mouse_x, mouse_y);
+		var checkx = x +lengthdir_x(blockdist, _dirblock);
+		var checky = y + lengthdir_y(blockdist, _dirblock);
+		
+	var _pushblockdist = instance_place(checkx,checky, obj_block);
+	
+	if instance_exists(_pushblockdist) && _pushblockdist.stateslide == Opush.slideoff{	
+		_pushblockdist.stateslide = Opush.slideon;
+		}
+		}
 
     hveloc = (right - left) * veloc ; 
     vveloc = (down - up) * veloc ;  
@@ -37,6 +50,7 @@ function scr_personagem_andando(){
     if (hipotenusa > veloc) {		
         hveloc = (hveloc / hipotenusa) * veloc;
         vveloc = (vveloc / hipotenusa) * veloc;
+	
     }
 
    
@@ -90,6 +104,7 @@ switch dir{
 				image_index = 0;
 				state = scr_character_bow;
 				}else if istrowing {
+					
 					image_index = 0;
 					var _dir = point_direction(x,y, mouse_x, mouse_y);
 					var _xx = lengthdir_x(5, _dir);
@@ -117,7 +132,7 @@ if (collision_point(mouse_x, mouse_y, obj_slime_pet,false,false) or collision_po
 if mouse_check_button_pressed(mb_left) and shield_up == false {
 	if active_sword{
 	attack = true;
-	dir = floor ((point_direction(x, y, mouse_x, mouse_y)+45) /90);
+	
 	ds_list_clear(enemyhit);
 	image_index = 0;
 	audio_play_sound(snd_atk_2_license_Lemonjolly,  1 , 0);
@@ -170,7 +185,7 @@ function scr_character_attacking(){
 				
 				with (enemysID){	// o que acontece ao inimigo
 				vida -= obj_slime_pet.damage[obj_slime_pet.level];
-				var _dir = point_direction(obj_Player.x, obj_Player.y, other.x, other.y)
+				var _dir = point_direction(x,y, mouse_x, mouse_y);
 				push_dir = _dir;
 				push_veloc = 20;	
 				state = scr_slime_hit;
@@ -247,9 +262,9 @@ function scr_combo_attack1 (){
 				
 				with (enemysID){	// o que acontece ao inimigo
 				vida -= (obj_Player.damage);
-				var _dir = point_direction(obj_Player.x, obj_Player.y, other.x, other.y)
+				var _dir = point_direction(x,y, mouse_x, mouse_y);
 				push_dir = _dir;
-				push_veloc =20;
+				push_veloc =12;
 				state = scr_slime_hit;
 				alarm[1] = 5;
 				hit = true;
@@ -351,7 +366,7 @@ function scr_shield_posture(){
 	alarm [0] = 8;
 	
 	shield_up = true;
-	dir = floor ((point_direction(x, y, mouse_x, mouse_y)+45) /90);
+	
 	
 if hveloc == 0 and vveloc == 0{	
 		

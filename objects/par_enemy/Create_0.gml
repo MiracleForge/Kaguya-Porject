@@ -26,8 +26,8 @@ dist_aggro = 50;
 deseng_aggro = 100;
 
 //combate
-max_vida = 25;
-vida = 25;
+max_vida = 3;
+vida = 3;
 push_dir = 0;
 push_veloc = 0;
 hit = false;

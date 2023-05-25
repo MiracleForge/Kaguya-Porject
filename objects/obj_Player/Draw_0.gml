@@ -4,7 +4,7 @@ depth = bbox_bottom;
 draw_self();
 var _scale = 0.5
 
-
+draw_text(x,y, hveloc)
 if alarm[3] >0 {	
 	if image_alpha >= 1{		
 		damage_alpha = -0.05; 

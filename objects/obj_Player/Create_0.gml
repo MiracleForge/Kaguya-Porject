@@ -17,6 +17,9 @@ dir =0;
 dash_dir = -1;
 dash_veloc = 1;
 
+//block interactions
+blockdist = 4;
+
 #endregion
 
 //estados
