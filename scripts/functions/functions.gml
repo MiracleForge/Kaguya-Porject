@@ -304,3 +304,20 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 	}
 	*/
 #endregion
+	
+	function directionblock() {	
+		// Função para converter a direção
+
+    if (obj_Player.dir == 0) {
+        return 0;
+    } else if (obj_Player.dir == 1) {
+        return 90;
+    } else if (obj_Player.dir == 2) {
+        return 180;
+    } else if (obj_Player.dir == 3) {
+        return 270;
+    }
+	return 0;
+}
+
+		

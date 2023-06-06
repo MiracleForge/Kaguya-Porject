@@ -1,6 +1,34 @@
 // Os recursos de script mudaram para a v2.3.0; veja
 
 function scr_slime_collision() {
+    if place_meeting(x + hveloc, y, obj_wall) {
+        var maxIterations = abs(hveloc); // Set maximum iteration count
+        var iterations = 0; // Initialize iteration counter
+
+        while (!place_meeting(x + sign(hveloc), y, obj_wall) && iterations < maxIterations) {
+            x += sign(hveloc);
+            iterations++;
+        }
+        hveloc = 0;
+    }
+
+    if place_meeting(x, y + vveloc, obj_wall) {
+        var maxIterations = abs(vveloc); // Set maximum iteration count
+        var iterations = 0; // Initialize iteration counter
+
+        while (!place_meeting(x, y + sign(vveloc), obj_wall) && iterations < maxIterations) {
+            y += sign(vveloc);
+            iterations++;
+        }
+        vveloc = 0;
+    }
+
+    x += hveloc;
+    y += vveloc;
+}
+
+/*
+function scr_slime_collision() {
 	
 	if place_meeting(x + hveloc, y, obj_wall) {
 	
@@ -21,7 +49,7 @@ function scr_slime_collision() {
 	x += hveloc;
 	y += vveloc;
 }
-
+*/
 
 function scr_check_player_prox() {
     if (distance_to_object(obj_Player) <= dist_aggro || vida < max_vida) {

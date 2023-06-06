@@ -1,44 +1,48 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
-if stateslide == Opush.slideoff {
-    startpoinx = x;
-    startpoiny = y;
-    
-    h_speed = 0;
+
+// if control is off, move is equal to zero;
+if !sliding {	
+	startpoinx = x;
+	startpoiny = y;
+	
+	h_speed = 0;
     v_speed = 0;
-} else if stateslide == Opush.slideon {
-	dir = floor ((point_direction(x, y, mouse_x, mouse_y)+45) /90);
-    var _face = dir
-    
-    var targetXdist = lengthdir_x(grid_space, _face);
-    var targetYdist = lengthdir_y(grid_space, _face);
-    
-    targetx = startpoinx + targetXdist;
-    targety = startpoiny + targetYdist;
-    
-    // speed
-    var _targetdist = point_distance(x, y, targetx, targety);
-    var finalspeed = min(Vel_speed, _targetdist);
-    
-    var h_direction = (targetx - x) / _targetdist;
-    var v_direction = (targety - y) / _targetdist;
-    
-    // Check for collision in the calculated direction
-    if h_direction != 0 && place_meeting(x + h_direction * finalspeed, y, obj_wall) {
-        h_direction = 0;
-    }
-    if v_direction != 0 && place_meeting(x, y + v_direction * finalspeed, obj_wall) {
-        v_direction = 0;
-    }
-    
-    h_speed = h_direction * finalspeed;
-    v_speed = v_direction * finalspeed;
+	}
+
+if sliding {	
+	//get the real direction	
+	var _realdir = facedir;
+	
+	//Calculate the final distance based on the total allowed distance
+	//and the direction the player is facing.
+	var _targetXdist = lengthdir_x(grid_space,_realdir);
+	var _targetYdist = lengthdir_y(grid_space, _realdir);
+	targetx = startpoinx + _targetXdist;
+	targety = startpoiny + _targetYdist;
+	
+	var _targetDist = point_distance(x, y, targetx, targety);
+	var _finalspeed = min(Vel_speed, _targetDist);
+	// Update the value of the h_speed and v_speed of the veloc;
+	h_speed = lengthdir_x(_finalspeed, _realdir);
+	v_speed = lengthdir_y(_finalspeed, _realdir);
+	// if collide if wall - stop
+	if place_meeting(targetx,targety, obj_wall){
+		h_speed = 0;
+		v_speed = 0;
+	}
+	
 }
 
+//move the object
 x += h_speed;
 y += v_speed;
 
-if h_speed == 0 && v_speed == 0 {
-    stateslide = Opush.slideoff;
-}
+if h_speed == 0 and v_speed == 0{	
+	sliding = false;
+	}
+
+
+
+

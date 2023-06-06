@@ -1,21 +1,29 @@
-function scr_collision_character(){	
-    if place_meeting(x + hveloc, y, obj_wall){	
-        while !place_meeting(x + sign(hveloc), y, obj_wall) {	
+function scr_collision_character() {
+    if place_meeting(x + hveloc, y, obj_wall) {
+        var maxIterations = abs(hveloc); // Set maximum iteration count
+        var iterations = 0; // Initialize iteration counter
+
+        while (!place_meeting(x + sign(hveloc), y, obj_wall) && iterations < maxIterations) {
             x += sign(hveloc);
+            iterations++;
         }
         hveloc = 0;
     }
     x += hveloc;
 
-    if place_meeting(x, y + vveloc, obj_wall){	
-        while !place_meeting(x, y + sign(vveloc), obj_wall){	
+    if place_meeting(x, y + vveloc, obj_wall) {
+        var maxIterations = abs(vveloc); // Set maximum iteration count
+        var iterations = 0; // Initialize iteration counter
+
+        while (!place_meeting(x, y + sign(vveloc), obj_wall) && iterations < maxIterations) {
             y += sign(vveloc);
+            iterations++;
         }
         vveloc = 0;
     }
     y += vveloc;
-	
 }
+
 
 
 
@@ -30,17 +38,6 @@ function scr_personagem_andando(){
     left = keyboard_check(ord("A"));
 	interact = keyboard_check_pressed(vk_space);
 	
-	if interact == true{	
-		var _dirblock = point_direction(x,y, mouse_x, mouse_y);
-		var checkx = x +lengthdir_x(blockdist, _dirblock);
-		var checky = y + lengthdir_y(blockdist, _dirblock);
-		
-	var _pushblockdist = instance_place(checkx,checky, obj_block);
-	
-	if instance_exists(_pushblockdist) && _pushblockdist.stateslide == Opush.slideoff{	
-		_pushblockdist.stateslide = Opush.slideon;
-		}
-		}
 
     hveloc = (right - left) * veloc ; 
     vveloc = (down - up) * veloc ;  
@@ -93,6 +90,22 @@ switch dir{
 #endregion
 
 	#region ------------------------------- ANOTHER FUNCTIONS CALLS ------------------
+if interact {	
+	// find the direction of the push block in 360 degree
+	var _face = directionblock(); 
+	// see if we find a push block
+	var _checkX = x + lengthdir_x(blockdist, _face);
+	var _checkY = y + lengthdir_y(blockdist, _face);
+	var _pushinstance = instance_place(_checkX,_checkY, obj_block);
+	//if there is a push block , tell it to slide and whith direction
+	if instance_exists(_pushinstance) && _pushinstance.sliding == false{	
+		_pushinstance.sliding = true;
+		_pushinstance.facedir = directionblock();
+		}
+	
+	}
+	
+	
   if mouse_check_button_pressed(mb_right){
   
  if estamina >=40 and shield == true{	

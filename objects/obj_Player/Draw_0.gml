@@ -47,5 +47,5 @@ draw_set_alpha(1);
 }
 #endregion
 
-
+draw_text(16,16, dir);
 
