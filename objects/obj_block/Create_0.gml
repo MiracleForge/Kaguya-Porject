@@ -16,6 +16,9 @@ v_speed = 0;
 Vel_speed = 2;
 // Control of the state.
 sliding = false;
+onIce = false;
+//Sliding area ground
+pushblockArea = false;
 
 
 

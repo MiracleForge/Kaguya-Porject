@@ -25,6 +25,4 @@ if count_destroy > 180 {
 	instance_destroy();
 	}
 	
-var _dir = point_direction(x, y, mouse_x, mouse_y);
-var _diff = angle_difference(_dir, image_angle);
-image_angle += _diff * 0.1;
+

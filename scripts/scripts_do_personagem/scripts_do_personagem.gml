@@ -118,7 +118,7 @@ if interact {
 				state = scr_character_bow;
 				}else if istrowing {
 					
-					image_index = 0;
+					
 					var _dir = point_direction(x,y, mouse_x, mouse_y);
 					var _xx = lengthdir_x(5, _dir);
 					var _yy = lengthdir_y(5, _dir);
@@ -127,6 +127,8 @@ if interact {
 					_inst.direction = _dir;
 					_inst.image_angle = _dir;
 					_inst.speed = 1;
+					
+					
 		}
   }
 
