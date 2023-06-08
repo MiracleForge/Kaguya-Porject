@@ -50,7 +50,6 @@ function scr_slime_collision() {
 	y += vveloc;
 }
 */
-
 function scr_check_player_prox() {
     if (distance_to_object(obj_Player) <= dist_aggro || vida < max_vida) {
         state = scr_slime_chasing;
@@ -120,17 +119,17 @@ function scr_slime_chasing() {
 }
 
 function scr_slime_hit() {
-	alarm[2] = 180;
-	push_veloc = lerp(push_veloc, 0, 0.5);
 
+	alarm[2] = 180;
+	push_veloc = lerp(push_veloc, 0, 0.5); 
 	hveloc = lengthdir_x(push_veloc, push_dir);
 	vveloc = lengthdir_y(push_veloc, push_dir);
 
-scr_slime_collision();
+	scr_slime_collision();
 	// Atualize as variáveis hveloc e vveloc antes da colisão
 	x += hveloc;
 	y += vveloc;
-
+	
 	
 }
 

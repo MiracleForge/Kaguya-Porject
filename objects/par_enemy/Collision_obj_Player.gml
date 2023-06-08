@@ -21,9 +21,10 @@ var dir_hit = point_direction(x, y, other.x, other.y);
 var angle = point_direction(x, y, x, y);
 x -= dcos(angle);
 y -= dsin(angle);
+
 		if place_meeting (x,y, obj_wall) {
 			
-			push_dir = dir_hit;
+			
 	        state = scr_character_hit;
 	        alarm[2] = 10;
 	        alarm[3] = 100;

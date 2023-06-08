@@ -104,7 +104,11 @@ if interact {
 		}
 	
 	}
+
+if place_meeting(x + 10 ,y + 10, obj_IceGround) || place_meeting(x - 10, y-10, obj_IceGround){	
 	
+	state = scr_playerOnIce;
+	}
 	
   if mouse_check_button_pressed(mb_right){
   
@@ -202,7 +206,7 @@ function scr_character_attacking(){
 				vida -= obj_slime_pet.damage[obj_slime_pet.level];
 				var _dir = point_direction(x,y, mouse_x, mouse_y);
 				push_dir = _dir;
-				push_veloc = 20;	
+				push_veloc = 6;				
 				state = scr_slime_hit;
 				
 				alarm[1] = 5;
@@ -279,7 +283,7 @@ function scr_combo_attack1 (){
 				vida -= (obj_Player.damage);
 				var _dir = point_direction(x,y, mouse_x, mouse_y);
 				push_dir = _dir;
-				push_veloc =12;
+				push_veloc = 6;
 				state = scr_slime_hit;
 				alarm[1] = 5;
 				hit = true;
@@ -446,3 +450,57 @@ function scr_transformation() {
 	}
 }
 
+function scr_playerOnIce() {
+
+
+if !place_meeting(x,y, obj_IceGround)|| hveloc == 0 and vveloc == 0{	
+	state = scr_personagem_andando;
+	}
+
+if hveloc != 0 and vveloc != 0{
+
+vveloc = 0;
+}else {
+
+Icetargetx = Icestartx;
+Icetargety = Icestarty;
+var _gridspace = 16;
+var _targetXdist = lengthdir_x(_gridspace, dir);
+var _targetYdist = lengthdir_y(_gridspace, dir);
+	Icetargetx = Icestartx + _targetXdist;
+	Icetargety = Icestarty + _targetYdist;
+   
+while (place_meeting((Icetargetx + _targetXdist) + sign(_targetXdist), (Icetargety + _targetYdist) + sign(Icetargety), obj_IceGround))  {
+        
+        
+        Icetargetx += sign(_targetXdist);
+        Icetargety += sign(_targetYdist);
+}	
+
+
+
+}
+
+ scr_collision_character();
+	
+	if hveloc != 0 or vveloc != 0 {
+
+switch dir{	
+	default:
+	sprite_index = spr_personagem_correndo_direita;
+	break;
+	case 1:
+	sprite_index = spr_personagem_correndo_cima;
+	break;
+	case 2:
+	sprite_index = spr_personagem_correndo_esquerda;
+	break;
+	case 3:
+	sprite_index = spr_personagem_correndo_baixo;
+	break;	
+	}
+}	
+	
+	
+	
+	}

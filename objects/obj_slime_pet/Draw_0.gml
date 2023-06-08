@@ -5,7 +5,7 @@ if !active_pet {
 } else {
     image_alpha = 1;
 
-
+draw_text(x,y,velocidade)
 draw_sprite(spr_slime_sombra, 0, x -4 , y+3); 
 depth = bbox_bottom;
 draw_self();

@@ -9,8 +9,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Colisões, teletransportes",
-    "path": "folders/Objetos/Colisões, teletransportes.yy",
+    "name": "Collision interact",
+    "path": "folders/Objetos/Colisões, teletransportes/Collision interact.yy",
   },
   "parentObjectId": null,
   "persistent": false,

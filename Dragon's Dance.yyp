@@ -74,6 +74,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Movimento","folderPath":"folders/Sprites/Personagem Principal/old_sprite_personagem/Movimento.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Personagem attack","folderPath":"folders/Sprites/Personagem Principal/old_sprite_personagem/Personagem attack.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"pet","folderPath":"folders/Sprites/Personagem Principal/pet.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Colisões","folderPath":"folders/Objetos/Colisões, teletransportes/Colisões.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Collision interact","folderPath":"folders/Objetos/Colisões, teletransportes/Collision interact.yy",},
   ],
   "IncludedFiles": [],
   "isEcma": false,

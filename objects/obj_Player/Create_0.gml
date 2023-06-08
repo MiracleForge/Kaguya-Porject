@@ -12,6 +12,12 @@ vveloc = 0;
 veloc = 1;
 dir =0;
 
+//Ice Sliding
+Icestartx = x;
+Icestarty = y;
+//After calculating the endpoint, update the value.
+Icetargetx = x;
+Icetargety = y;
 
 //Dash
 dash_dir = -1;
