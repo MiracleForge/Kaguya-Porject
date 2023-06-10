@@ -1,16 +1,18 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
-// Cria uma variável global com o ID do objeto obj_pickup_heart
 
+
+#region ------------------------------------- Inventory open ----------------------------------------------
 if obj_transition {
 if keyboard_check_pressed(ord("I")){
 inventory = !inventory;
-global.pauseON = !global.pauseON
+global.pauseON = !global.pauseON;
 	
 }
 }
+#endregion
 
-
+#region ------------------------------------- Equip Activation (NEED REWORK) ------------------------------
 if grid_weapon[# Infos.item, 0 ] != -1 {	
 	obj_Player.active_sword = true;
 	}else if grid_weapon[# Infos.item, 0 ] == -1{	
@@ -36,7 +38,9 @@ if grid_weapon[# Infos.item, 0 ] != -1 {
 			obj_Player.active_bow = false;
 			obj_Player.istrowing = false;
 			}
+#endregion
 
+#region ------------------------------------- Item descriptions activation --------------------------------
 if keyboard_check_pressed(ord("O"))  {
 	
 ShowingDespription = !ShowingDespription;
@@ -47,8 +51,10 @@ ShowingDespription = !ShowingDespription;
 	} else if ShowingDespription == true {	
 		
 		}
+#endregion
 
-	//------------ coind and money 
+#region ------------------------------------- Coin System and shop System ---------------------------------
+#region	//------------ coind and money 
 //0 = GOLD
 //1 = SILVER
 //2 = NEBULONITE
@@ -63,3 +69,43 @@ ds_grid_coin[# 1, 0] = string(global.coin);
 ds_grid_coin[# 1, 1] = string(global.silver);
 ds_grid_coin[# 1, 2] = string(global.nebulite);
 
+
+#endregion
+
+if keyboard_check_pressed(ord("E")) {
+	shopOpen = !shopOpen
+	global.pauseON = !global.pauseON;
+	
+	}
+if shopOpen{
+    var _grid = grid_itens;
+    var numItens = -1;
+ 
+	
+    // Contar o número total de itens no grid
+    for (var i = 0; i < ds_grid_height(_grid); i++) {
+        if (_grid[# Infos.item, i] != -1) {
+            numItens++;
+        }
+    }
+
+    // Verificar se o mouse foi rolado para baixo
+    if (mouse_wheel_down()) {
+        selectShop++;
+        if (selectShop == numItens)
+            selectShop = 0;
+    }
+
+    // Verificar se o mouse foi rolado para cima
+    if (mouse_wheel_up()) {
+        selectShop--;
+        if (selectShop < 0)
+            selectShop = numItens - 1;
+    }
+
+}
+
+
+
+
+#endregion

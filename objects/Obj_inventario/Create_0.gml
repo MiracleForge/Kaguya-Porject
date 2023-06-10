@@ -1,18 +1,21 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
+
+#region-------------------------------------- Shop and coins System -------------------------------------
  // coin 
 global.coin = (0);
 global.silver = (0);
 global.nebulite = (0);
 
 
+#endregion
+
+#region ------------------------------------- Inventory base ---------------------------------------------
 global.escala = 3;
 inventory = false;
-
-#region           // Inventory base
 //distnacia entre a borda da sprite e do primeiro slot
-x_inventory = 113 * global.escala
-y_inventory = 57 * global.escala
+x_inventory = 113 * global.escala;
+y_inventory = 57 * global.escala;
 
 // total numbers of slots
 slots_h = 4;
@@ -51,7 +54,7 @@ silly_count = 0;
 
 #endregion
 
-#region --------------------------------------SLOTS EQUIPS / POTIONS/ARMORS/WEAPONS ----------------------
+#region ------------------------------------- SLOTS EQUIPS / POTIONS/ARMORS/WEAPONS ----------------------
 // armor Items slots
 
 slots_equiH = 1
@@ -92,10 +95,28 @@ x_active =  114 * global.escala;
 y_active = 147 * global.escala;
 total_active = 1;
 
+shopOpen = false;
+
+selectShop = 0;
+//distnacia entre a borda da sprite e do primeiro slot
+x_Boxinventory = 12 * global.escala;
+y_Boxinventory = 10 * global.escala;
+// total numbers of slots
+slotboxX = 8;
+slotBoxY = 2;
+total_slotBox = slotboxX * slotBoxY;
+size_slotsBox = 20 * global.escala;
+bufferBox = 6 * global.escala;
+// length and hight sprite vs camera scale or room Idk
+inventoryBox_L = sprite_get_width(spr_box_inventory_sell) * global.escala;
+inventoryBox_A = sprite_get_height(spr_box_inventory_sell) * global.escala;
+
+
+
 
 #endregion
 
-#region --------------------------------------Enum itens -------------------------------------------------
+#region ------------------------------------- Enum itens -------------------------------------------------
 enum itens_armas{	
 	espada ,
 	arco,
@@ -188,17 +209,17 @@ ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
 //One hand = 10 || hand = 20 bomb = 21 | shield = 25 || Helmet = 30 | Armor = 40 | Legs = 50 | Bots = 60 | Potions = 70 | Rings = 80 | No Equippable = 0
 
 names_weapons_info = [   
-	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " + chr(10) + chr(10) + "Equippable item", true, 1, 1,10 ],
-    ["Hunter Bow", "Made of wood and string and not so good. " +  chr(10) + chr(10) + "Equippable item",true,1, 1, 20],
-    ["Rod of Whispers", "Bring insanity for the weak ones." + chr(10) + chr(10) + "Equippable item ",true, 1, 1, 20],
-	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." + chr(10) + chr(10) + "Consumable", true, 2, 1, 70 ],
-	["Feline Shield", "A symbol of honor and protection."  + chr(10) + chr(10) + "Equippable item", true, 1,1, 25],
-	["Slime Essence Ring", "Crafted from enchanted slime essence. The eye in the middle looks kind familiar" + chr(10) + chr(10) + "Equippable item", true,1,5,80],
-	["Cute Ribbon", " A ribbon made sweet with tenderness." + chr(10) + chr(10) + "Equippable item", true, 2,1, 30 ],
-	["Cute Dress", " Cute dress made by hand." + chr(10) + chr(10) + "Equippable item", true,2, 1, 40],
-	["Cute Pants", " Cute pants with little flowers" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 50],
-	["Old shoes", "A old girl shoes" + chr(10) + chr(10) + "Equippable item", true, 2, 1, 60],
-	["Instabooom", " Small explosive device with an unpredictable twist." + chr(10) + chr(10) + "Equippable item", true, 1, 2,21]
+	["Scout Saber", "A saber used by explorers, ideal for quick but not precise attacks. " , true, 1, 1,10 ],
+    ["Hunter Bow", "Made of wood and string and not so good.",true,1, 1, 20],
+    ["Rod of Whispers", "Bring insanity for the weak ones.",true, 1, 1, 20],
+	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." , true, 2, 1, 70 ],
+	["Feline Shield", "A symbol of honor and protection.", true, 1,1, 25],
+	["Slime Essence Ring", "Crafted from enchanted slime essence. Looks kind familiar", true,1,5,80],
+	["Cute Ribbon", " A ribbon made sweet with tenderness." , true, 2,1, 30 ],
+	["Cute Dress", " Cute dress made by hand." , true,2, 1, 40],
+	["Cute Pants", " Cute pants with little flowers", true, 2, 1, 50],
+	["Old shoes", "A old girl shoes" , true, 2, 1, 60],
+	["Instabooom", " Small explosive device with an unpredictable twist." , true, 1, 2,21]
 	
 ];
 

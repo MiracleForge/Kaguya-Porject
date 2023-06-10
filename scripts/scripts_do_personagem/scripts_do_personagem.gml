@@ -89,7 +89,7 @@ switch dir{
 	}
 #endregion
 
-	#region ------------------------------- ANOTHER FUNCTIONS CALLS ------------------
+#region ------------------------------- ANOTHER FUNCTIONS CALLS -------------------------------
 if interact {	
 	// find the direction of the push block in 360 degree
 	var _face = directionblock(); 

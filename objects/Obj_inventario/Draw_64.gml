@@ -2,8 +2,8 @@
 ///////////////////////////////////////////// SEPARA OS ELEMENTOS ///////////////////////
 //---------------------------------- SEPARA FUNÇÕES DENTRO DO MESMO ELEMENTO ////////////
 
-	//largar item
-		if mouse_check_button_pressed(mb_right) or !inventory {
+//largar item
+if mouse_check_button_pressed(mb_right) or !inventory {
 			item_select = -1;
 			pos_select = -1;
 			equip_select = -1;
@@ -1112,4 +1112,128 @@ else {
 
 
 ///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY ///////////////////////
+
+
+
+
+#region ////////////////////////////////////////////  Shop System ////////////////////////////////////////////////////////
+if shopOpen {
+	//centralização  da sprite
+	var _guiL = display_get_gui_width();
+	var _guia = display_get_gui_height();
+
+	// variaveis para mouse
+	var _mx = device_mouse_x_to_gui(0);
+	var _my = device_mouse_y_to_gui(0);
+	var c = c_black;
+	var C = c_white
+	
+draw_set_color(c);
+	draw_set_alpha(0.3);
+		draw_rectangle(_guiL, _guia, -_guiL, - _guia, false);
+
+draw_set_color(C);	
+	
+	var Scale = global.escala
+	var _invx =  _guiL/1.5 - inventoryBox_L/2;  // dividir o tamanho da sprite 
+	var _invy = _guia/1.3 - inventoryBox_A/2;
+	
+
+	
+	draw_sprite_ext(spr_box_inventory_sell, 0, _invx, _invy, Scale,Scale,0,c_white,1)
+
+
+	var ix = 0; // variaveis que guardam o tracking
+	var iy = 0;
+
+// Desenha todos os itens e verifica se o mouse está sobre o slot
+for (var i = 0; i < total_slotBox; i++) {
+    var _sprite = grid_itens[# Infos.sprite, i]; // Checa se há um item no slot
+	var _name = grid_itens[# Infos.name, i];
+	var _equip = grid_itens[# Infos.equipable, i];
+	var _desc = grid_itens[# Infos.discription,i];
+	var _cost = grid_itens[# Infos.cost,i];
+
+    var _slotBoxX = _invx + x_Boxinventory + ((size_slotsBox + bufferBox) * ix);
+    var _slotBoxY = _invy + y_Boxinventory + ((size_slotsBox + bufferBox) * iy);
+	
+
+    // Desenha a sprite do item
+    if (grid_itens[# Infos.item, i] != -1) {
+        draw_sprite_ext(_sprite, grid_itens[# 0, i], _slotBoxX, _slotBoxY, global.escala, global.escala, 0, c_white, 1);
+
+        // Quantidade dos itens
+        draw_set_alpha(1);
+        draw_set_font(Font1);
+        draw_set_halign(fa_center);
+        draw_text_colour_outline(_slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox, grid_itens[# Infos.quantity, i], 4, c_black, 16, 100, 100);
+    }
+
+    // Verifica se o mouse está sobre o slot
+    if (point_in_rectangle(_mx, _my, _slotBoxX, _slotBoxY, _slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox)) {
+        // Desenha o sprite do descritor
+		draw_sprite_ext(spr_seletor_20x20, 0, _slotBoxX - 15, _slotBoxY - 10, global.escala, global.escala, 0, c_white, 1);
+        draw_sprite_ext(spr_descriptor, 0,  _slotBoxX + (_slotBoxX - _mx) - 40, _slotBoxY + (_slotBoxY - _my), global.escala, global.escala, 0, c_white, 1);
+		draw_set_color(c);
+			draw_set_halign(fa_center);
+				 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) + 70, _slotBoxY + (_slotBoxY - _my) - 200, _name,1, 180);
+					   draw_set_halign(fa_middle);
+							draw_set_font(Font_shopdesc);
+								draw_set_color(c);
+									draw_text_ext(_slotBoxX + (_slotBoxX - _mx) + 65, _slotBoxY + (_slotBoxY - _my) - 120, _desc,string_height("M"), 200)
+						draw_set_font(-1);
+					draw_set_halign(fa_left);
+				draw_set_color(-1);
+		if _equip == 1{
+			 draw_set_color(c_green);
+				draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30 , _slotBoxY + (_slotBoxY - _my) - 165, "Equipable", 1, 180);
+			 draw_set_color(-1);
+		 }else {	
+			draw_set_color(c_red);
+				 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30, _slotBoxY + (_slotBoxY - _my) - 165, "Unequipable", 1, 180);			  			
+			draw_set_color(-1);
+		 }
+		if grid_itens[# Infos.cost, i] != 0{
+	
+			  switch (grid_itens[# Infos.cost, i]) {
+		        case 1:
+		            draw_sprite_ext(spr_coin_inventory, 0,_slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+		            break;
+		        case 2:
+		            draw_sprite_ext(spr_coin_inventory, 1, _slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+		            break;
+		        case 3:
+		            draw_sprite_ext(spr_coin_inventory, 2, _slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50,global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+		            break;
+		 }
+		 draw_text_colour_outline(_slotBoxX + (_slotBoxX - _mx) +120, _slotBoxY + (_slotBoxY - _my) - 45, _cost, 2, c, 23, 50, 100 )
+    }
+		
+ }
+
+    ix++;
+    if (ix >= slotboxX) {
+        ix = 0;
+        iy++;
+        if (iy >= slotBoxY) {
+            break; // Sai do loop quando atingir o número máximo de linhas de slots
+        }
+
+	}
+}
+
+
+	}	
+	
+	
+#endregion
+
+
+
+
+
+
+
+
+
 
