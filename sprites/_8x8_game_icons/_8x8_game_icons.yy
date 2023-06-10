@@ -1,11 +1,11 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "windows_decorations",
-  "bbox_bottom": 111,
-  "bbox_left": 32,
-  "bbox_right": 399,
-  "bbox_top": 26,
+  "name": "_8x8_game_icons",
+  "bbox_bottom": 55,
+  "bbox_left": 9,
+  "bbox_right": 103,
+  "bbox_top": 8,
   "bboxMode": 0,
   "collisionKind": 1,
   "collisionTolerance": 0,
@@ -13,14 +13,14 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"7b82e180-af58-46f0-bdfa-b7b42e016c1a",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"7728884b-262a-49bd-99cf-d9238b777147",},
   ],
   "gridX": 0,
   "gridY": 0,
-  "height": 128,
+  "height": 64,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"5eb03c89-966f-44b7-87cb-8b8e5be7ce06","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"d449e7de-3861-4a66-af58-50a272f3b478","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 0,
@@ -32,7 +32,7 @@
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "windows_decorations",
+    "name": "_8x8_game_icons",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"7b82e180-af58-46f0-bdfa-b7b42e016c1a","path":"sprites/windows_decorations/windows_decorations.yy",},},},"Disabled":false,"id":"03609498-99ff-4c11-946a-ee5dbc31ea9e","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"7728884b-262a-49bd-99cf-d9238b777147","path":"sprites/_8x8_game_icons/_8x8_game_icons.yy",},},},"Disabled":false,"id":"1f0a4619-1028-4534-a735-ef0d15b3f567","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,
@@ -70,5 +70,5 @@
   },
   "type": 0,
   "VTile": false,
-  "width": 416,
+  "width": 112,
 }

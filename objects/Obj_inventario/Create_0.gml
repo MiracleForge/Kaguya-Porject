@@ -99,7 +99,7 @@ shopOpen = false;
 
 selectShop = 0;
 //distnacia entre a borda da sprite e do primeiro slot
-x_Boxinventory = 12 * global.escala;
+x_Boxinventory = 23 * global.escala;
 y_Boxinventory = 10 * global.escala;
 // total numbers of slots
 slotboxX = 8;
@@ -111,7 +111,8 @@ bufferBox = 6 * global.escala;
 inventoryBox_L = sprite_get_width(spr_box_inventory_sell) * global.escala;
 inventoryBox_A = sprite_get_height(spr_box_inventory_sell) * global.escala;
 
-
+ sprbox = 0;
+ petbox = false;
 
 
 #endregion

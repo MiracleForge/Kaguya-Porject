@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "Inventário",
-    "path": "folders/Sprites/Inventário.yy",
+    "name": "Master assets",
+    "path": "folders/Sprites/NPC/Master assets.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

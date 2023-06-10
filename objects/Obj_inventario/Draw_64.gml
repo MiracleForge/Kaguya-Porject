@@ -64,51 +64,46 @@ if point_in_rectangle(_mx, _my, 970, 200, 1070, 325) {
    
     
     if mouse_check_button_pressed(mb_left) {
-        grid_itens[# Infos.item, pos_select] = -1;
-        grid_itens[# Infos.quantity, pos_select] = -1;
-        grid_itens[# Infos.sprite, pos_select] = -1;
-        grid_itens[# Infos.name, pos_select] = -1;
-        grid_itens[# Infos.discription, pos_select] = -1;
-        
-        item_select = -1;
-        pos_select = -1;
-		equip_select = -1;
-   	
-		grid_weapon[# Infos.item, posWeapon_select] = -1;
-        grid_weapon[# Infos.quantity, posWeapon_select] = -1;
-        grid_weapon[# Infos.sprite, posWeapon_select] = -1;
-        grid_weapon[# Infos.name, posWeapon_select] = -1;
-        grid_weapon[# Infos.discription, posWeapon_select] = -1;
-        
-        weapon_select = -1;
-        posWeapon_select = -1;
-		
-		grid_potions[# Infos.item, pospotion_select] = -1;
-		grid_potions[# Infos.quantity, pospotion_select] = -1;
-		grid_potions[# Infos.sprite, pospotion_select] = -1;
-		grid_potions[# Infos.name, pospotion_select] = -1;
-		grid_potions[# Infos.discription, pospotion_select] = -1;
-		grid_potions[# Infos.coin, pospotion_select] = -1;
-		grid_potions[# Infos.cost, pospotion_select] = -1;
-		grid_potions[# Infos.typeWeapon, pospotion_select] = -1;
+		var grid = undefined;
+		var pos;
 
-		potion_select = -1;
-		pospotion_select = -1;
-		
-		grid_equip[# Infos.item, posarmor_select] = -1;
-		grid_equip[# Infos.quantity, posarmor_select] = -1;
-		grid_equip[# Infos.sprite, posarmor_select] = -1;
-		grid_equip[# Infos.name, posarmor_select] = -1;
-		grid_equip[# Infos.discription, posarmor_select] = -1;
-		grid_equip[# Infos.coin, posarmor_select] = -1;
-		grid_equip[# Infos.cost, posarmor_select] = -1;
-		grid_equip[# Infos.typeWeapon, posarmor_select] = -1;
+		if item_select != -1 {
+		    grid = grid_itens;
+		    pos = pos_select;
+		    item_select = -1;
+		    pos_select = -1;
+		    equip_select = -1;
+			} else if weapon_select != -1 {
+			    grid = grid_weapon;
+			    pos = posWeapon_select;
+			    weapon_select = -1;
+			    posWeapon_select = -1;
+			} else if potion_select != -1 {
+			    grid = grid_potions;
+			    pos = pospotion_select;
+			    potion_select = -1;
+			    pospotion_select = -1;
+			} else if armor_select != -1 {
+			    grid = grid_equip;
+			    pos = posarmor_select;
+			    armor_select = -1;
+			    posarmor_select = -1;
+			}
 
-		armor_select = -1;
-		posarmor_select = -1;
-		
+			if !is_undefined(grid) {
+			    grid[#Infos.item, pos] = -1;
+			    grid[#Infos.quantity, pos] = -1;
+			    grid[#Infos.sprite, pos] = -1;
+			    grid[#Infos.name, pos] = -1;
+			    grid[#Infos.discription, pos] = -1;
+			    grid[#Infos.coin, pos] = -1;
+			    grid[#Infos.cost, pos] = -1;
+			    grid[#Infos.typeWeapon, pos] = -1;
 		}
+
+
 	}
+}
 }
 #endregion
 
@@ -1139,15 +1134,37 @@ draw_set_color(C);
 	var _invy = _guia/1.3 - inventoryBox_A/2;
 	
 
-	
-	draw_sprite_ext(spr_box_inventory_sell, 0, _invx, _invy, Scale,Scale,0,c_white,1)
 
 
+
+if point_in_rectangle(_mx, _my, _invx + 10, _invy + 20, _invx + 50, _invy + 50) {
+   
+    if   mouse_check_button_pressed(mb_left)  {
+		petbox = !petbox;
+		
+      
+    } 
+}
+
+if petbox {	
+	sprbox = 1;
+	}else {	
+		sprbox = 0;
+		}
+
+
+
+draw_sprite_ext(spr_box_inventory_sell, sprbox, _invx, _invy, Scale, Scale, 0, c_white, 1);
+
+
+
+if sprbox == 0{
 	var ix = 0; // variaveis que guardam o tracking
 	var iy = 0;
 
 // Desenha todos os itens e verifica se o mouse está sobre o slot
 for (var i = 0; i < total_slotBox; i++) {
+	
     var _sprite = grid_itens[# Infos.sprite, i]; // Checa se há um item no slot
 	var _name = grid_itens[# Infos.name, i];
 	var _equip = grid_itens[# Infos.equipable, i];
@@ -1161,7 +1178,7 @@ for (var i = 0; i < total_slotBox; i++) {
     // Desenha a sprite do item
     if (grid_itens[# Infos.item, i] != -1) {
         draw_sprite_ext(_sprite, grid_itens[# 0, i], _slotBoxX, _slotBoxY, global.escala, global.escala, 0, c_white, 1);
-
+      
         // Quantidade dos itens
         draw_set_alpha(1);
         draw_set_font(Font1);
@@ -1170,7 +1187,7 @@ for (var i = 0; i < total_slotBox; i++) {
     }
 
     // Verifica se o mouse está sobre o slot
-    if (point_in_rectangle(_mx, _my, _slotBoxX, _slotBoxY, _slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox)) {
+    if (point_in_rectangle(_mx, _my, _slotBoxX, _slotBoxY, _slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox)) and grid_itens[#Infos.item, i ] != -1 {
         // Desenha o sprite do descritor
 		draw_sprite_ext(spr_seletor_20x20, 0, _slotBoxX - 15, _slotBoxY - 10, global.escala, global.escala, 0, c_white, 1);
         draw_sprite_ext(spr_descriptor, 0,  _slotBoxX + (_slotBoxX - _mx) - 40, _slotBoxY + (_slotBoxY - _my), global.escala, global.escala, 0, c_white, 1);
@@ -1184,15 +1201,15 @@ for (var i = 0; i < total_slotBox; i++) {
 						draw_set_font(-1);
 					draw_set_halign(fa_left);
 				draw_set_color(-1);
-		if _equip == 1{
-			 draw_set_color(c_green);
-				draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30 , _slotBoxY + (_slotBoxY - _my) - 165, "Equipable", 1, 180);
-			 draw_set_color(-1);
-		 }else {	
-			draw_set_color(c_red);
-				 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30, _slotBoxY + (_slotBoxY - _my) - 165, "Unequipable", 1, 180);			  			
-			draw_set_color(-1);
-		 }
+	if _equip == 1{
+		 draw_set_color(c_green);
+			draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30 , _slotBoxY + (_slotBoxY - _my) - 165, "Equipable", 1, 180);
+		 draw_set_color(-1);
+	 }else {	
+		draw_set_color(c_red);
+			 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30, _slotBoxY + (_slotBoxY - _my) - 165, "Unequipable", 1, 180);			  			
+		draw_set_color(-1);
+	 }
 	if (grid_itens[# Infos.cost, i] != 0) {
     var coinType = grid_itens[# Infos.coin, i]; // Obtém o valor do coin type do item
 
@@ -1211,6 +1228,38 @@ for (var i = 0; i < total_slotBox; i++) {
     draw_text_colour_outline(_slotBoxX + (_slotBoxX - _mx) + 120, _slotBoxY + (_slotBoxY - _my) - 45, grid_itens[# Infos.cost, i], 2, c, 23, 50, 100);
 }
 
+
+ if mouse_check_button_pressed(mb_right) {
+	 if grid_itens[# Infos.quantity, i ] == 1 and grid_itens[# Infos.coin, i] = 1{	
+	 var _cost = grid_itens[# Infos.cost, i];
+	 global.coin += _cost;
+	 audio_play_sound(_1_Coins,0,false);
+     grid_itens[#Infos.item,i] = -1;
+     grid_itens[# Infos.sprite, i] = -1;
+	 grid_itens[# Infos.name, i] = -1;
+	 grid_itens[# Infos.equipable, i] = -1;
+	 grid_itens[# Infos.discription,i] = -1;
+	 grid_itens[# Infos.cost,i] = - 1;
+	 grid_itens[# Infos.coin, i ] = -1;
+	 grid_itens[# Infos.quantity, i] = -1;
+	 grid_itens[# Infos.typeWeapon, i] = -1;
+	 
+		 }else if grid_itens[# Infos.quantity, i ] == 1 and grid_itens[# Infos.coin, i] = 2 {	
+			  var _cost = grid_itens[# Infos.cost, i];
+			 global.silver += _cost;
+			 audio_play_sound(_1_Coins,0,false);
+		     grid_itens[#Infos.item,i] = -1;
+		     grid_itens[# Infos.sprite, i] = -1;
+			 grid_itens[# Infos.name, i] = -1;
+			 grid_itens[# Infos.equipable, i] = -1;
+			 grid_itens[# Infos.discription,i] = -1;
+			 grid_itens[# Infos.cost,i] = - 1;
+			 grid_itens[# Infos.coin, i ] = -1;
+			 grid_itens[# Infos.quantity, i] = -1;
+			 grid_itens[# Infos.typeWeapon, i] = -1;
+			 }
+
+	 }
 		
  }
 
@@ -1227,7 +1276,7 @@ for (var i = 0; i < total_slotBox; i++) {
 
 
 	}	
-	
+}	
 	
 #endregion
 
