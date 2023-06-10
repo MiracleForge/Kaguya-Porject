@@ -214,7 +214,7 @@ names_weapons_info = [
     ["Rod of Whispers", "Bring insanity for the weak ones.",true, 1, 1, 20],
 	["Gooheal Potion", " A strange and gooey texture clinging to the edges of the flask." , true, 2, 1, 70 ],
 	["Feline Shield", "A symbol of honor and protection.", true, 1,1, 25],
-	["Slime Essence Ring", "Crafted from enchanted slime essence. Looks kind familiar", true,1,5,80],
+	["Slime Essence Ring", "Crafted from enchanted slime essence. Looks kind familiar", true, 1, 5, 80],
 	["Cute Ribbon", " A ribbon made sweet with tenderness." , true, 2,1, 30 ],
 	["Cute Dress", " Cute dress made by hand." , true,2, 1, 40],
 	["Cute Pants", " Cute pants with little flowers", true, 2, 1, 50],

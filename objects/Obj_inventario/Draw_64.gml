@@ -1193,21 +1193,24 @@ for (var i = 0; i < total_slotBox; i++) {
 				 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30, _slotBoxY + (_slotBoxY - _my) - 165, "Unequipable", 1, 180);			  			
 			draw_set_color(-1);
 		 }
-		if grid_itens[# Infos.cost, i] != 0{
-	
-			  switch (grid_itens[# Infos.cost, i]) {
-		        case 1:
-		            draw_sprite_ext(spr_coin_inventory, 0,_slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
-		            break;
-		        case 2:
-		            draw_sprite_ext(spr_coin_inventory, 1, _slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
-		            break;
-		        case 3:
-		            draw_sprite_ext(spr_coin_inventory, 2, _slotBoxX + (_slotBoxX - _mx) +130, _slotBoxY + (_slotBoxY - _my) - 50,global.escala * 0.6, global.escala * 0.6, 0, C, 1);
-		            break;
-		 }
-		 draw_text_colour_outline(_slotBoxX + (_slotBoxX - _mx) +120, _slotBoxY + (_slotBoxY - _my) - 45, _cost, 2, c, 23, 50, 100 )
+	if (grid_itens[# Infos.cost, i] != 0) {
+    var coinType = grid_itens[# Infos.coin, i]; // Obtém o valor do coin type do item
+
+    switch (coinType) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _slotBoxX + (_slotBoxX - _mx) + 130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _slotBoxX + (_slotBoxX - _mx) + 130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _slotBoxX + (_slotBoxX - _mx) + 130, _slotBoxY + (_slotBoxY - _my) - 50, global.escala * 0.6, global.escala * 0.6, 0, C, 1);
+            break;
     }
+
+    draw_text_colour_outline(_slotBoxX + (_slotBoxX - _mx) + 120, _slotBoxY + (_slotBoxY - _my) - 45, grid_itens[# Infos.cost, i], 2, c, 23, 50, 100);
+}
+
 		
  }
 
