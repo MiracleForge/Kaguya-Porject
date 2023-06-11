@@ -26,7 +26,7 @@
   "origin": 0,
   "parent": {
     "name": "Master assets",
-    "path": "folders/Sprites/NPC/Master assets.yy",
+    "path": "folders/Sprites/Master assets.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

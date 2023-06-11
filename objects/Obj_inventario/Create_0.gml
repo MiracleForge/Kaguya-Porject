@@ -114,6 +114,11 @@ inventoryBox_A = sprite_get_height(spr_box_inventory_sell) * global.escala;
  sprbox = 0;
  petbox = false;
 
+ 
+ //BUY SYSTEM
+ inventoryback_L = sprite_get_width(spr_back_shop) * global.escala;
+ inventoryback_A = sprite_get_height(spr_back_shop) * global.escala;
+
 
 #endregion
 
