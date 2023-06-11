@@ -106,6 +106,7 @@ if shopOpen{
 }
 
 
-
-
+ if (!shopOpen) {
+        is_showing = false;
+ }
 #endregion

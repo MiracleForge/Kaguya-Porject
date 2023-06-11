@@ -1111,8 +1111,14 @@ else {
 
 
 
-#region ////////////////////////////////////////////  Shop Sell System ////////////////////////////////////////////////////////
+#region ////////////////////////////////////////////  Shop Sell and buy System ////////////////////////////////////////////////////////
 if shopOpen {
+	
+
+
+
+
+
 	//centralização  da sprite
 	var _guiL = display_get_gui_width();
 	var _guia = display_get_gui_height();
@@ -1154,9 +1160,64 @@ if petbox {
 
 
 
-draw_sprite_ext(spr_box_inventory_sell, sprbox, _invx, _invy, Scale, Scale, 0, c_white, 1);
+draw_sprite_ext(spr_box_inventory_sell, sprbox, _invx, _invy, Scale, Scale, 0, C, 1);
 
+#region ///////////////////////////////////////////   Shop buy System  ///////////////////////////////////////////////////////
 
+var _backshopx = _guiL/2 - inventoryback_L/2 + 145;  // dividir o tamanho da sprite 
+var _backshopy = _guia/2 - inventoryback_A/2 + 80;
+
+draw_sprite_ext(spr_back_shop, 0, _backshopx, _backshopy, Scale, Scale/1.9, 0, C, 1);
+
+var backcardx = 0;
+var backcardy = 0;
+
+for (var i = 0; i < total_cards; i++) {
+    var _slotcardX = _backshopx + x_card + ((size_card_x + buffercardx) * backcardx);
+    var _slotCardY = _backshopy + y_card + ((size_card_y + buffercardy) * backcardy);
+    var _spr_index = 0;
+
+    if (!point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {
+        repeat (3) {
+            draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, Scale, Scale, 0, C, 1);
+            _spr_index += 1;
+        }
+		
+    } else {
+        repeat (3) {
+            draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, 3.5, 3.5, 0, C, 1);
+            _spr_index += 1;
+        }
+    }
+
+    if (mouse_check_button_pressed(mb_left) and point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {	
+        is_showing = true;
+    }
+    
+    if (is_showing) {
+		
+        repeat (3) {
+            draw_sprite_ext(spr_sell_box, _spr_index, _backshopx + 700, _backshopy + 150, 4, 4, 0, C, 1);
+            _spr_index += 1;
+        }
+		draw_sprite_ext(spr_buyButton, _spr_index, _backshopx + 657, _backshopy + 200, 4, 4, 0, C, 1);
+		
+		if mouse_check_button_pressed(mb_left){	
+			ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+			}
+	 
+    } 
+
+    backcardx++;
+
+    if (backcardx >= cardsH) {
+        backcardx = 0;
+        backcardy++;
+    }
+}
+
+	
+#endregion
 
 if sprbox == 0{
 	var ix = 0; // variaveis que guardam o tracking
@@ -1320,29 +1381,7 @@ if grid_itens[# Infos.quantity, i ] >1 and grid_itens[#Infos.coin, i] = 1 and ke
 
 	}	
 	
-#region ///////////////////////////////////////////   Shop buy System  ///////////////////////////////////////////////////////
 
-	//centralização  da sprite
-	var _guiL = display_get_gui_width();
-	var _guia = display_get_gui_height();
-
-	// variaveis para mouse
-	var _mx = device_mouse_x_to_gui(0);
-	var _my = device_mouse_y_to_gui(0);
-	var c = c_black;
-	var C = c_white
-	
-
-
-draw_set_color(C);	
-	
-	var Scale = global.escala
-	var _invx =  _guiL/2 - inventoryback_L/2;  // dividir o tamanho da sprite 
-	var _invy = _guia/2 - inventoryback_A/2;
-	
-	draw_sprite_ext(spr_back_shop, 0,_invx,_invy,Scale,Scale,0, c_white,1);
-	
-#endregion
 }	
 	
 #endregion

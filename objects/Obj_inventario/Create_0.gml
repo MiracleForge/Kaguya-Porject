@@ -11,6 +11,7 @@ global.nebulite = (0);
 #endregion
 
 #region ------------------------------------- Inventory base ---------------------------------------------
+global.item = noone;
 global.escala = 3;
 inventory = false;
 //distnacia entre a borda da sprite e do primeiro slot
@@ -115,9 +116,31 @@ inventoryBox_A = sprite_get_height(spr_box_inventory_sell) * global.escala;
  petbox = false;
 
  
- //BUY SYSTEM
+ //BUY SYSTEM - background
  inventoryback_L = sprite_get_width(spr_back_shop) * global.escala;
  inventoryback_A = sprite_get_height(spr_back_shop) * global.escala;
+ 
+ 
+ //cards inventory buy
+ 
+ //cards sizes
+ size_card_x = 48 *global.escala;
+ size_card_y = 68 *global.escala;
+ // origin point of cards drawn
+ x_card = 39 * global.escala;
+ y_card = 49 * global.escala;
+ // distance bedween cards
+ buffercardx = 4 * global.escala; 
+ buffercardy = 0 * global.escala;
+ // numbers of cards
+ cardsH = 3;
+ cardsV = 2;
+ total_cards = cardsH * cardsV;
+ is_showing = false;
+ 
+ //cards loops itens info
+ inventorycard_L = sprite_get_width(spr_sell_box) * global.escala;
+ inventorycard_A = sprite_get_height(spr_sell_box) * global.escala;
 
 
 #endregion
@@ -269,7 +292,7 @@ pet_names = [
 //argument 7 = cost,
 //argument 8 = WeaponType,
 
-ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+ ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 
 ds_grid_add_pet(pets_crafted.petpurple, spr_pet_pot, pet_names[1][0], pet_names[1][1], pet_names[1][2], pet_names[1][3]);
 ds_grid_add_pet(pets_crafted.petorange, spr_pet_pot, pet_names[0][0], pet_names[0][1], pet_names[0][2], pet_names[0][3]);
