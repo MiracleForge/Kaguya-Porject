@@ -1114,11 +1114,6 @@ else {
 #region ////////////////////////////////////////////  Shop Sell and buy System ////////////////////////////////////////////////////////
 if shopOpen {
 	
-
-
-
-
-
 	//centralização  da sprite
 	var _guiL = display_get_gui_width();
 	var _guia = display_get_gui_height();
@@ -1181,20 +1176,33 @@ for (var i = 0; i < total_cards; i++) {
         repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, Scale, Scale, 0, C, 1);
             _spr_index += 1;
+			   if (grid_buy[# Infos.item, i] != -1){
+					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,Scale,Scale,0,C,1)
+	 }
         }
 		
     } else {
         repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, 3.5, 3.5, 0, C, 1);
             _spr_index += 1;
+			   if (grid_buy[# Infos.item, i] != -1){
+					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,3.5,3.5,0,C,1)
+	 }
         }
     }
 
     if (mouse_check_button_pressed(mb_left) and point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {	
         is_showing = true;
     }
-    
-    if (is_showing) {
+  
+    backcardx++;
+
+    if (backcardx >= cardsH) {
+        backcardx = 0;
+        backcardy++;
+    }
+}
+  if (is_showing) {
 		
         repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _backshopx + 700, _backshopy + 150, 4, 4, 0, C, 1);
@@ -1207,15 +1215,6 @@ for (var i = 0; i < total_cards; i++) {
 			}
 	 
     } 
-
-    backcardx++;
-
-    if (backcardx >= cardsH) {
-        backcardx = 0;
-        backcardy++;
-    }
-}
-
 	
 #endregion
 
@@ -1245,12 +1244,12 @@ for (var i = 0; i < total_slotBox; i++) {
         draw_set_font(Font1);
         draw_set_halign(fa_center);
         draw_text_colour_outline(_slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox, grid_itens[# Infos.quantity, i], 4, c_black, 16, 100, 100);
-    }
+    
 
     // Verifica se o mouse está sobre o slot
-    if (point_in_rectangle(_mx, _my, _slotBoxX, _slotBoxY, _slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox)) and grid_itens[#Infos.item, i ] != -1 {
+    if (point_in_rectangle(_mx, _my, _slotBoxX, _slotBoxY, _slotBoxX + size_slotsBox, _slotBoxY + size_slotsBox))  {
         // Desenha o sprite do descritor
-		;
+		
 		draw_sprite_ext(spr_seletor_20x20, 0, _slotBoxX - 15, _slotBoxY - 10, global.escala, global.escala, 0, c_white, 1);
 		
         draw_sprite_ext(spr_descriptor, 0,  _slotBoxX + (_slotBoxX - _mx) - 40, _slotBoxY + (_slotBoxY - _my), global.escala, global.escala, 0, c_white, 1);
@@ -1292,79 +1291,58 @@ for (var i = 0; i < total_slotBox; i++) {
 	
 }
 
-
- if mouse_check_button_pressed(mb_right) {
-	 if grid_itens[# Infos.quantity, i ] == 1 and grid_itens[# Infos.coin, i] = 1{	
-	 var _cost = grid_itens[# Infos.cost, i];
-	 global.coin += _cost;
-	 audio_play_sound(_1_Coins,0,false);
-     grid_itens[#Infos.item,i] = -1;
-     grid_itens[# Infos.sprite, i] = -1;
-	 grid_itens[# Infos.name, i] = -1;
-	 grid_itens[# Infos.equipable, i] = -1;
-	 grid_itens[# Infos.discription,i] = -1;
-	 grid_itens[# Infos.cost,i] = - 1;
-	 grid_itens[# Infos.coin, i ] = -1;
-	 grid_itens[# Infos.quantity, i] = -1;
-	 grid_itens[# Infos.typeWeapon, i] = -1;
-	 
-		 }else if grid_itens[# Infos.quantity, i ] == 1 and grid_itens[# Infos.coin, i] = 2 {	
-			  var _cost = grid_itens[# Infos.cost, i];
-			 global.silver += _cost;
-			 audio_play_sound(_1_Coins,0,false);
-		     grid_itens[#Infos.item,i] = -1;
-		     grid_itens[# Infos.sprite, i] = -1;
-			 grid_itens[# Infos.name, i] = -1;
-			 grid_itens[# Infos.equipable, i] = -1;
-			 grid_itens[# Infos.discription,i] = -1;
-			 grid_itens[# Infos.cost,i] = - 1;
-			 grid_itens[# Infos.coin, i ] = -1;
-			 grid_itens[# Infos.quantity, i] = -1;
-			 grid_itens[# Infos.typeWeapon, i] = -1;
-			 }
-		
-if grid_itens[# Infos.quantity, i ] > 1 and grid_itens[# Infos.coin,i] = 1{
-	 var _cost = grid_itens[# Infos.cost, i];
-	 global.coin += _cost;
-	audio_play_sound(_1_Coins,0,false);
-	grid_itens[# Infos.quantity, i] -= 1;;
-
-	}else if grid_itens[# Infos.quantity, i ] > 1 and grid_itens[# Infos.coin,i] = 2{	
-		 var _cost = grid_itens[# Infos.cost, i];
-	 global.silver += _cost;
-	audio_play_sound(_1_Coins,0,false);
-	grid_itens[# Infos.quantity, i] -= 1;
-		}
-if grid_itens[# Infos.quantity, i ] >1 and grid_itens[#Infos.coin, i] = 1 and keyboard_check(vk_shift) {	
-	 var _cost = grid_itens[# Infos.cost, i];
-	 global.coin += _cost * grid_itens[# Infos.quantity, i] ;
-	audio_play_sound(_1_Coins,0,false);
-	grid_itens[# Infos.quantity, i] = -1;
-	grid_itens[# Infos.item,i] = -1;
-	grid_itens[# Infos.sprite, i] = -1;
-	grid_itens[# Infos.name, i] = -1;
-	grid_itens[# Infos.equipable, i] = -1;
-	grid_itens[# Infos.discription,i] = -1;
-	grid_itens[# Infos.cost,i] = - 1;
-	grid_itens[# Infos.coin, i ] = -1;
-    grid_itens[# Infos.typeWeapon, i] = -1;
-	} else if grid_itens[# Infos.quantity, i ] >1 and grid_itens[#Infos.coin, i] = 2 and keyboard_check(vk_shift){	
+if (mouse_check_button_pressed(mb_right)) {
     var _cost = grid_itens[# Infos.cost, i];
-	global.silver += _cost * grid_itens[# Infos.quantity, i] ;
-	audio_play_sound(_1_Coins,0,false);
-	grid_itens[# Infos.quantity, i] = -1;
-	grid_itens[# Infos.item,i] = -1;
-	grid_itens[# Infos.sprite, i] = -1;
-	grid_itens[# Infos.name, i] = -1;
-	grid_itens[# Infos.equipable, i] = -1;
-	grid_itens[# Infos.discription,i] = -1;
-	grid_itens[# Infos.cost,i] = - 1;
-	grid_itens[# Infos.coin, i ] = -1;
-    grid_itens[# Infos.typeWeapon, i] = -1;
-		}
+    var coinType = grid_itens[# Infos.coin, i];
+    var quantity = grid_itens[# Infos.quantity, i];
+    
+    if (quantity == 1) { 
+        if (coinType == 1) {	
+            global.coin += _cost;
+
+        } else if (coinType == 2) {	
+            global.silver += _cost;
 	
-	 }
-		
+        }
+        
+ 
+    } else {	
+        if (coinType == 1 && !keyboard_check(vk_shift)) {
+            global.coin += _cost;
+            grid_itens[# Infos.quantity, i] -= 1;
+        } else if (coinType == 2 && !keyboard_check(vk_shift)) {
+            global.silver += _cost;
+            grid_itens[# Infos.quantity, i] -= 1;
+        } else {
+            if (coinType == 1) {
+                global.coin += _cost * quantity;
+				 grid_itens[# Infos.quantity, i] = -1;
+            } else if (coinType == 2) {
+                global.silver += _cost * quantity;
+				 grid_itens[# Infos.quantity, i] = -1;
+            }
+            
+        
+        }
+    }
+    if (grid_itens[# Infos.quantity, i] <= 1)  {	
+		grid_itens[# Infos.item, i] = -1;
+        grid_itens[# Infos.sprite, i] = -1;
+        grid_itens[# Infos.name, i] = -1;
+        grid_itens[# Infos.equipable, i] = -1;
+        grid_itens[# Infos.discription, i] = -1;
+        grid_itens[# Infos.cost, i] = -1;
+        grid_itens[# Infos.coin, i] = -1;
+        grid_itens[# Infos.quantity, i] = -1;
+        grid_itens[# Infos.typeWeapon, i] = -1;
+		}
+    audio_play_sound(_1_Coins, 0, false);
+}
+
+
+}
+
+
  }
 
     ix++;

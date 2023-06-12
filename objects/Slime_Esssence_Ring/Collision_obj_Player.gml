@@ -11,9 +11,9 @@
 		
         // chama a função para adicionar o item
         ds_grid_add_item(
-            item_inimigos.Slime_jelly,
+            itens_armas.ring_slime1,
             irandom(20),
-            spr_items_inimigos,
+            spr_items,
             _drop_name,
             _drop_info,
             _drop_equip,
@@ -23,3 +23,4 @@
         );
         
      
+instance_destroy();

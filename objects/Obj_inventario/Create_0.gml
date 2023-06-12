@@ -225,6 +225,9 @@ ds_grid_set_region(grid_pet, 0,0,pet_info.height - 1, total_petS -1, -1);
 grid_active = ds_grid_create(pet_info.height, total_active);
 ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
 
+grid_buy = ds_grid_create(Infos.altura,total_cards);
+ds_grid_set_region(grid_buy,0,0, Infos.altura -1, total_cards - 1, -1);
+
 
 #region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
@@ -291,6 +294,10 @@ pet_names = [
 //argument 6 = coin type
 //argument 7 = cost,
 //argument 8 = WeaponType,
+ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
+ds_grid_add_to_shop(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+ds_grid_add_to_shop(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5])
+ds_grid_add_to_shop(item_inimigos.Slime_jelly, 1 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5])
 
  ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 
