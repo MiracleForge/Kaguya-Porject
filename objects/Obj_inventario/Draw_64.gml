@@ -1127,7 +1127,6 @@ if shopOpen {
 draw_set_color(c);
 	draw_set_alpha(0.3);
 		draw_rectangle(_guiL, _guia, -_guiL, - _guia, false);
-
 draw_set_color(C);	
 	
 	var Scale = global.escala
@@ -1142,13 +1141,14 @@ if point_in_rectangle(_mx, _my, _invx + 10, _invy + 20, _invx + 50, _invy + 50) 
    
     if   mouse_check_button_pressed(mb_left)  {
 		petbox = !petbox;
-		
+		audio_play_sound(turn_page,0,false);
       
     } 
 }
 
 if petbox {	
 	sprbox = 1;
+	
 	}else {	
 		sprbox = 0;
 		}
@@ -1163,9 +1163,10 @@ var _backshopx = _guiL/2 - inventoryback_L/2 + 145;  // dividir o tamanho da spr
 var _backshopy = _guia/2 - inventoryback_A/2 + 80;
 
 draw_sprite_ext(spr_back_shop, 0, _backshopx, _backshopy, Scale, Scale/1.9, 0, C, 1);
-
+draw_rectangle(_backshopx + 657, _backshopy + 200, _backshopx + 679, _backshopy + 212,true)
 var backcardx = 0;
 var backcardy = 0;
+
 
 for (var i = 0; i < total_cards; i++) {
     var _slotcardX = _backshopx + x_card + ((size_card_x + buffercardx) * backcardx);
@@ -1173,27 +1174,35 @@ for (var i = 0; i < total_cards; i++) {
     var _spr_index = 0;
 
     if (!point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {
-        repeat (3) {
+       	  // Obtém o valor do coin type do item
+	   repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, Scale, Scale, 0, C, 1);
             _spr_index += 1;
-			   if (grid_buy[# Infos.item, i] != -1){
-					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,Scale,Scale,0,C,1)
-	 }
+			  
         }
-		
+
+					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,Scale,Scale,0,C,1)
+						draw_text_color(_slotcardX -25, _slotCardY - 37, grid_buy[#Infos.quantity,i],c,c,c,c,1)
+					
+	
     } else {
         repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, 3.5, 3.5, 0, C, 1);
             _spr_index += 1;
-			   if (grid_buy[# Infos.item, i] != -1){
-					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,3.5,3.5,0,C,1)
-	 }
+		
         }
+	
+					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,3.5,3.5,0,C,1)
+						draw_text_color(_slotcardX -25, _slotCardY - 37, grid_buy[#Infos.quantity,i],c,c,c,c,1);
     }
 
     if (mouse_check_button_pressed(mb_left) and point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {	
-        is_showing = true;
+        
+		is_showing = true;
+		playerStoreChoice = grid_buy[# Infos.item,i];
+	    selectedshopItem = i
     }
+  
   
     backcardx++;
 
@@ -1201,21 +1210,72 @@ for (var i = 0; i < total_cards; i++) {
         backcardx = 0;
         backcardy++;
     }
+	
+	
 }
-  if (is_showing) {
-		
-        repeat (3) {
-            draw_sprite_ext(spr_sell_box, _spr_index, _backshopx + 700, _backshopy + 150, 4, 4, 0, C, 1);
-            _spr_index += 1;
-        }
-		draw_sprite_ext(spr_buyButton, _spr_index, _backshopx + 657, _backshopy + 200, 4, 4, 0, C, 1);
-		
-		if mouse_check_button_pressed(mb_left){	
-			ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
-			}
-	 
+if (is_showing) {
+	var _desc = grid_buy[#Infos.discription,selectedshopItem];
+    repeat (3) {
+        draw_sprite_ext(spr_sell_box, _spr_index, _backshopx + 700, _backshopy + 150, 4, 4, 0, C, 1);
+        _spr_index += 1;
+    }
+	
+    draw_sprite_ext(spr_buyButton, _spr_index, _backshopx + 657, _backshopy + 200, 4, 4, 0, C, 1);
+	 draw_sprite_ext(grid_buy[#Infos.sprite,selectedshopItem], playerStoreChoice, _backshopx + 668, _backshopy + 102, 4, 4, 0, C, 1);
+		draw_text_color( _backshopx + 695, _backshopy + 400 ,grid_buy[#Infos.cost,selectedshopItem],c,c,c,c,1);
+			draw_set_color(c);
+				draw_text_ext(_backshopx + 690, _backshopy + 300, _desc,string_height("M"), 200);
+					draw_text_ext(_backshopx + 700, _backshopy +40 ,grid_buy[#Infos.name, selectedshopItem],1,180)
+					draw_set_color(-1);
+	var coinType = grid_buy[# Infos.coin, selectedshopItem];
+			   switch (coinType) {
+        case 1:
+            draw_sprite_ext(spr_coin_inventory, 0, _backshopx + 700, _backshopy + 400, 2, 2, 0, C, 1);
+            break;
+        case 2:
+            draw_sprite_ext(spr_coin_inventory, 1, _backshopx + 700, _backshopy + 400,2, 2, 0, C, 1);
+            break;
+        case 3:
+            draw_sprite_ext(spr_coin_inventory, 2, _backshopx + 700, _backshopy + 400, 2, 2, 0, C, 1);
+            break;
+    }
+	
+ if mouse_check_button_pressed(mb_left) &&
+   point_in_rectangle(_mx, _my, _backshopx + 657, _backshopy + 200, _backshopx + 740, _backshopy + 250) &&
+   grid_buy[#Infos.quantity, selectedshopItem] > 0
+{
+    var currency = grid_buy[#Infos.coin, selectedshopItem];
+    var cost = grid_buy[#Infos.cost, selectedshopItem];
+  
+    var canPurchase = false;
+  
+    switch (currency) {
+        case 1:
+            if global.coin >= cost {
+                global.coin -= cost;
+                canPurchase = true;
+            }
+            break;
+        case 2:
+            if global.silver >= cost {
+                global.silver -= cost;
+                canPurchase = true;
+            }
+            break;
+    }
+  
+    if canPurchase {
+        audio_play_sound(_1_Coins, 0, false);
+        ds_grid_add_item(grid_buy[#Infos.item, selectedshopItem], 1, grid_buy[#Infos.sprite, selectedshopItem], grid_buy[#Infos.name, selectedshopItem], grid_buy[#Infos.discription, selectedshopItem], grid_buy[#Infos.equipable, selectedshopItem], currency, cost, grid_buy[#Infos.typeWeapon, selectedshopItem]);
+        grid_buy[#Infos.quantity, selectedshopItem] -= 1;
+    }
+}
+
+
+
     } 
 	
+
 #endregion
 
 if sprbox == 0{
@@ -1259,15 +1319,17 @@ for (var i = 0; i < total_slotBox; i++) {
 					   draw_set_halign(fa_middle);
 							draw_set_font(Font_shopdesc);
 								draw_set_color(c);
-									draw_text_ext(_slotBoxX + (_slotBoxX - _mx) + 65, _slotBoxY + (_slotBoxY - _my) - 120, _desc,string_height("M"), 200)
+									draw_text_ext(_slotBoxX + (_slotBoxX - _mx) + 65, _slotBoxY + (_slotBoxY - _my) - 120, _desc,string_height("M"), 200);
 						draw_set_font(-1);
 					draw_set_halign(fa_left);
 				draw_set_color(-1);
 	if _equip == 1{
+		
 		 draw_set_color(c_green);
 			draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30 , _slotBoxY + (_slotBoxY - _my) - 165, "Equipable", 1, 180);
 		 draw_set_color(-1);
-	 }else {	
+	 }else {
+		 
 		draw_set_color(c_red);
 			 draw_text_ext(_slotBoxX + (_slotBoxX - _mx) -30, _slotBoxY + (_slotBoxY - _my) - 165, "Unequipable", 1, 180);			  			
 		draw_set_color(-1);

@@ -59,7 +59,7 @@ function draw_text_colour_outline(x, y, str, outwidth, outcol, outfidelity, sepa
 	
 
 function ds_grid_add_item() {
-	   ///@arg item
+	///@arg item
     ///@arg Quantity
     ///@arg sprite
     ///@arg name
@@ -67,6 +67,7 @@ function ds_grid_add_item() {
     ///@arg equipable
     ///@arg cointype
     ///@arg cost
+	///@arg type of Weapon
 	
     var _grid = Obj_inventario.grid_itens;
     var _empty_slots = 0;

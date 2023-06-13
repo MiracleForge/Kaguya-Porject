@@ -137,10 +137,15 @@ inventoryBox_A = sprite_get_height(spr_box_inventory_sell) * global.escala;
  cardsV = 2;
  total_cards = cardsH * cardsV;
  is_showing = false;
+ playerStoreChoice = -1;
+selectedshopItem = -1;
  
  //cards loops itens info
  inventorycard_L = sprite_get_width(spr_sell_box) * global.escala;
  inventorycard_A = sprite_get_height(spr_sell_box) * global.escala;
+ 
+ buybutton_L = sprite_get_width(spr_buyButton) * global.escala;
+ buybutton_A = sprite_get_height(spr_buyButton) * global.escala;
 
 
 #endregion
@@ -295,9 +300,12 @@ pet_names = [
 //argument 7 = cost,
 //argument 8 = WeaponType,
 ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
-ds_grid_add_to_shop(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
-ds_grid_add_to_shop(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5])
-ds_grid_add_to_shop(item_inimigos.Slime_jelly, 1 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5])
+ds_grid_add_to_shop(itens_armas.little_bomb, 5 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+ds_grid_add_to_shop(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
+ds_grid_add_to_shop(item_inimigos.Slime_jelly, 10 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5]);
+ds_grid_add_to_shop(itens_armas.small_health_pot, 10 , spr_items, names_weapons_info[3][0],names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
+ds_grid_add_to_shop(itens_armas.cat_shield, 1 , spr_items, names_weapons_info[4][0],names_weapons_info[4][1],names_weapons_info[4][2], names_weapons_info[4][3], names_weapons_info[4][4], names_weapons_info[4][5]);
+ds_grid_add_to_shop(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);
 
  ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 
