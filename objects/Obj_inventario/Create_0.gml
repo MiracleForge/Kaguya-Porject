@@ -1,7 +1,7 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
-#region-------------------------------------- Shop and coins System -------------------------------------
+#region-------------------------------------- Shop and coins System --------------------------------------
  // coin 
 global.coin = (0);
 global.silver = (0);
@@ -209,6 +209,22 @@ enum pet_info{
 	}
 
 #endregion
+#region ------------------------------------- pet's inventory --------------------------------------------
+petinventory = false;
+x_petinv = 9 * global.escala;
+y_petinv = 9 * global.escala;
+
+// total numbers of slots
+petslots_h = 8;
+petslots_v = 3;
+pettotal_slots = petslots_h * petslots_v;
+size_petslots = 24 * global.escala;
+petbuffer = 2 * global.escala;
+
+// length and hight sprite vs camera scale or room Idk
+petbelly_L = sprite_get_width(spr_inventory_belly) * global.escala;
+petbelly_A = sprite_get_height(spr_inventory_belly) * global.escala;
+#endregion
 
 #region ------------------------- Grid create, inventory names - discriptions - pets ---------------------
 grid_itens = ds_grid_create(Infos.altura,total_slots);
@@ -223,16 +239,25 @@ ds_grid_set_region(grid_weapon, 0,0, Infos.altura -1, total_wepS -1, -1);
 grid_potions = ds_grid_create(Infos.altura,total_pots);
 ds_grid_set_region(grid_potions, 0,0, Infos.altura -1, total_pots -1, -1);
 
+#region //////////////////////// - Shop grids - ////////////////////////////////////////////////////////////
+grid_shop1 = ds_grid_create(Infos.altura,total_cards);
+ds_grid_set_region(grid_shop1,0,0, Infos.altura -1, total_cards - 1, -1);
+
+grid_shop2 = ds_grid_create(Infos.altura,total_cards);
+ds_grid_set_region(grid_shop2,0,0, Infos.altura -1, total_cards - 1, -1);
+#endregion
+
+#region /////////////////////////////// - Pet grid - ///////////////////////////////////////////////////////////////
+// Types of pets
 grid_pet = ds_grid_create(pet_info.height, total_petS);
 ds_grid_set_region(grid_pet, 0,0,pet_info.height - 1, total_petS -1, -1);
-
-
+// Show the summonet pet
 grid_active = ds_grid_create(pet_info.height, total_active);
 ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
-
-grid_buy = ds_grid_create(Infos.altura,total_cards);
-ds_grid_set_region(grid_buy,0,0, Infos.altura -1, total_cards - 1, -1);
-
+// pet's inventory
+grid_petiInv = ds_grid_create(Infos.altura,pettotal_slots);
+ds_grid_set_region(grid_petiInv, 0,0, Infos.altura -1, pettotal_slots -1, -1);
+#endregion
 
 #region              //------------Names and discriptions arrays---------------------//
 // Infos.name and Infos.discriptions  |  itens_armas 
@@ -284,7 +309,6 @@ pet_names = [
 ["Purple pet ", " wierd slime purple slime" + chr(10) + chr(10) + "Equippable item", 2, 20 ]
 ];
 
-
 #endregion
 
 
@@ -299,33 +323,34 @@ pet_names = [
 //argument 6 = coin type
 //argument 7 = cost,
 //argument 8 = WeaponType,
-ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
+/*
+#region //------------- Shop Intrances ----------------------------------//
 ds_grid_add_to_shop(itens_armas.little_bomb, 5 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 ds_grid_add_to_shop(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
 ds_grid_add_to_shop(item_inimigos.Slime_jelly, 10 , spr_items_inimigos, names_foe_info[0][0], names_foe_info[0][1],names_foe_info[0][2], names_foe_info[0][3], names_foe_info[0][4], names_foe_info[0][5]);
 ds_grid_add_to_shop(itens_armas.small_health_pot, 10 , spr_items, names_weapons_info[3][0],names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
 ds_grid_add_to_shop(itens_armas.cat_shield, 1 , spr_items, names_weapons_info[4][0],names_weapons_info[4][1],names_weapons_info[4][2], names_weapons_info[4][3], names_weapons_info[4][4], names_weapons_info[4][5]);
 ds_grid_add_to_shop(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);
+#endregion
+*/
+ds_grid_add_itemPET(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
+ds_grid_add_itemPET(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+ds_grid_add_itemPET(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
 
- ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 
-ds_grid_add_pet(pets_crafted.petpurple, spr_pet_pot, pet_names[1][0], pet_names[1][1], pet_names[1][2], pet_names[1][3]);
-ds_grid_add_pet(pets_crafted.petorange, spr_pet_pot, pet_names[0][0], pet_names[0][1], pet_names[0][2], pet_names[0][3]);
 
-ds_grid_add_item(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
-
-ds_grid_add_item(itens_armas.girl_pants, 1 , spr_items, names_weapons_info[8][0],names_weapons_info[8][1],names_weapons_info[8][2], names_weapons_info[8][3], names_weapons_info[8][4], names_weapons_info[8][5]);
-
-ds_grid_add_item(itens_armas.girl_dress, 1 , spr_items, names_weapons_info[7][0],names_weapons_info[7][1],names_weapons_info[7][2], names_weapons_info[7][3], names_weapons_info[7][4], names_weapons_info[7][5]);
-
-ds_grid_add_item(itens_armas.ribbon_pink, 1 , spr_items, names_weapons_info[6][0],names_weapons_info[6][1],names_weapons_info[6][2], names_weapons_info[6][3], names_weapons_info[6][4], names_weapons_info[6][5]);
 
 ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
-
+ds_grid_add_item(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+ds_grid_add_pet(pets_crafted.petpurple, spr_pet_pot, pet_names[1][0], pet_names[1][1], pet_names[1][2], pet_names[1][3]);
+ds_grid_add_pet(pets_crafted.petorange, spr_pet_pot, pet_names[0][0], pet_names[0][1], pet_names[0][2], pet_names[0][3]);
+ds_grid_add_item(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
+ds_grid_add_item(itens_armas.girl_pants, 1 , spr_items, names_weapons_info[8][0],names_weapons_info[8][1],names_weapons_info[8][2], names_weapons_info[8][3], names_weapons_info[8][4], names_weapons_info[8][5]);
+ds_grid_add_item(itens_armas.girl_dress, 1 , spr_items, names_weapons_info[7][0],names_weapons_info[7][1],names_weapons_info[7][2], names_weapons_info[7][3], names_weapons_info[7][4], names_weapons_info[7][5]);
+ds_grid_add_item(itens_armas.ribbon_pink, 1 , spr_items, names_weapons_info[6][0],names_weapons_info[6][1],names_weapons_info[6][2], names_weapons_info[6][3], names_weapons_info[6][4], names_weapons_info[6][5]);
+ds_grid_add_item(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
 ds_grid_add_item(item_inimigos.apple_bite, 2 , spr_items_inimigos, names_foe_info[3][0], names_foe_info[3][1],names_foe_info[3][2], names_foe_info[3][3], names_foe_info[3][4], names_foe_info[3][5]);
-
 ds_grid_add_item(itens_armas.small_health_pot, 5 , spr_items, names_weapons_info[3][0],names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
-
 ds_grid_add_item(itens_armas.cat_shield, 1 , spr_items, names_weapons_info[4][0],names_weapons_info[4][1],names_weapons_info[4][2], names_weapons_info[4][3], names_weapons_info[4][4], names_weapons_info[4][5]);
 
 ds_grid_add_item(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],names_weapons_info[1][1],names_weapons_info[1][2], names_weapons_info[1][3], names_weapons_info[1][4], names_weapons_info[1][5]);

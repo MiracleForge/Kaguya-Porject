@@ -5,8 +5,6 @@ minutes = 0;
 hours = 0;
 day = 1;
 
-time_pause = false;
-
 time_increment = 10;
 
 max_darkness = 0.7;
@@ -24,3 +22,4 @@ enum phase_day{
 	nightime = 22,
 
 	}
+

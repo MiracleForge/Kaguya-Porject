@@ -13,6 +13,7 @@ var _transform = obj_slime_pet.transform;
 var _max_transform = obj_slime_pet.transformation_time[obj_slime_pet.level]
 //huda = hight
 draw_set_alpha(1);
+draw_text(100,0, fps);
 draw_sprite_ext(spr_hud_barra_vida, 0, +81, _huda - 600,(_vida/_max_vida) * global.escala, global.escala, 0, c_white, 1);
 
 draw_sprite_ext(spr_hud_barra_estamina, 0, +81, _huda - 585,(_stamina/_max_stamina) * global.escala, global.escala, 0, c_white, 1);
@@ -21,7 +22,7 @@ draw_sprite_ext(spr_hud_vida, 0, +75, _huda -600, global.escala, global.escala, 
 
 draw_sprite_ext(spr_hud_portrait, 0, + 41, _huda -597, global.escala, global.escala, 0, c_white, 1);
 
-draw_sprite_ext(spr_day_nigh, 0, 280 + _xcoord, _huda - 600, global.escala, global.escala, 0, c_white, 1);
+
 
 draw_sprite_ext(spr_bag_hui, 0, 280 + _xcoord, _huda, global.escala, global.escala, 0, c_white, 1)
 
@@ -93,7 +94,21 @@ if (item_pickup == true) {
   }
 }
 
+// Clock UI
+var _scala = global.escala;
+var clockX =  280 + _xcoord;
+var clockY = _huda - 600;
+var angle = Obj_day_cycle.hours *15;
+var _spr = 0;
 
+repeat(2){
+draw_sprite_ext(spr_clock,_spr,clockX,clockY,_scala,_scala, 0, c_white, 1);
+_spr ++;
+}
+// Ponteiro. Caso eu aumente a duração do dia , preciso alterar a velocidade do angulo
+draw_sprite_ext(spr_clock, 6, clockX, clockY, _scala, _scala, -angle, c_white, 1);
+//place hold
+draw_sprite_ext(spr_day_nigh, 0, clockX, clockY, _scala, _scala, 0, c_white, 1);
 
 
 	

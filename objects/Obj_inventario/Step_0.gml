@@ -3,41 +3,53 @@
 
 
 #region ------------------------------------- Inventory open ----------------------------------------------
+// Player inventory open
 if obj_transition {
-if keyboard_check_pressed(ord("I")){
-inventory = !inventory;
-global.pauseON = !global.pauseON;
+	if keyboard_check_pressed(ord("I")){
+	inventory = !inventory;
+	global.pauseON = !global.pauseON;
+	
+	}
+}
+// Open Shop - only works after click npc keepers
+if keyboard_check_pressed(ord("E")) {
+	shopOpen = !shopOpen
+	global.pauseON = !global.pauseON;
+	
+	}
+// Open  pet's inventory
+if keyboard_check_pressed(ord("P")){
+	petinventory = !petinventory;
+	global.pauseON = !global.pauseON;
 	
 }
-}
+
 #endregion
 
-#region ------------------------------------- Equip Activation (NEED REWORK) ------------------------------
-if grid_weapon[# Infos.item, 0 ] != -1 {	
-	obj_Player.active_sword = true;
-	}else if grid_weapon[# Infos.item, 0 ] == -1{	
-		obj_Player.active_sword = false;
-		}
-		
-		if grid_weapon[# Infos.item, 1 ] != -1 {
-			if grid_weapon[# Infos.typeWeapon, 1] == 20{
-				obj_Player.shield = false;
-				obj_Player.active_bow = true;
-				obj_Player.istrowing = false;
-				} else if grid_weapon[# Infos.typeWeapon, 1] == 25{	
-					obj_Player.shield = true;
-					obj_Player.active_bow = false;
-					obj_Player.istrowing = false;
-					}else if grid_weapon[# Infos.typeWeapon,1] == 21{	
-						obj_Player.istrowing = true;
-						obj_Player.shield = false;
-					     obj_Player.active_bow = false;
-						}
-		}else {	
-			obj_Player.shield = false;
-			obj_Player.active_bow = false;
-			obj_Player.istrowing = false;
-			}
+#region ------------------------------------- Equip Activation (Rework done) ------------------------------
+//Make all variable false for standart
+var active_sword = grid_weapon[# Infos.item, 0] != -1;
+var active_bow = false;
+var istrowing = false;
+var shield = false;
+
+// then turn on when item eqquipped if conditions match
+if grid_weapon[# Infos.item, 1] != -1 {
+    if grid_weapon[# Infos.typeWeapon, 1] == 20 {
+        active_bow = true;
+    } else if grid_weapon[# Infos.typeWeapon, 1] == 25 {
+        shield = true;
+    } else if grid_weapon[# Infos.typeWeapon, 1] == 21 {
+        istrowing = true;
+    }
+}
+
+//return false . But equipped item continues true.
+obj_Player.active_sword = active_sword;
+obj_Player.active_bow = active_bow;
+obj_Player.istrowing = istrowing;
+obj_Player.shield = shield;
+
 #endregion
 
 #region ------------------------------------- Item descriptions activation --------------------------------
@@ -72,11 +84,9 @@ ds_grid_coin[# 1, 2] = string(global.nebulite);
 
 #endregion
 
-if keyboard_check_pressed(ord("E")) {
-	shopOpen = !shopOpen
-	global.pauseON = !global.pauseON;
+
 	
-	}
+/*	
 if shopOpen{
     var _grid = grid_itens;
     var numItens = -1;
@@ -105,7 +115,7 @@ if shopOpen{
 
 }
 
-
+*/
  if (!shopOpen) {
         is_showing = false;
  }

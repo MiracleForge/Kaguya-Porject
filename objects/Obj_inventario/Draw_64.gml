@@ -20,11 +20,11 @@ if mouse_check_button_pressed(mb_right) or !inventory {
 //centralização  da sprite
 var _guiL = display_get_gui_width();
 var _guia = display_get_gui_height();
-
+var _scala = global.escala;
 // variaveis para mouse
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
-
+var c = c_white;
 
 if inventory == true {
 	
@@ -1106,129 +1106,134 @@ else {
 }
 
 
-///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY ///////////////////////
-
-
-
 
 #region ////////////////////////////////////////////  Shop Sell and buy System ////////////////////////////////////////////////////////
 if shopOpen {
 	
-	//centralização  da sprite
-	var _guiL = display_get_gui_width();
-	var _guia = display_get_gui_height();
+//centralização  da sprite
+var _guiL = display_get_gui_width();
+var _guia = display_get_gui_height();
+// mouse tracking
+var _mx = device_mouse_x_to_gui(0);
+var _my = device_mouse_y_to_gui(0);
+// scale global
+var Scale = global.escala
+// Position of the inventory box
+var _invx = (_guiL / 1.5) - (inventoryBox_L / 2);
+var _invy = (_guia / 1.3) - (inventoryBox_A / 2);
+// colour font
+var c = c_black;
+var C = c_white
 
-	// variaveis para mouse
-	var _mx = device_mouse_x_to_gui(0);
-	var _my = device_mouse_y_to_gui(0);
-	var c = c_black;
-	var C = c_white
-	
-draw_set_color(c);
-	draw_set_alpha(0.3);
-		draw_rectangle(_guiL, _guia, -_guiL, - _guia, false);
-draw_set_color(C);	
-	
-	var Scale = global.escala
-	var _invx =  _guiL/1.5 - inventoryBox_L/2;  // dividir o tamanho da sprite 
-	var _invy = _guia/1.3 - inventoryBox_A/2;
-	
-
-
-
-
+#region -------------------------------------------- Determine witch inventory is showing on shop ------------------------------------------------------
+// Switches the player's inventory box with the pet's inventory box and vice versa.
 if point_in_rectangle(_mx, _my, _invx + 10, _invy + 20, _invx + 50, _invy + 50) {
    
     if   mouse_check_button_pressed(mb_left)  {
 		petbox = !petbox;
-		audio_play_sound(turn_page,0,false);
-      
+		audio_play_sound(turn_page,0,false);  
     } 
 }
+// Locks the variable. If 0, keeps the player's inventory; if 1, switches to the pet's inventory.
+sprbox = petbox ? 1 : 0;
 
-if petbox {	
-	sprbox = 1;
-	
-	}else {	
-		sprbox = 0;
-		}
-
-
-
+// draw the inventory dow player or pet
 draw_sprite_ext(spr_box_inventory_sell, sprbox, _invx, _invy, Scale, Scale, 0, C, 1);
+#endregion
 
-#region ///////////////////////////////////////////   Shop buy System  ///////////////////////////////////////////////////////
+ ///////////////////////////////////////////   Shop buy System  /////////////////////////////////////////////////////////////////////////////////
 
-var _backshopx = _guiL/2 - inventoryback_L/2 + 145;  // dividir o tamanho da sprite 
+// variable of back of shop
+var _backshopx = _guiL/2 - inventoryback_L/2 + 145; 
 var _backshopy = _guia/2 - inventoryback_A/2 + 80;
-
-draw_sprite_ext(spr_back_shop, 0, _backshopx, _backshopy, Scale, Scale/1.9, 0, C, 1);
-draw_rectangle(_backshopx + 657, _backshopy + 200, _backshopx + 679, _backshopy + 212,true)
+// Variable that keeps track of the loop.
 var backcardx = 0;
 var backcardy = 0;
-
-
-for (var i = 0; i < total_cards; i++) {
+// draw the back
+draw_sprite_ext(spr_back_shop, 0, _backshopx, _backshopy, Scale, Scale/1.9, 0, C, 1);
+var totalcard = array_length(npc_keepes.npc_itens)
+for (var i = 0; i < totalcard; i++) {
+	//centralized sprite
+	var _gridshop = npc_keepes.npc_select
     var _slotcardX = _backshopx + x_card + ((size_card_x + buffercardx) * backcardx);
     var _slotCardY = _backshopy + y_card + ((size_card_y + buffercardy) * backcardy);
-    var _spr_index = 0;
-
+	// Sprite index of the inventory box or pet inventory box
+	var _spr_index = 0;
+	// Sprite of the slot on the grid
+	var _sprite = _gridshop[#Infos.sprite, i];
+	// Quantity of items in the slot
+	var _quantity = _gridshop[#Infos.quantity, i];
+	// Index of the item in the slot
+	var _item = _gridshop[# Infos.item,i];
+	
+    //Detects the mouse position over the card. And increases the scale.And Plots the data from the shop's grid
     if (!point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {
-       	  // Obtém o valor do coin type do item
+       	 //same sprite only change the index in each iteration
 	   repeat (3) {
             draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, Scale, Scale, 0, C, 1);
             _spr_index += 1;
 			  
         }
-
-					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,Scale,Scale,0,C,1)
-						draw_text_color(_slotcardX -25, _slotCardY - 37, grid_buy[#Infos.quantity,i],c,c,c,c,1)
-					
-	
-    } else {
-        repeat (3) {
-            draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, 3.5, 3.5, 0, C, 1);
-            _spr_index += 1;
+					draw_sprite_ext(_sprite, _gridshop[# 0, i], _slotcardX -25, _slotCardY - 37,Scale,Scale,0,C,1)
+						draw_text_color(_slotcardX -25, _slotCardY - 37, _quantity,c,c,c,c,1)					
+	    } else {
+	        repeat (3) {
+	            draw_sprite_ext(spr_sell_box, _spr_index, _slotcardX, _slotCardY, 3.5, 3.5, 0, C, 1);
+	            _spr_index += 1;
 		
-        }
-	
-					draw_sprite_ext(grid_buy[#Infos.sprite,i], grid_buy[# 0, i], _slotcardX -25, _slotCardY - 37,3.5,3.5,0,C,1)
-						draw_text_color(_slotcardX -25, _slotCardY - 37, grid_buy[#Infos.quantity,i],c,c,c,c,1);
+	        }
+						draw_sprite_ext(_sprite, _gridshop[# 0, i], _slotcardX -25, _slotCardY - 37,3.5,3.5,0,C,1)
+							draw_text_color(_slotcardX -25, _slotCardY - 37, _quantity,c,c,c,c,1);
+	    }
+ 
+ // Detects the click with the card slot and stores the position of the item in the grid in variables.
+    if (mouse_check_button_pressed(mb_left) and point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {	 
+		is_showing = true; // Show description of item card
+		playerStoreChoice = _item; // Save item index card
+	    selectedshopItem = i // save grid position of the item
     }
 
-    if (mouse_check_button_pressed(mb_left) and point_in_rectangle(_mx, _my, _slotcardX - x_card, _slotCardY - y_card, _slotcardX + size_card_x - x_card, _slotCardY + size_card_y - y_card)) {	
-        
-		is_showing = true;
-		playerStoreChoice = grid_buy[# Infos.item,i];
-	    selectedshopItem = i
-    }
-  
-  
     backcardx++;
-
+ // Stop creation of slots horizontly and begeins vertical
     if (backcardx >= cardsH) {
         backcardx = 0;
         backcardy++;
     }
-	
-	
 }
+
+// creation of description area of clicked card slot and buy item by player
 if (is_showing) {
-	var _desc = grid_buy[#Infos.discription,selectedshopItem];
+	// variable that's keep the valor of cell in the grid
+var _desc_select = _gridshop[#Infos.discription,selectedshopItem];
+var _cointype_select = _gridshop[# Infos.coin, selectedshopItem];
+var _name_select = _gridshop[#Infos.name, selectedshopItem];
+var _currency_select = _gridshop[#Infos.coin, selectedshopItem];
+var _cost_select = _gridshop[#Infos.cost, selectedshopItem];
+var _sprite_select = _gridshop[#Infos.sprite, selectedshopItem];
+var _quantity_select = _gridshop[#Infos.quantity, selectedshopItem];
+var _equippable_select = _gridshop[#Infos.equipable, selectedshopItem];
+var _item_select = _gridshop[#Infos.item, selectedshopItem];
+var _typeweapon_select = _gridshop[#Infos.typeWeapon, selectedshopItem];
+	
+	// draw card _select
     repeat (3) {
         draw_sprite_ext(spr_sell_box, _spr_index, _backshopx + 700, _backshopy + 150, 4, 4, 0, C, 1);
         _spr_index += 1;
     }
-	
+	// draw button buy
     draw_sprite_ext(spr_buyButton, _spr_index, _backshopx + 657, _backshopy + 200, 4, 4, 0, C, 1);
-	 draw_sprite_ext(grid_buy[#Infos.sprite,selectedshopItem], playerStoreChoice, _backshopx + 668, _backshopy + 102, 4, 4, 0, C, 1);
-		draw_text_color( _backshopx + 695, _backshopy + 400 ,grid_buy[#Infos.cost,selectedshopItem],c,c,c,c,1);
+	// draw_item select sprite
+	 draw_sprite_ext(_sprite_select, playerStoreChoice, _backshopx + 668, _backshopy + 102, 4, 4, 0, C, 1);
+		// draw item_select_cost
+		draw_text_color( _backshopx + 695, _backshopy + 400 , _cost_select , c, c, c, c, 1);
 			draw_set_color(c);
-				draw_text_ext(_backshopx + 690, _backshopy + 300, _desc,string_height("M"), 200);
-					draw_text_ext(_backshopx + 700, _backshopy +40 ,grid_buy[#Infos.name, selectedshopItem],1,180)
+				// draw name and description card
+				draw_text_ext(_backshopx + 690, _backshopy + 300, _desc_select,string_height("M"), 200);
+					draw_text_ext(_backshopx + 700, _backshopy +40 ,_name_select,1,180)
 					draw_set_color(-1);
-	var coinType = grid_buy[# Infos.coin, selectedshopItem];
-			   switch (coinType) {
+	
+	// draw type of coin
+	switch (_cointype_select) {
         case 1:
             draw_sprite_ext(spr_coin_inventory, 0, _backshopx + 700, _backshopy + 400, 2, 2, 0, C, 1);
             break;
@@ -1240,43 +1245,49 @@ if (is_showing) {
             break;
     }
 	
+// button buy click
  if mouse_check_button_pressed(mb_left) &&
-   point_in_rectangle(_mx, _my, _backshopx + 657, _backshopy + 200, _backshopx + 740, _backshopy + 250) &&
-   grid_buy[#Infos.quantity, selectedshopItem] > 0
-{
-    var currency = grid_buy[#Infos.coin, selectedshopItem];
-    var cost = grid_buy[#Infos.cost, selectedshopItem];
-  
+   point_in_rectangle(_mx, _my, _backshopx + 657, _backshopy + 200, _backshopx + 740, _backshopy + 250) && _quantity_select > 0{
     var canPurchase = false;
   
-    switch (currency) {
+  // Deducts the item cost from the player's money based on the required currency and if the player has enough money.
+    switch (_currency_select) {
         case 1:
-            if global.coin >= cost {
-                global.coin -= cost;
+            if global.coin >= _cost_select {
+                global.coin -= _cost_select;
                 canPurchase = true;
             }
             break;
         case 2:
-            if global.silver >= cost {
-                global.silver -= cost;
+            if global.silver >= _cost_select {
+                global.silver -= _cost_select;
                 canPurchase = true;
             }
             break;
     }
   
+  // add purchaded item to the grid of player inventory
     if canPurchase {
         audio_play_sound(_1_Coins, 0, false);
-        ds_grid_add_item(grid_buy[#Infos.item, selectedshopItem], 1, grid_buy[#Infos.sprite, selectedshopItem], grid_buy[#Infos.name, selectedshopItem], grid_buy[#Infos.discription, selectedshopItem], grid_buy[#Infos.equipable, selectedshopItem], currency, cost, grid_buy[#Infos.typeWeapon, selectedshopItem]);
-        grid_buy[#Infos.quantity, selectedshopItem] -= 1;
+        ds_grid_add_item(_item_select,
+		1,
+		_sprite_select,
+		_name_select,
+		_desc_select,
+		_equippable_select,
+		_currency_select,
+		_cost_select,
+		_typeweapon_select
+		);
+		//Subtracts the total quantity of items in the shop by the number of clicks
+        _gridshop[#Infos.quantity, selectedshopItem] -= 1;
     }
 }
 
-
-
-    } 
+ } 
 	
 
-#endregion
+
 
 if sprbox == 0{
 	var ix = 0; // variaveis que guardam o tracking
@@ -1427,6 +1438,50 @@ if (mouse_check_button_pressed(mb_right)) {
 #endregion
 
 
+#region - ///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY ///////////////////////
+if petinventory {
+	var _invx =  _guiL/2 - petbelly_L/2;  // dividir o tamanho da sprite 
+	var _invy = _guia/2 - petbelly_A/2;
+	
+	draw_set_alpha(0.7)
+	draw_rectangle_color(_guiL, _guia, -_guiL, - _guia, c,c,c,c, false);
+
+	draw_set_alpha(1);
+	draw_sprite_ext(spr_inventory_belly, 0, _invx, _invy, _scala, _scala, 0 , c, 1);
+	
+	var ix = 0; // variaveis que guardam o tracking
+	var iy = 0;
+	for (var i = 0; i < pettotal_slots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
+	
+	
+	var _slotsx = _invx + x_petinv + ((size_petslots + petbuffer) * ix);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
+	var _slotsy = _invy + y_petinv + ((size_petslots + petbuffer) * iy);
+	var _itemEmpty = grid_petiInv[# Infos.item, i]; 
+	var _sprPet = grid_petiInv[# Infos.sprite, i];
+	var _quantPet = grid_petiInv[#Infos.quantity, i];
+	
+	    if (_itemEmpty != -1) {
+        draw_sprite_ext(_sprPet, grid_petiInv[# 0, i], _slotsx, _slotsy, _scala, _scala, 0, c, 1);
+		
+        // Quantidade dos itens
+        draw_set_alpha(1);
+        draw_set_font(Font1);
+        draw_set_halign(fa_center);
+        draw_text_colour_outline(_slotsx + size_petslots,  _slotsy + size_petslots, _quantPet, 4, c_black, 16, 100, 100);
+		}
+	if point_in_rectangle(_mx, _my, _slotsx, _slotsy, _slotsx + size_petslots, _slotsy + size_petslots) {
+		draw_sprite_ext(spr_seletor_20x20, 0, _slotsx, _slotsy, _scala, _scala, 0, c, 1);
+		
+	}
+	ix ++;
+	if ix >= petslots_h{	
+		ix = 0;
+		iy ++;
+		}
+	
+	}
+}
+#endregion
 
 
 

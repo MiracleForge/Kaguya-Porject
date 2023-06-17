@@ -3,5 +3,6 @@
 ds_grid_destroy(ds_grid_coin);
 ds_grid_destroy(grid_active); 
 ds_grid_destroy(grid_itens); 
-
+ds_grid_destroy(grid_shop1);
+ds_grid_destroy(grid_shop2);
 

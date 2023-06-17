@@ -151,10 +151,6 @@ function ds_grid_add_pet (){
 }
 
 
-
-
-
-
 function ds_grid_equip_item(){	
 	///@arg item
 	///@arg Quantity
@@ -192,7 +188,6 @@ if obj_Player.attack == false {
     }
 }
 }
-	
 
 function loop_animation(){
 ///action_loop()
@@ -310,7 +305,7 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 	*/
 #endregion
 	
-	function directionblock() {	
+function directionblock() {	
 		// Função para converter a direção
 
     if (obj_Player.dir == 0) {
@@ -325,7 +320,7 @@ if grid_weapon[# Infos.item, i] != -1 and ShowingDespription == true {
 	return 0;
 }
 
-#region ----------------------------------------   Add Item to Shop ---------------------------------------------------------
+#region ----------------------------------------   Add Item to Shop ------------------------------------------------------
 function ds_grid_add_to_shop() {
     ///@arg item
     ///@arg Quantity
@@ -336,7 +331,7 @@ function ds_grid_add_to_shop() {
     ///@arg cointype
     ///@arg cost
     
-    var _grid = Obj_inventario.grid_buy;
+    var _grid = npc_keepes.npc_select;
     var _empty_slots = 0;
 
         // percorre o grid e conta os slots vazios
@@ -371,4 +366,56 @@ function ds_grid_add_to_shop() {
     
 }
 
+#endregion
+
+#region ----------------------------------------   Add Item to pet inventory ---------------------------------------------
+function ds_grid_add_itemPET() {
+	///@arg item
+    ///@arg Quantity
+    ///@arg sprite
+    ///@arg name
+    ///@arg discription
+    ///@arg equipable
+    ///@arg cointype
+    ///@arg cost
+	///@arg type of Weapon
+	
+    var _grid = Obj_inventario.grid_petiInv;
+    var _empty_slots = 0;
+
+   
+        // percorre o grid e conta os slots vazios
+        var _grid_height = ds_grid_height(_grid); 
+        // Chamada da função apenas uma vez
+        for (var i = 0; i < _grid_height; i++) {  // Utilizando a variável _grid_height como limite do loop
+            if (_grid[# 0, i] == -1) {
+                _empty_slots++;
+            } else if (_grid[# 0, i] == argument[0] && _grid[# 2, i] == argument[2]) {
+                _grid[# 1, i] += argument[1];
+                return; // Item já existe, portanto não precisa adicionar novamente
+            }
+        }
+
+        // verifica se há espaço suficiente para adicionar um novo item
+        if (_empty_slots > 0) {
+            var _checking = 0;		
+            while (_grid[# 0, _checking] != -1) {    
+                _checking++;
+            } 
+            
+            _grid[# 0, _checking] = argument[0];
+            _grid[# 1, _checking] = argument[1];
+            _grid[# 2, _checking] = argument[2];
+            _grid[# 3, _checking] = argument[3];
+            _grid[# 4, _checking] = argument[4];
+            _grid[# 5, _checking] = argument[5];
+            _grid[# 6, _checking] = argument[6];
+            _grid[# 7, _checking] = argument[7];
+            _grid[# 8, _checking] = argument[8];
+        } else {
+            // exibe uma mensagem de erro informando que o inventário está cheio
+            inventario_cheio = true;
+        }
+    
+}
 #endregion

@@ -3,7 +3,7 @@ draw_sprite(spr_personagem_sombra, 0, x , y+9);
 depth = bbox_bottom;
 draw_self();
 var _scale = 0.5
-
+draw_text(x,y, spr_items)
 
 if alarm[3] >0 {	
 	if image_alpha >= 1{		
