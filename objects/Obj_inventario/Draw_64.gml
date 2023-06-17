@@ -1452,8 +1452,7 @@ if petinventory {
 	var ix = 0; // variaveis que guardam o tracking
 	var iy = 0;
 	for (var i = 0; i < pettotal_slots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
-	
-	
+	 
 	var _slotsx = _invx + x_petinv + ((size_petslots + petbuffer) * ix);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
 	var _slotsy = _invy + y_petinv + ((size_petslots + petbuffer) * iy);
 	var _itemEmpty = grid_petiInv[# Infos.item, i]; 
