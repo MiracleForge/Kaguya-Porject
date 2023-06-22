@@ -415,6 +415,7 @@ function ds_grid_add_itemPET() {
         } else {
             // exibe uma mensagem de erro informando que o inventário está cheio
             inventario_cheio = true;
+			petInvFull = true;
         }
     
 }

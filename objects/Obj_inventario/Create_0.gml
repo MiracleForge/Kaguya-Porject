@@ -97,8 +97,6 @@ y_active = 147 * global.escala;
 total_active = 1;
 
 shopOpen = false;
-
-selectShop = 0;
 //distnacia entre a borda da sprite e do primeiro slot
 x_Boxinventory = 23 * global.escala;
 y_Boxinventory = 10 * global.escala;
@@ -211,7 +209,7 @@ enum pet_info{
 #endregion
 #region ------------------------------------- pet's inventory --------------------------------------------
 petinventory = false;
-x_petinv = 9 * global.escala;
+x_petinv = 11 * global.escala;
 y_petinv = 9 * global.escala;
 
 // total numbers of slots
@@ -224,6 +222,30 @@ petbuffer = 2 * global.escala;
 // length and hight sprite vs camera scale or room Idk
 petbelly_L = sprite_get_width(spr_inventory_belly) * global.escala;
 petbelly_A = sprite_get_height(spr_inventory_belly) * global.escala;
+
+petInvFull = false;
+// mouse selector
+mb_pet_select = -1;
+mb_pet_posselect = -1;
+mb_pet_quant = -1;
+#endregion
+
+#region  ---------------------------------- Craft Inventory ------------------------------------------------
+//Craft slots coord 6, 4, 11
+craft_L = sprite_get_width(spr_craft)* global.escala;
+craft_A = sprite_get_height(spr_craft)* global.escala;
+x_craft = 6 * global.escala;
+y_craft = 4 * global.escala;
+//Craft slot 
+craft_h = 2
+craft_y = 2
+total_craftSlot = craft_h * craft_y;
+size_craftslot = 16 * global.escala;
+craftbuffer = 12 *global.escala;
+//mouse selectores
+mb_craft_select = -1;
+mb_craft_posselect = -1;
+mb_craft_quant = -1;
 #endregion
 
 #region ------------------------- Grid create, inventory names - discriptions - pets ---------------------
@@ -247,7 +269,7 @@ grid_shop2 = ds_grid_create(Infos.altura,total_cards);
 ds_grid_set_region(grid_shop2,0,0, Infos.altura -1, total_cards - 1, -1);
 #endregion
 
-#region /////////////////////////////// - Pet grid - ///////////////////////////////////////////////////////////////
+#region /////////////////////////////// - Pet grid - ///////////////////////////////////////////////////////
 // Types of pets
 grid_pet = ds_grid_create(pet_info.height, total_petS);
 ds_grid_set_region(grid_pet, 0,0,pet_info.height - 1, total_petS -1, -1);
@@ -257,6 +279,11 @@ ds_grid_set_region(grid_active, 0, 0, pet_info.height - 1, total_active -1, -1);
 // pet's inventory
 grid_petiInv = ds_grid_create(Infos.altura,pettotal_slots);
 ds_grid_set_region(grid_petiInv, 0,0, Infos.altura -1, pettotal_slots -1, -1);
+#endregion
+
+#region //////////////////////// - Craft grid /////////////////////////////////////////////////////////////
+grid_craft = ds_grid_create(Infos.altura, total_craftSlot);
+ds_grid_set_region(grid_craft, 0,0, Infos.altura -1, total_craftSlot -1, -1);
 #endregion
 
 #region              //------------Names and discriptions arrays---------------------//
@@ -336,6 +363,12 @@ ds_grid_add_to_shop(itens_armas.arco, 1 , spr_items, names_weapons_info[1][0],na
 ds_grid_add_itemPET(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
 ds_grid_add_itemPET(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
 ds_grid_add_itemPET(itens_armas.old_bots, 1 , spr_items, names_weapons_info[9][0],names_weapons_info[9][1],names_weapons_info[9][2], names_weapons_info[9][3], names_weapons_info[9][4], names_weapons_info[9][5]);
+ds_grid_add_itemPET(itens_armas.ring_slime1, 5 , spr_items, names_weapons_info[5][0],names_weapons_info[5][1],names_weapons_info[5][2], names_weapons_info[5][3], names_weapons_info[5][4], names_weapons_info[5][5]);
+ds_grid_add_itemPET(itens_armas.little_bomb, 1 , spr_items, names_weapons_info[10][0],names_weapons_info[10][1],names_weapons_info[10][2], names_weapons_info[10][3], names_weapons_info[10][4], names_weapons_info[10][5]);
+
+ds_grid_add_itemPET(itens_armas.small_health_pot, 5 , spr_items, names_weapons_info[3][0],names_weapons_info[3][1],names_weapons_info[3][2], names_weapons_info[3][3], names_weapons_info[3][4], names_weapons_info[3][5]);
+ds_grid_add_itemPET(item_inimigos.apple_bite, 2 , spr_items_inimigos, names_foe_info[3][0], names_foe_info[3][1],names_foe_info[3][2], names_foe_info[3][3], names_foe_info[3][4], names_foe_info[3][5]);
+ds_grid_add_itemPET(itens_armas.cat_shield, 1 , spr_items, names_weapons_info[4][0],names_weapons_info[4][1],names_weapons_info[4][2], names_weapons_info[4][3], names_weapons_info[4][4], names_weapons_info[4][5]);
 
 
 

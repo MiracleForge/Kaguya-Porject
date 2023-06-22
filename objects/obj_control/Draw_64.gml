@@ -57,19 +57,8 @@ if instance_exists(obj_parente_boss){
 	draw_sprite_ext(spr_boss_hud, 0, _gl/2 - _sprw/2, 100, global.escala, global.escala, 0 , c_white, 1);
 	draw_sprite_ext(spr_boss_vida, 0, _gl/2 - _sprw/2 + 6, 100, obj_Boss_1.vida/obj_Boss_1.vida_max * global.escala, global.escala, 0, c_white, 1);
 	}
-	/*
-if item_pickup == true {	
-	draw_sprite_ext( spr_pick_up, 0, 80, 520, global.escala,global.escala, 0 , c_white,1);
-	
-	draw_sprite_ext(_sprite_pick, 0, 130, 640, global.escala/2, global.escala/2, 0, c_white, 1);
-	 var _spr =_sprite_pick 
-	 
-	 if _sprite_pick != _spr {	
-		
-		 draw_sprite_ext(_sprite_pick, 0, 130, 600, global.escala/2, global.escala/2, 0, c_white, 1);
-		 }
-	}
-	*/
+
+#region ----------------Pick UP item 
 var pick_counter = 0;
 var spr_up = 0;
 var spry = 640;
@@ -93,8 +82,9 @@ if (item_pickup == true) {
     item_pickup = false;
   }
 }
+#endregion
 
-// Clock UI
+#region // Clock UI
 var _scala = global.escala;
 var clockX =  280 + _xcoord;
 var clockY = _huda - 600;
@@ -107,8 +97,8 @@ _spr ++;
 }
 // Ponteiro. Caso eu aumente a duração do dia , preciso alterar a velocidade do angulo
 draw_sprite_ext(spr_clock, 6, clockX, clockY, _scala, _scala, -angle, c_white, 1);
-//place hold
-draw_sprite_ext(spr_day_nigh, 0, clockX, clockY, _scala, _scala, 0, c_white, 1);
 
 
+
+#endregion
 	

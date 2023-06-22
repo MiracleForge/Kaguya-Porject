@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "spr_buyButton",
+  "name": "spr_craftButton",
   "bbox_bottom": 12,
   "bbox_left": 1,
   "bbox_right": 20,
@@ -14,7 +14,6 @@
   "For3D": false,
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"05c91ba5-fd67-4a89-8542-297be60001fc",},
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"5329e433-afb5-4fcb-8016-ba6897cf0a73",},
   ],
   "gridX": 0,
   "gridY": 0,
@@ -56,7 +55,7 @@
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "spr_buyButton",
+    "name": "spr_craftButton",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -67,7 +66,7 @@
     "events": {"resourceType":"KeyframeStore<MessageEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "eventStubScript": null,
     "eventToFunction": {},
-    "length": 2.0,
+    "length": 1.0,
     "lockOrigin": false,
     "moments": {"resourceType":"KeyframeStore<MomentsEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "playback": 1,
@@ -78,8 +77,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"05c91ba5-fd67-4a89-8542-297be60001fc","path":"sprites/spr_buyButton/spr_buyButton.yy",},},},"Disabled":false,"id":"0985019c-e985-4738-8fe5-b2b09e4ebc07","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"5329e433-afb5-4fcb-8016-ba6897cf0a73","path":"sprites/spr_buyButton/spr_buyButton.yy",},},},"Disabled":false,"id":"fbba9475-8f77-439d-a788-fcf41b747355","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"05c91ba5-fd67-4a89-8542-297be60001fc","path":"sprites/spr_craftButton/spr_craftButton.yy",},},},"Disabled":false,"id":"f7d96871-f402-4519-9178-dedd1f8cb1a1","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "dials",
-  "bbox_bottom": 95,
+  "bbox_bottom": 91,
   "bbox_left": 16,
   "bbox_right": 491,
   "bbox_top": 16,

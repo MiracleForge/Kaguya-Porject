@@ -2,8 +2,8 @@
 ///////////////////////////////////////////// SEPARA OS ELEMENTOS ///////////////////////
 //---------------------------------- SEPARA FUNÇÕES DENTRO DO MESMO ELEMENTO ////////////
 
-//largar item
-if mouse_check_button_pressed(mb_right) or !inventory {
+#region //largar item
+if mouse_check_button_pressed(mb_right) or !inventory  {
 			item_select = -1;
 			pos_select = -1;
 			equip_select = -1;
@@ -16,6 +16,16 @@ if mouse_check_button_pressed(mb_right) or !inventory {
 			pet_select = -1;
 			pospet_select = -1;
 	}
+	if !petinventory{	
+		mb_pet_posselect= -1;
+		mb_pet_posselect = -1;
+		mb_pet_quant = -1;
+		mb_craft_posselect = -1;
+		mb_craft_select = -1;
+		mb_craft_quant = -1;
+		}
+
+#endregion
 
 //centralização  da sprite
 var _guiL = display_get_gui_width();
@@ -24,8 +34,8 @@ var _scala = global.escala;
 // variaveis para mouse
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
-var c = c_white;
-
+var c = c_black;
+var C = c_white;
 if inventory == true {
 	
 
@@ -853,26 +863,7 @@ for (var i = 0; i < total_petS; i++) {
     if point_in_rectangle(_mx, _my, petslotX, petslotY, petslotX + size_slots, petslotY + size_slots) {
         draw_sprite_ext(spr_inventario_seletor, 0, petslotX, petslotY, global.escala, global.escala, 0, c_white, 1);
  draw_info_inventory(grid_pet[# pet_info.item,i],grid_pet[# pet_info.name,i],grid_pet[# pet_info.description,i],grid_pet[# pet_info.sprite, i], 0, 0,29)
- /*
-#region  // ---------------------- Discription PRESS "O"   --------------------------------------------------------
-// desenhar a sprite do item na aba de descrição
-
-if grid_pet[# pet_info.item, i] != -1 and ShowingDespription == true {
-    var c = c_white;
-
-    Sequence = draw_sprite_ext(spr_inventory_description, 0, 955, 120, global.escala, global.escala, 0, c, 1);
-
-    draw_set_font(Font1);
-    draw_set_halign(fa_middle);
-    draw_text(1080, 150, grid_pet[# pet_info.name, i]);
-    draw_text_ext_color(1100, 210, grid_pet[# pet_info.description, i], string_height("M"), 55 * global.escala, c, c, c, c, 1);
-    draw_sprite_ext(grid_pet[# pet_info.sprite, i], grid_pet[# pet_info.item, i], 970, 200, global.escala / 29, global.escala / 29, 0, c, 1);
- 
-} else if inventory == false {
-    ShowingDespription = false
-}
-#endregion	   
-*/	   
+   
 	   
         if mouse_check_button_pressed(mb_left) {
             if item_select != -1 {
@@ -985,6 +976,33 @@ if mouse_check_button_pressed(mb_left){
 		        
 
 		}
+		if item_select != -1  {	
+					var _item = grid_itens[# Infos.item, pos_select];
+	                var _quantity = grid_itens[# Infos.quantity, pos_select];
+	                var _sprite = grid_itens[# Infos.sprite, pos_select];
+	                var _name = grid_itens[# Infos.name, pos_select];
+	                var _desc = grid_itens[# Infos.discription, pos_select];
+	                var _equip = grid_itens[# Infos.equipable, pos_select];
+	                var _coin = grid_itens[# Infos.coin, pos_select];
+	                var _cost = grid_itens[# Infos.cost, pos_select];
+					var _weapon = grid_itens[# Infos.typeWeapon, pos_select];
+
+					ds_grid_add_itemPET(_item,_quantity,_sprite,_name,_desc,_equip,_coin,_cost,_weapon);
+					if !petInvFull {
+	                grid_itens[# Infos.item, pos_select] = -1;
+	                grid_itens[# Infos.quantity, pos_select] = -1;
+	                grid_itens[# Infos.sprite, pos_select] = -1;
+	                grid_itens[# Infos.name, pos_select] = -1;
+	                grid_itens[# Infos.discription, pos_select] = -1;
+	                grid_itens[# Infos.coin, pos_select] = -1;
+	                grid_itens[# Infos.cost, pos_select] = -1;
+				    grid_itens[# Infos.typeWeapon, pos_select] = -1;
+
+	                item_select = -1;
+	                pos_select = -1;
+					}
+	                
+			}
 }
     }
 
@@ -1438,40 +1456,173 @@ if (mouse_check_button_pressed(mb_right)) {
 #endregion
 
 
-#region - ///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY ///////////////////////
+#region - ///////////////////////////////////////////// PET INVENTORY SYSTEM OUT OF PLAYER INVENTORY and craft system ///////////////////////
 if petinventory {
-	var _invx =  _guiL/2 - petbelly_L/2;  // dividir o tamanho da sprite 
+if mouse_check_button_pressed(mb_right){
+	mb_pet_select = -1;
+	mb_pet_posselect = -1;
+	mb_craft_quant = -1;
+	mb_craft_select = -1;
+	mb_craft_posselect = -1;
+	mb_craft_quant = -1;
+				}
+	
+	var _invx =  _guiL/2 - petbelly_L/2;  
 	var _invy = _guia/2 - petbelly_A/2;
 	
 	draw_set_alpha(0.7)
 	draw_rectangle_color(_guiL, _guia, -_guiL, - _guia, c,c,c,c, false);
 
 	draw_set_alpha(1);
-	draw_sprite_ext(spr_inventory_belly, 0, _invx, _invy, _scala, _scala, 0 , c, 1);
+	draw_sprite_ext(spr_inventory_belly, 0, _invx, _invy, _scala, _scala, 0 , C, 1);
 	
-	var ix = 0; // variaveis que guardam o tracking
+	var ix = 0; 
 	var iy = 0;
-	for (var i = 0; i < pettotal_slots; i++) {  //i igual a 0 , enquanto i for menor que total slots acrescenta mais 1	
+	for (var i = 0; i < pettotal_slots; i++) {  
 	 
-	var _slotsx = _invx + x_petinv + ((size_petslots + petbuffer) * ix);  // soma o inicio do slot com o comprimento e multiplica pelo numero de slots para começar o proximo slot 
+	var _slotsx = _invx + x_petinv + ((size_petslots + petbuffer) * ix);  
 	var _slotsy = _invy + y_petinv + ((size_petslots + petbuffer) * iy);
+	
 	var _itemEmpty = grid_petiInv[# Infos.item, i]; 
 	var _sprPet = grid_petiInv[# Infos.sprite, i];
-	var _quantPet = grid_petiInv[#Infos.quantity, i];
+	var _quantPet = grid_petiInv[# Infos.quantity, i];
+	var _descPet = grid_petiInv[# Infos.discription,i];
+	var _namePet = grid_petiInv[# Infos.name, i];
+	var _equip = grid_petiInv[# Infos.equipable, i];
+	var _cost = grid_petiInv[# Infos.cost, i];
 	
-	    if (_itemEmpty != -1) {
-        draw_sprite_ext(_sprPet, grid_petiInv[# 0, i], _slotsx, _slotsy, _scala, _scala, 0, c, 1);
+	
+    if (_itemEmpty != -1) {
+        draw_sprite_ext(_sprPet, grid_petiInv[# 0, i], _slotsx, _slotsy, _scala, _scala, 0,C, 1);
 		
         // Quantidade dos itens
         draw_set_alpha(1);
         draw_set_font(Font1);
         draw_set_halign(fa_center);
-        draw_text_colour_outline(_slotsx + size_petslots,  _slotsy + size_petslots, _quantPet, 4, c_black, 16, 100, 100);
-		}
-	if point_in_rectangle(_mx, _my, _slotsx, _slotsy, _slotsx + size_petslots, _slotsy + size_petslots) {
-		draw_sprite_ext(spr_seletor_20x20, 0, _slotsx, _slotsy, _scala, _scala, 0, c, 1);
-		
+        draw_text_colour_outline(_slotsx + size_petslots -15,  _slotsy + size_petslots -30, _quantPet, 4, c, 16, 100, 100);
 	}
+		
+		if point_in_rectangle(_mx, _my, _slotsx, _slotsy, _slotsx + size_petslots, _slotsy + size_petslots) {
+			draw_sprite_ext(spr_seletor_20x20, 0, _slotsx - 15, _slotsy - 10, _scala, _scala, 0, C, 1);
+			
+			draw_sprite_ext(spr_descriptor, 0,  _slotsx + (_slotsx - _mx) - 40, _slotsy + (_slotsy - _my), _scala, _scala, 0, C, 1);
+			draw_set_color(c);
+				draw_set_halign(fa_center);
+					 draw_text_ext(_slotsx + (_slotsx - _mx) + 70, _slotsy + (_slotsy - _my) - 200, _namePet,1, 180);
+						   draw_set_halign(fa_middle);
+								draw_set_font(Font_shopdesc);
+									draw_set_color(c);
+										draw_text_ext(_slotsx + (_slotsx - _mx) + 65, _slotsy + (_slotsy - _my) - 120, _descPet, string_height("M"), 200);
+							draw_set_font(-1);
+						draw_set_halign(fa_left);
+					draw_set_color(-1);
+			 if _equip == 1{
+		
+			 draw_set_color(c_green);
+				draw_text_ext(_slotsx + (_slotsx - _mx) -30 , _slotsy + (_slotsy - _my) - 165, "Equipable", 1, 180);
+			 draw_set_color(-1);
+			 }else {
+		 
+			draw_set_color(c_red);
+				 draw_text_ext(_slotsx + (_slotsx - _mx) -30, _slotsy + (_slotsy - _my) - 165, "Unequipable", 1, 180);			  			
+			draw_set_color(-1);
+			 }
+	 
+			if (grid_petiInv[# Infos.cost, i] != 0) {
+		    var coinType = grid_petiInv[# Infos.coin, i]; // Obtém o valor do coin type do item
+
+		    switch (coinType) {
+		        case 1:
+		            draw_sprite_ext(spr_coin_inventory, 0, _slotsx + (_slotsx - _mx) + 130, _slotsy + (_slotsy - _my) - 50, _scala * 0.6, _scala * 0.6, 0, C, 1);
+		            break;
+		        case 2:
+		            draw_sprite_ext(spr_coin_inventory, 1, _slotsx + (_slotsx - _mx) + 130, _slotsy + (_slotsy - _my) - 50, _scala * 0.6, _scala * 0.6, 0, C, 1);
+		            break;
+		        case 3:
+		            draw_sprite_ext(spr_coin_inventory, 2, _slotsx + (_slotsx - _mx) + 130, _slotsy + (_slotsy - _my) - 50, _scala * 0.6, _scala * 0.6, 0, C, 1);
+		            break;
+		    }
+
+ draw_text_colour_outline(_slotsx + (_slotsx - _mx) + 120, _slotsy + (_slotsy - _my) - 45, _cost, 2, c, 23, 50, 100);
+}
+	
+	if mouse_check_button_pressed(mb_left){
+		if  mb_craft_select != -1 {
+			 if _itemEmpty ==  -1 {
+
+			         grid_petiInv[# Infos.item, i] = grid_craft[# Infos.item, mb_craft_posselect];
+		             grid_petiInv[# Infos.quantity, i] = grid_craft[# Infos.quantity, mb_craft_posselect];
+		             grid_petiInv[# Infos.sprite, i] = grid_craft[# Infos.sprite, mb_craft_posselect];
+		             grid_petiInv[# Infos.name, i] = grid_craft[# Infos.name, mb_craft_posselect];
+		             grid_petiInv[# Infos.discription, i] =grid_craft[# Infos.discription, mb_craft_posselect];
+		             grid_petiInv[# Infos.equipable, i] = grid_craft[# Infos.equipable, mb_craft_posselect];
+		             grid_petiInv[# Infos.coin,i] = grid_craft[# Infos.coin, mb_craft_posselect];
+		             grid_petiInv[# Infos.cost, i] = grid_craft[# Infos.cost, mb_craft_posselect];
+					 grid_petiInv[# Infos.typeWeapon, i] = grid_craft[# Infos.typeWeapon, mb_craft_posselect];
+
+		             grid_craft[# Infos.item, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.quantity, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.sprite, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.name, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.discription, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.coin, mb_craft_posselect] = -1;
+		             grid_craft[# Infos.cost, mb_craft_posselect] = -1;
+					 grid_craft[# Infos.typeWeapon, mb_craft_posselect] = -1;
+
+		             mb_craft_select = -1;
+		             mb_craft_posselect = -1;	
+					 mb_craft_quant = -1;
+		
+		}
+		if _itemEmpty != -1  {	
+			
+				    var _item = grid_petiInv[# Infos.item, i];
+			        var _quantity = grid_petiInv[# Infos.quantity, i];
+			        var _spr = grid_petiInv[# Infos.sprite, i];
+			        var _name = grid_petiInv[# Infos.name, i];
+			        var _info = grid_petiInv[# Infos.discription,i];
+			        var _equip =  grid_petiInv[# Infos.equipable, i];
+			        var _coin = grid_petiInv[# Infos.coin, i];
+			        var _cost =grid_petiInv[# Infos.cost, i];
+			        var _wep = grid_petiInv[# Infos.typeWeapon, i]; 
+                            
+			        grid_petiInv[# Infos.item, i] = grid_craft[# Infos.item, mb_craft_posselect];
+			        grid_petiInv[# Infos.quantity,i] = grid_craft[# Infos.quantity, mb_craft_posselect];
+			        grid_petiInv[# Infos.sprite, i] = grid_craft[# Infos.sprite, mb_craft_posselect];
+			        grid_petiInv[# Infos.name, i] = grid_craft[# Infos.name, mb_craft_posselect];
+			        grid_petiInv[# Infos.discription, i] = grid_craft[# Infos.discription,mb_craft_posselect];
+			        grid_petiInv[# Infos.equipable, i] = grid_craft[# Infos.equipable, mb_craft_posselect];
+			        grid_petiInv[# Infos.coin, i] = grid_craft[# Infos.coin, mb_craft_posselect];
+			        grid_petiInv[# Infos.cost, i] = grid_craft[# Infos.cost, mb_craft_posselect];
+			        grid_petiInv[# Infos.typeWeapon, i] = grid_craft[# Infos.typeWeapon, mb_craft_posselect];
+                   
+			        grid_craft[# Infos.item, mb_craft_posselect] =  _item;
+			        grid_craft[# Infos.quantity,mb_craft_posselect] = _quantity;
+			        grid_craft[# Infos.sprite, mb_craft_posselect] = _spr;
+			        grid_craft[# Infos.name, mb_craft_posselect] = _name;
+			        grid_craft[# Infos.discription, mb_craft_posselect] = _info;
+			        grid_craft[# Infos.equipable, mb_craft_posselect] = _equip;
+			        grid_craft[# Infos.coin, mb_craft_posselect] = _coin;
+			        grid_craft[# Infos.cost, mb_craft_posselect] = _cost;
+			        grid_craft[# Infos.typeWeapon, mb_craft_posselect] = _wep;
+                        
+			        mb_craft_select = -1;
+			        mb_craft_posselect = -1;
+					mb_craft_quant = -1;
+
+			}
+			
+			}else {	
+					
+				mb_pet_select = _itemEmpty;
+		        mb_pet_posselect = i;
+				mb_pet_quant = _quantPet;
+	
+			}
+	}
+	
+}
+
 	ix ++;
 	if ix >= petslots_h{	
 		ix = 0;
@@ -1479,6 +1630,174 @@ if petinventory {
 		}
 	
 	}
+	
+		if mb_pet_select != -1 and mb_craft_select == -1  {	
+		    draw_sprite_ext(grid_petiInv[# Infos.sprite, mb_pet_posselect], mb_pet_select, _mx, _my, _scala, _scala, 0, C, 1);
+			draw_set_alpha(1);
+			draw_set_font(Font1);
+			draw_set_halign(fa_center);			
+			draw_text_colour_outline(_mx+10, _my+10 , mb_pet_quant, 4, c, 16, 100, 100);
+
+		}  else if mb_craft_select != -1  {	
+				draw_sprite_ext(grid_craft[# Infos.sprite, mb_craft_posselect], mb_craft_select, _mx, _my, _scala, _scala, 0, C, 1);
+					draw_set_alpha(1);
+					draw_set_font(Font1);
+					draw_set_halign(fa_center);			
+					draw_text_colour_outline(_mx+10, _my+10 , mb_craft_quant, 4, c, 16, 100, 100);
+			}
+
+
+
+var _craftx = _guiL / 2 - craft_L * 3.5;
+var _crafty = _guia / 2 - craft_A / 2;
+
+draw_sprite_ext(spr_craft, 0, _craftx, _crafty, _scala, _scala, 0, C, 1);
+
+var cx = 0; // variáveis que guardam o tracking
+var cy = 0;
+
+for (var j = 0; j < total_craftSlot; j++) {
+	
+    var _cslotsx = _craftx + x_craft + ((size_craftslot + craftbuffer) * cx);
+    var _cslotsy = _crafty + y_craft + ((size_craftslot + craftbuffer - 8) * cy);
+	
+	var _craft = grid_craft[#Infos.item ,j];
+	var _sprcraft = grid_craft[#Infos.sprite,j];
+	var _quantcraft = grid_craft[#Infos.quantity, j];
+	var _name = grid_craft[#Infos.name, j];
+	var _desc = grid_craft[#Infos.discription, j];
+	var _equip = grid_craft[#Infos.equipable,j];
+	var _cost = grid_craft[#Infos.cost,j];
+	 var coinType = grid_craft[# Infos.coin, i];
+	 
+    if (point_in_rectangle(_mx, _my, _cslotsx, _cslotsy, _cslotsx + size_craftslot, _cslotsy + size_craftslot)) {
+		if j == 2 {	
+
+			draw_sprite_ext(spr_seletor_20x20, 0, _cslotsx + 10, _cslotsy - 6, _scala/2,_scala/2, 0 , C, 1);
+			}else{
+				
+				 draw_sprite_ext(spr_seletor_20x20, 0, _cslotsx - 14, _cslotsy - 17, _scala, _scala, 0, C, 1);
+			}
+			
+			
+			
+			draw_sprite_ext(spr_descriptor, 0,  _cslotsx + (_cslotsx - _mx) - 40, _cslotsy + (_cslotsy - _my), _scala, _scala, 0, C, 1);
+			draw_set_color(c);
+				draw_set_halign(fa_center);
+					 draw_text_ext(_cslotsx + (_cslotsx - _mx) + 70, _cslotsy + (_cslotsy - _my) - 200, _name,1, 180);
+						   draw_set_halign(fa_middle);
+								draw_set_font(Font_shopdesc);
+									draw_set_color(c);
+										draw_text_ext(_cslotsx + (_cslotsx - _mx) + 65, _cslotsy + (_cslotsy - _my) - 120, _desc, string_height("M"), 200);
+							draw_set_font(-1);
+						draw_set_halign(fa_left);
+					draw_set_color(-1);
+			 if _equip == 1{
+		
+			 draw_set_color(c_green);
+				draw_text_ext(_cslotsx + (_cslotsx - _mx), _cslotsy + (_cslotsy - _my) - 165, "Equipable", 1, 180);
+			 draw_set_color(-1);
+			 }else {
+		 
+			draw_set_color(c_red);
+				 draw_text_ext(_cslotsx + (_cslotsx - _mx), _cslotsy + (_cslotsy - _my) - 165, "Unequipable", 1, 180);			  			
+			draw_set_color(-1);
+			 }
+	
+		if mouse_check_button_pressed(mb_left){
+			if  mb_pet_select != -1 {
+				if (j <= 1 and _craft = -1) || (j == 2 and grid_petiInv[# Infos.name, mb_pet_posselect] == "Slime Jelly"  and _craft = -1){	
+				     grid_craft[# Infos.item, j] = grid_petiInv[# Infos.item, mb_pet_posselect];
+		             grid_craft[# Infos.quantity, j] = grid_petiInv[# Infos.quantity, mb_pet_posselect];
+		             grid_craft[# Infos.sprite, j] = grid_petiInv[# Infos.sprite, mb_pet_posselect];
+		             grid_craft[# Infos.name, j] = grid_petiInv[# Infos.name, mb_pet_posselect];
+		             grid_craft[# Infos.discription, j] =grid_petiInv[# Infos.discription, mb_pet_posselect];
+		             grid_craft[# Infos.equipable, j] = grid_petiInv[# Infos.equipable, mb_pet_posselect];
+		             grid_craft[# Infos.coin,j] = grid_petiInv[# Infos.coin, mb_pet_posselect];
+		             grid_craft[# Infos.cost, j] = grid_petiInv[# Infos.cost, mb_pet_posselect];
+					 grid_craft[# Infos.typeWeapon, j] = grid_petiInv[# Infos.typeWeapon, mb_pet_posselect];
+
+		             grid_petiInv[# Infos.item, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.quantity, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.sprite, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.name, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.discription, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.coin, mb_pet_posselect] = -1;
+		             grid_petiInv[# Infos.cost, mb_pet_posselect] = -1;
+					 grid_petiInv[# Infos.typeWeapon, mb_pet_posselect] = -1;
+
+		             mb_pet_select = -1;
+		             mb_pet_posselect = -1;	
+					 mb_pet_quant = -1;
+			}
+			if _craft != -1  {	
+			
+				    var _item = grid_craft[# Infos.item, j];
+			        var _quantity = grid_craft[# Infos.quantity, j];
+			        var _spr = grid_craft[# Infos.sprite, j];
+			        var _name = grid_craft[# Infos.name, j];
+			        var _info = grid_craft[# Infos.discription, j];
+			        var _equip =  grid_craft[# Infos.equipable, j];
+			        var _coin = grid_craft[# Infos.coin, j];
+			        var _cost = grid_craft[# Infos.cost, j];
+			        var _wep = grid_craft[# Infos.typeWeapon, j]; 
+                            
+			        grid_craft[# Infos.item, j] = grid_petiInv [# Infos.item, mb_pet_posselect];
+			        grid_craft[# Infos.quantity, j] = grid_petiInv[# Infos.quantity, mb_pet_posselect];
+			        grid_craft[# Infos.sprite, j] = grid_petiInv[# Infos.sprite, mb_pet_posselect];
+			        grid_craft[# Infos.name, j] = grid_petiInv[# Infos.name, mb_pet_posselect];
+			        grid_craft[# Infos.discription, j] = grid_petiInv[# Infos.discription, mb_pet_posselect];
+			        grid_craft[# Infos.equipable, j] = grid_petiInv[# Infos.equipable, mb_pet_posselect];
+			        grid_craft[# Infos.coin, j] = grid_petiInv[# Infos.coin, mb_pet_posselect];
+			        grid_craft[# Infos.cost, j] = grid_petiInv[# Infos.cost, mb_pet_posselect];
+			        grid_craft[# Infos.typeWeapon, j] = grid_petiInv[# Infos.typeWeapon, mb_pet_posselect];
+                   
+			        grid_petiInv[# Infos.item, mb_pet_posselect] =  _item;
+			        grid_petiInv[# Infos.quantity, mb_pet_posselect] = _quantity;
+			        grid_petiInv[# Infos.sprite, mb_pet_posselect] = _spr;
+			        grid_petiInv[# Infos.name, mb_pet_posselect] = _name;
+			        grid_petiInv[# Infos.discription, mb_pet_posselect] = _info;
+			        grid_petiInv[# Infos.equipable, mb_pet_posselect] = _equip;
+			        grid_petiInv[# Infos.coin, mb_pet_posselect] = _coin;
+			        grid_petiInv[# Infos.cost, mb_pet_posselect] = _cost;
+			        grid_petiInv[# Infos.typeWeapon, mb_pet_posselect] = _wep;
+                        
+			        mb_pet_select = -1;
+			        mb_pet_posselect = -1;
+					mb_pet_quant = -1;
+
+			}
+	    }else {
+		 
+			mb_craft_select = _craft;
+			mb_craft_posselect = j;
+			mb_craft_quant = _quantcraft;
+			}
+	  }
+   }
+	
+	if _craft != -1{
+		if j == 2 {	
+			 draw_sprite_ext(_sprcraft, grid_craft[# 0, j], _cslotsx + 15, _cslotsy, _scala/2, _scala/2, 0, C, 1);
+			}else{
+				 draw_sprite_ext(_sprcraft, grid_craft[# 0, j], _cslotsx, _cslotsy, _scala, _scala, 0, C, 1);
+			}
+        // Quantidade dos itens
+        draw_set_alpha(1);
+        draw_set_font(Font1);
+        draw_set_halign(fa_center);
+        draw_text_colour_outline(_cslotsx + size_craftslot -15,  _cslotsy + size_craftslot -30, _quantcraft, 4, c, 16, 100, 100);
+	}
+	
+    cx++;
+    if (cx >= craft_h) {
+        cx = 0;
+        cy++;
+    }
+	
+}
+		
+
 }
 #endregion
 
